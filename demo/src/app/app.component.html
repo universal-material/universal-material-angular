@@ -2,7 +2,7 @@
 <div class="sidebar-layout h-100">
   <div class="sidebar sidebar-lg-fixed">
     <div class="list list-hover">
-      <div class="list-item">Getting started</div>
+      <div class="list-item" umdRipple>Getting started</div>
     </div>
   </div>
   <div class="layout-content">
@@ -13,11 +13,11 @@
     </div>
     <label class="checkbox">
       <input type="checkbox" />
-      <div class="selection-control">
+      <div class="selection-control" umdRipple>
         <div class="check-indicator"></div>
       </div>
     </label>
-    <button class="btn-raised btn-primary">Test</button>
+    <button class="btn-raised btn-primary" (click)="showTestSnackbar()">Test</button>
   </div>
 </div>
 

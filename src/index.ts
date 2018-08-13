@@ -8,6 +8,8 @@ const UmdModules = [
   TextFieldModule
 ];
 
+export {Snackbar} from 'universal-material';
+
 @NgModule({
   imports: [UmdModules],
   exports: UmdModules

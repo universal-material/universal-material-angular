@@ -8,9 +8,9 @@ const childSelectorMap = {
 };
 
 @Directive({
-  selector: '[umdRipple], .btn, .btn-flat, .btn-borderless, .btn-solid, .btn-raised, .btn-outline, .list-hover, .list-item, .tab, .dropdown-item, .radio .selection-control, .checkbox .selection-control, .switch .check-indicator, .chip-remove, .chip-hover'
+  selector: '[umdRipple], .btn, .btn-flat, .btn-borderless, .btn-solid, .btn-raised, .btn-outline, .tab, .dropdown-item, .chip-remove, .chip-hover'
 })
-export class RippleDirective implements AfterViewInit {
+export class RippleDirective {
   constructor(private readonly elementRef: ElementRef) {
     new Ripple(this.elementRef.nativeElement);
   }

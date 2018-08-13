@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { Snackbar } from '@universal-material/angular';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,4 +9,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'demo';
+
+  showTestSnackbar() {
+    Snackbar.show('teste');
+  }
 }
