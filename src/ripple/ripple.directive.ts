@@ -1,11 +1,6 @@
-import {AfterViewInit, Directive, ElementRef} from '@angular/core';
+import {Directive, ElementRef} from '@angular/core';
 
-import {Ripple} from 'universal-material';
-
-const childSelectorMap = {
-  'list-hover': '.list-item',
-  'list-item': '.list-item-hover'
-};
+import {Ripple} from '@universal-material/core';
 
 @Directive({
   selector: '[umdRipple], .btn, .btn-flat, .btn-borderless, .btn-solid, .btn-raised, .btn-outline, .tab, .dropdown-item, .chip-remove, .chip-hover'

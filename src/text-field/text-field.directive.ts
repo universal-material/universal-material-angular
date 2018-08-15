@@ -1,5 +1,5 @@
 import {Directive, ElementRef, AfterViewInit} from '@angular/core';
-import {TextField} from 'universal-material';
+import {TextField} from '@universal-material/core';
 
 @Directive({
   selector: '[umdTextField], .text-field'

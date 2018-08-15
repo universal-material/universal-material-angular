@@ -4,5 +4,6 @@
   "deleteDestPath": false,
   "lib": {
     "entryFile": "index.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": ["@universal-material/core"]
 }

@@ -1,7 +1,8 @@
 {
-  "$schema": "../../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../../dist/universal-material/angular",
+  "$schema": "../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../dist/@universal-material/angular",
   "lib": {
-    "entryFile": "src/public_api.ts"
-  }
+    "entryFile": "index.ts"
+  },
+  "whitelistedNonPeerDependencies": ["@universal-material/core"]
 }
