@@ -11,6 +11,7 @@ const UmdModules = [
 ];
 
 export {Snackbar} from '@universal-material/core';
+export {ProgressDialog} from '@universal-material/core';
 
 @NgModule({
   imports: [UmdModules],

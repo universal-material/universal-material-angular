@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { Snackbar } from '@universal-material/angular';
+import {ProgressDialog} from '@universal-material/angular';
 
 @Component({
   selector: 'app-root',
@@ -12,5 +13,10 @@ export class AppComponent {
 
   showTestSnackbar() {
     Snackbar.show('teste');
+  }
+
+  showTestProgressDialog() {
+    const progress = ProgressDialog.open('Carregando');
+    setTimeout(() => progress.close(), 2000);
   }
 }
