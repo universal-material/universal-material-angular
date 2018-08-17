@@ -21,7 +21,11 @@ export {
   ConfirmDialogConfig,
   ProgressDialog,
   ProgressDialogConfig,
-  Snackbar} from '@universal-material/core';
+  Snackbar,
+  SnackbarButtonDefinition,
+  SnackbarDuration,
+  SnackbarDefinition
+} from '@universal-material/core';
 
 @NgModule({
   imports: [UniversalMaterialModules],
