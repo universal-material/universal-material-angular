@@ -1,8 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import {UmdModule} from '@universal-material/angular';
+import {AppComponent} from './app.component';
+import {UniversalMaterialModule} from '@universal-material/angular';
 
 @NgModule({
   declarations: [
@@ -10,9 +10,10 @@ import {UmdModule} from '@universal-material/angular';
   ],
   imports: [
     BrowserModule,
-    UmdModule
+    UniversalMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
