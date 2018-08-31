@@ -11,7 +11,7 @@ import {ConfirmDialog} from '@universal-material/core';
 })
 export class AppComponent {
   title = 'demo';
-  dialogOpen: boolean = true;
+  dialogOpen: boolean;
 
   showTestSnackbar() {
     Snackbar.show('teste');
