@@ -27,10 +27,14 @@ export {
   SnackbarDefinition
 } from '@universal-material/core';
 
+export {CircularProgressModule} from './circular-progress/circular-progress.module';
+export {RippleModule} from './ripple/ripple.module';
+export {TextFieldModule} from './text-field/text-field.module';
+export {DialogModule} from './dialog/dialog.module';
+
 @NgModule({
   imports: [UniversalMaterialModules],
   exports: UniversalMaterialModules
 })
 export class UniversalMaterialModule {
-
 }

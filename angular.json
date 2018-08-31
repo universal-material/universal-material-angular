@@ -23,6 +23,7 @@
               "demo/src/assets"
             ],
             "styles": [
+              "node_modules/@mdi/font/scss/materialdesignicons.scss",
               "node_modules/@universal-material/core/scss/universal-material.scss",
               "demo/src/styles.scss"
             ],
