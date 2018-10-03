@@ -23,11 +23,17 @@ export class RippleDirective implements AfterViewInit {
     const rippeConfig = this._getRippleConfig(this.elementRef.nativeElement);
 
     if (rippeConfig) {
-      let element = this.elementRef.nativeElement;
       if (rippeConfig.subSelector) {
-        element = this.elementRef.nativeElement.querySelector(rippeConfig.subSelector);
+        const elements = this.elementRef.nativeElement.querySelectorAll(rippeConfig.subSelector);
+
+        for (let i = 0; i < elements.length; i++) {
+          const childElement = elements[i];
+          new Ripple(childElement, rippeConfig.config);
+        }
+      } else {
+        new Ripple(this.elementRef.nativeElement);
       }
-      new Ripple(element, rippeConfig.config);
+
     } else {
       new Ripple(this.elementRef.nativeElement);
     }
