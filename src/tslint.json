@@ -4,13 +4,13 @@
         "directive-selector": [
             true,
             "attribute",
-            "umd",
+            "u",
             "camelCase"
         ],
         "component-selector": [
             true,
             "element",
-            "umd",
+            "u",
             "kebab-case"
         ]
     }

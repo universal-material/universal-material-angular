@@ -31,7 +31,7 @@
       <button class="btn-raised btn-primary d-block" (click)="showProgressDialog()">Test progress dialog</button>
       <button class="btn-raised btn-primary d-block" (click)="showConfirmDialog()">Test confirm dialog</button>
       <button class="btn-raised btn-primary d-block" (click)="dialogOpen = !dialogOpen">Test regular dialog</button>
-      <div class="dialog" umdDialog [open]="dialogOpen">
+      <div class="dialog" uDialog [open]="dialogOpen">
         <div class="dialog-backdrop" (click)="dialogOpen = false"></div>
         <div class="dialog-content">
           <div class="dialog-title">Dialog title</div>
@@ -48,7 +48,12 @@
           </div>
         </div>
       </div>
-      <umd-circular-progress></umd-circular-progress>
+      <u-circular-progress></u-circular-progress>
+      <div class="floating-action-area">
+        <button class="btn-floating btn-secondary">
+          <i class="btn-icon mdi mdi-plus"></i>
+        </button>
+      </div>
     </div>
   </div>
 </div>

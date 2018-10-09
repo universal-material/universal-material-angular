@@ -2,7 +2,7 @@ import {Directive, ElementRef, AfterViewInit} from '@angular/core';
 import {TextField} from '@universal-material/core';
 
 @Directive({
-  selector: '[umdTextField], .text-field'
+  selector: '[uTextField], .text-field'
 })
 export class TextFieldDirective implements AfterViewInit {
 

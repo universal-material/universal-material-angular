@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 
 @Component({
-  selector: 'umd-circular-progress',
+  selector: 'u-circular-progress',
   template: `
             <div class="preloader-wrapper" [ngClass]="size">
                 <div class="spinner-layer">

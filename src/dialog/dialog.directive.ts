@@ -2,7 +2,7 @@ import {AfterViewInit, Directive, ElementRef, Input, OnChanges, SimpleChanges} f
 import {Dialog} from '@universal-material/core';
 
 @Directive({
-  selector: '[umdDialog]'
+  selector: '[uDialog]'
 })
 export class DialogDirective implements AfterViewInit, OnChanges {
 
