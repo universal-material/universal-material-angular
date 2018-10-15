@@ -3,7 +3,7 @@ import {AfterViewInit, Directive, ElementRef} from '@angular/core';
 import {Ripple, RippleConfigMap} from '@universal-material/core';
 
 @Directive({
-  selector: '[uRipple], .btn, .btn-flat, .btn-borderless, .btn-solid, .btn-raised, .btn-outline, .btn-floating, .tab, .dropdown-item, .chip-remove, .chip-hover, .checkbox, .radio, .switch, .list-item, .list-hover'
+  selector: '[uRipple], .btn, .btn-flat, .btn-borderless, .btn-solid, .btn-raised, .btn-outline, .btn-floating, .tab, .dropdown-item, .chip-remove, .chip-hover, .checkbox, .radio, .switch, .list-item, .list-hover, .text-field.dropdown'
 })
 export class RippleDirective implements AfterViewInit {
   constructor(private readonly elementRef: ElementRef) {
