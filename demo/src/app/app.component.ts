@@ -12,6 +12,7 @@ import {ConfirmDialog} from '@universal-material/core';
 export class AppComponent {
   title = 'demo';
   dialogOpen: boolean;
+  dropdownOpen: boolean;
 
   showTestSnackbar() {
     Snackbar.show('teste');

@@ -4,10 +4,12 @@ import {CircularProgressModule} from './circular-progress/circular-progress.modu
 import {RippleModule} from './ripple/ripple.module';
 import {TextFieldModule} from './text-field/text-field.module';
 import {DialogModule} from './dialog/dialog.module';
+import {DropdownModule} from './dropdown/dropdown.module';
 
 const UniversalMaterialModules = [
   CircularProgressModule,
   DialogModule,
+  DropdownModule,
   RippleModule,
   TextFieldModule
 ];
@@ -15,6 +17,8 @@ const UniversalMaterialModules = [
 export {
   Dialog,
   DialogConfig,
+  Dropdown,
+  DropdownConfig,
   QuickDialog,
   QuickDialogConfig,
   ConfirmDialog,
@@ -28,9 +32,10 @@ export {
 } from '@universal-material/core';
 
 export {CircularProgressModule} from './circular-progress/circular-progress.module';
+export {DialogModule} from './dialog/dialog.module';
+export {DropdownModule} from './dropdown/dropdown.module';
 export {RippleModule} from './ripple/ripple.module';
 export {TextFieldModule} from './text-field/text-field.module';
-export {DialogModule} from './dialog/dialog.module';
 
 @NgModule({
   imports: [UniversalMaterialModules],
