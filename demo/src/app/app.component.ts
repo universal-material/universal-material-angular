@@ -15,6 +15,8 @@ const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'C
   'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia',
   'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
 
+const stateObjects = [{name:'Alabama'}, {name:'Alaska'}];
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -24,6 +26,9 @@ export class AppComponent {
   title = 'demo';
   dialogOpen: boolean;
   dropdownOpen: boolean;
+  states = stateObjects;
+
+  stateFormatter = state => state.name;
 
   showTestSnackbar() {
     Snackbar.show('teste');

@@ -19,10 +19,10 @@
     ],
     "paths": {
       "@universal-material/angular": [
-        "dist/@universal-material/angular"
+        "src"
       ],
       "@universal-material/angular/*": [
-        "dist/@universal-material/angular/*"
+        "src/*"
       ]
     }
   }

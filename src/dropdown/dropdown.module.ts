@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+
 import {DropdownDirective} from './dropdown.directive';
 
 @NgModule({
@@ -9,4 +10,5 @@ import {DropdownDirective} from './dropdown.directive';
   declarations: [DropdownDirective],
   exports: [DropdownDirective]
 })
-export class DropdownModule { }
+export class DropdownModule {
+}

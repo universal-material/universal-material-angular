@@ -6,11 +6,13 @@ import {TextFieldModule} from './text-field/text-field.module';
 import {DialogModule} from './dialog/dialog.module';
 import {DropdownModule} from './dropdown/dropdown.module';
 import {TypeaheadModule, TypeaheadSelectItemEvent} from './typeahead/typeahead.module';
+import {DropdownInputModule} from './dropdown-input/dropdown-input.module';
 
 const UniversalMaterialModules = [
   CircularProgressModule,
   DialogModule,
   DropdownModule,
+  DropdownInputModule,
   RippleModule,
   TextFieldModule,
   TypeaheadModule
@@ -46,6 +48,11 @@ export {
   TypeaheadSelectItemEvent,
   Typeahead
 } from './typeahead/typeahead.module';
+
+export {
+  DropdownInputModule,
+  DropdownInputComponent
+} from './dropdown-input/dropdown-input.module';
 
 @NgModule({
   imports: [UniversalMaterialModules],

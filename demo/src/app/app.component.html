@@ -18,7 +18,7 @@
           <div class="check-indicator"></div>
         </div>
       </label>
-      <div class="text-field-container">
+      <div class="text-field-container form-field">
         <div class="text-field text-field-outline">
           <div class="text-field-leading-icon"><i class="mdi mdi-calendar"></i></div>
           <div class="text-field-trailing-icon"><i class="mdi mdi-calendar"></i></div>
@@ -54,7 +54,13 @@
           <i class="btn-icon mdi mdi-plus"></i>
         </button>
       </div>
-      <span>{{dropdownOpen}}</span>
+      <div>{{model}}</div>
+      <div class="form-field">
+        <form #stateForm="ngForm">
+          {{stateForm.controls.state.invalid}}
+          <u-dropdown-input [items]="states" label="States" name="state" [(ngModel)]="model" required [itemFormatter]="stateFormatter" [inputFormatter]="stateFormatter" nullSelectionLabel="None" placeholder="Select state"></u-dropdown-input>
+        </form>
+      </div>
       <div class="text-field-container">
         <div class="text-field text-field-box dropdown" uDropdown style="position: relative;">
           <div class="text-field-trailing-icon">
@@ -80,11 +86,10 @@
             <div class="mdi mdi-menu-down"></div>
           </div>
           <input class="text-input" id="typeahead-basic" type="text" [(ngModel)]="model" [uTypeahead]="search" />
-
-          <!--<input type="text" [(ngModel)]="administratorsSearch" name="administratorsSearch" [uTypeahead]="searchSecurityEntities" [resultFormatter]="securityEntityFormatter" (selectItem)="add($event)" />-->
           <label>Dropdown</label>
         </div>
       </div>
+
 
       <!--<div class="text-field" [ngClass]="{'invalid': showErrors }"><small class="helper-text error-text">Selecione ao menos 1 (um) administrador</small>-->
         <!--<div class="text-input-group">-->
