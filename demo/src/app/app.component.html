@@ -73,6 +73,28 @@
           <label>Dropdown</label>
         </div>
       </div>
+
+      <div class="text-field-container">
+        <div class="text-field text-field-box" style="position: relative;">
+          <div class="text-field-trailing-icon">
+            <div class="mdi mdi-menu-down"></div>
+          </div>
+          <input class="text-input" id="typeahead-basic" type="text" [(ngModel)]="model" [uTypeahead]="search" />
+
+          <!--<input type="text" [(ngModel)]="administratorsSearch" name="administratorsSearch" [uTypeahead]="searchSecurityEntities" [resultFormatter]="securityEntityFormatter" (selectItem)="add($event)" />-->
+          <label>Dropdown</label>
+        </div>
+      </div>
+
+      <!--<div class="text-field" [ngClass]="{'invalid': showErrors }"><small class="helper-text error-text">Selecione ao menos 1 (um) administrador</small>-->
+        <!--<div class="text-input-group">-->
+          <!--<chip-input [(ngModel)]="administrators" [showRemove]="true" name="administrators" [itemFormatter]="securityEntityFormatter" notEmpty="notEmpty">-->
+            <!--<input type="text" [(ngModel)]="administratorsSearch" name="administratorsSearch" [ngbTypeahead]="searchSecurityEntities" [resultFormatter]="securityEntityFormatter" (selectItem)="add($event)" />-->
+          <!--</chip-input>-->
+          <!--<div class="text-field-border"></div>-->
+        <!--</div>-->
+        <!--<label>Administradores</label>-->
+      <!--</div>-->
     </div>
   </div>
 </div>

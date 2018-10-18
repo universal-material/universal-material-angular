@@ -1,8 +1,9 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {DropdownModule, TextFieldModule, DialogModule, TypeaheadModule, CircularProgressModule, RippleModule} from '@universal-material/angular';
 
 import {AppComponent} from './app.component';
-import {DropdownModule, TextFieldModule, DialogModule, CircularProgressModule, RippleModule} from '@universal-material/angular';
 
 @NgModule({
   declarations: [
@@ -10,9 +11,11 @@ import {DropdownModule, TextFieldModule, DialogModule, CircularProgressModule, R
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     CircularProgressModule,
     DropdownModule,
     TextFieldModule,
+    TypeaheadModule,
     DialogModule,
     RippleModule
   ],

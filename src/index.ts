@@ -5,13 +5,15 @@ import {RippleModule} from './ripple/ripple.module';
 import {TextFieldModule} from './text-field/text-field.module';
 import {DialogModule} from './dialog/dialog.module';
 import {DropdownModule} from './dropdown/dropdown.module';
+import {TypeaheadModule, TypeaheadSelectItemEvent} from './typeahead/typeahead.module';
 
 const UniversalMaterialModules = [
   CircularProgressModule,
   DialogModule,
   DropdownModule,
   RippleModule,
-  TextFieldModule
+  TextFieldModule,
+  TypeaheadModule
 ];
 
 export {
@@ -36,6 +38,14 @@ export {DialogModule} from './dialog/dialog.module';
 export {DropdownModule} from './dropdown/dropdown.module';
 export {RippleModule} from './ripple/ripple.module';
 export {TextFieldModule} from './text-field/text-field.module';
+
+export {
+  Highlight,
+  TypeaheadModule,
+  TypeaheadConfig,
+  TypeaheadSelectItemEvent,
+  Typeahead
+} from './typeahead/typeahead.module';
 
 @NgModule({
   imports: [UniversalMaterialModules],
