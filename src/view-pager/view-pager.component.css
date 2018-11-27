@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+.handle {
+  display: flex;
+  height: 100%;
+}

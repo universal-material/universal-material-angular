@@ -31,7 +31,7 @@ export class RippleDirective implements AfterViewInit {
           Ripple.attach(childElement, rippeConfig.config);
         }
       } else {
-        Ripple.attach(this.elementRef.nativeElement);
+        Ripple.attach(this.elementRef.nativeElement, rippeConfig.config);
       }
 
     } else {
