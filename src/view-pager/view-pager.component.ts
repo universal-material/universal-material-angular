@@ -31,6 +31,7 @@ export class ViewPagerComponent implements AfterViewInit, AfterContentInit, OnDe
 
   private dragdealer;
   slideCount: number;
+  dragdealerDivisor: number;
 
   constructor(private readonly elementRef: ElementRef) {
 
@@ -51,8 +52,9 @@ export class ViewPagerComponent implements AfterViewInit, AfterContentInit, OnDe
       loose: true,
       requestAnimationFrame: true,
       callback: (x, y) => {
-        this.selectedIndex = x;
-        this.selectedIndexChange.emit(x);
+        this.selectedIndex = x / this.dragdealerDivisor;
+        console.log(this.selectedIndex);
+        this.selectedIndexChange.emit(this.selectedIndex);
         this.setActiveSlide();
       }
     });
@@ -62,6 +64,7 @@ export class ViewPagerComponent implements AfterViewInit, AfterContentInit, OnDe
 
   ngAfterContentInit(): void {
     this.slideCount = this._slides.length;
+    this.dragdealerDivisor = 1 / (this.slideCount - 1);
   }
 
   ngOnDestroy(): void {
