@@ -33,6 +33,7 @@ export class DropdownInputComponent implements ControlValueAccessor {
 
   _disabled: boolean;
 
+  @Input() invalid: string;
   @Input() placeholder: string;
   @Input() label: string;
   @Input() nullSelectionLabel: string;

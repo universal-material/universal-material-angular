@@ -57,8 +57,13 @@
       <div>{{model}}</div>
       <div class="form-field">
         <form #stateForm="ngForm">
-          {{stateForm.controls.state.invalid}}
-          <u-dropdown-input [items]="states" label="States" name="state" [(ngModel)]="model" required [itemFormatter]="stateFormatter" [inputFormatter]="stateFormatter" nullSelectionLabel="None" placeholder="Select state"></u-dropdown-input>
+          {{stateForm.controls.state?.invalid}}
+          <u-dropdown-input [items]="states" label="States" name="state" direction="up" [(ngModel)]="model" required [invalid]="stateForm.controls.state?.invalid" [itemFormatter]="stateFormatter" [inputFormatter]="stateFormatter" nullSelectionLabel="None" placeholder="Select state">
+            <small class="text-field-helper-text">
+              <span class="text-field-helper-text-default">Helper text</span>
+              <span class="text-field-helper-text-invalid">Error text</span>
+            </small>
+          </u-dropdown-input>
         </form>
       </div>
       <div class="text-field-container">

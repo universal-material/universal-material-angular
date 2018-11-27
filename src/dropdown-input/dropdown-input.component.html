@@ -1,5 +1,5 @@
 <div class="text-field-container">
-  <div class="text-field text-field-box dropdown" uDropdown [class.empty]="nothingSelected()">
+  <div class="text-field text-field-box dropdown" uDropdown [class.invalid]="invalid" [class.empty]="nothingSelected()">
     <div class="text-field-trailing-icon">
       <i class="mdi mdi-menu-down"></i>
     </div>
@@ -11,7 +11,7 @@
         {{inputFormatter ? inputFormatter(selectedItem) : selectedItem}}
       </div>
     </button>
-    <div class="dropdown-menu down w-100">
+    <div class="dropdown-menu w-100" [ngClass]="direction">
       <div class="dropdown-content">
         <div class="dropdown-item" (click)="_selectItem(null)" *ngIf="nullSelectionLabel !== null && nullSelectionLabel !== undefined">{{nullSelectionLabel}}</div>
         <div class="dropdown-item" (click)="_selectItem(item)" *ngFor="let item of items">{{itemFormatter ? itemFormatter(item) : item}}</div>
