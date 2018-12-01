@@ -1,26 +1,27 @@
-import {AfterViewInit, Directive, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {Dropdown} from '@universal-material/core';
 
 @Directive({
   selector: '[uDropdown]'
 })
 export class DropdownDirective implements AfterViewInit, OnChanges {
+  private _innerDropdown: Dropdown;
+
   @Input() open: boolean;
   @Output() openChange = new EventEmitter<boolean>();
 
-  private _innerDropdown: Dropdown;
+  @HostListener('open') onOpen() {
+    this.open = true;
+    this.openChange.emit(this.open);
+  }
+
+  @HostListener('close') onClose() {
+    this.open = false;
+    this.openChange.emit(this.open);
+  }
+
 
   constructor(private readonly _elementRef: ElementRef) {
-    const element = this._elementRef.nativeElement as HTMLElement;
-    element.addEventListener('open', () => {
-      this.open = true;
-      this.openChange.emit(this.open);
-    });
-
-    element.addEventListener('close', () => {
-      this.open = false;
-      this.openChange.emit(this.open);
-    });
   }
 
   private _setDropdownOpenedOrClosed() {
