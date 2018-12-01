@@ -4,5 +4,5 @@
   "lib": {
     "entryFile": "index.ts"
   },
-  "whitelistedNonPeerDependencies": ["@universal-material/core"]
+  "whitelistedNonPeerDependencies": ["@universal-material/core", "dragdealer"]
 }

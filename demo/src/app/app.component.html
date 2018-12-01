@@ -12,6 +12,47 @@
       </div>
     </div>
     <div class="container">
+
+      <input type="text" [(ngModel)]="selectedSlide" />
+      <div class="toolbar.mb-4">
+        <div class="toolbar-row">
+          <div class="toolbar-title">Tab bar</div>
+        </div>
+        <div class="tab-bar toolbar-icon-padding">
+          <div class="tab active">
+            <div class="tab-content">
+              <div class="tab-text">Item one</div>
+            </div>
+          </div>
+          <div class="tab">
+            <div class="tab-content">
+              <div class="tab-text">Item two</div>
+            </div>
+          </div>
+          <div class="tab">
+            <div class="tab-content">
+              <div class="tab-text">Item three</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="view-pager-example">
+        <u-view-pager [(selectedIndex)]="selectedSlide">
+          <u-view-pager-slide>
+            <div style="height: 200%; background: red">Slide 1</div>
+          </u-view-pager-slide>
+          <u-view-pager-slide>
+            Slide 2
+          </u-view-pager-slide>
+          <u-view-pager-slide>
+            Slide 3
+            Slide 3
+          </u-view-pager-slide>
+        </u-view-pager>
+      </div>
+
+
       <label class="checkbox">
         <input type="checkbox" />
         <div class="selection-control">
@@ -57,8 +98,13 @@
       <div>{{model}}</div>
       <div class="form-field">
         <form #stateForm="ngForm">
-          {{stateForm.controls.state.invalid}}
-          <u-dropdown-input [items]="states" label="States" name="state" [(ngModel)]="model" required [itemFormatter]="stateFormatter" [inputFormatter]="stateFormatter" nullSelectionLabel="None" placeholder="Select state"></u-dropdown-input>
+          {{stateForm.controls.state?.invalid}}
+          <u-dropdown-input [items]="states" label="States" name="state" direction="up" [(ngModel)]="model" required [invalid]="stateForm.controls.state?.invalid" [itemFormatter]="stateFormatter" [inputFormatter]="stateFormatter" nullSelectionLabel="None" placeholder="Select state">
+            <small class="text-field-helper-text">
+              <span class="text-field-helper-text-default">Helper text</span>
+              <span class="text-field-helper-text-invalid">Error text</span>
+            </small>
+          </u-dropdown-input>
         </form>
       </div>
       <div class="text-field-container">
@@ -91,15 +137,6 @@
       </div>
 
 
-      <!--<div class="text-field" [ngClass]="{'invalid': showErrors }"><small class="helper-text error-text">Selecione ao menos 1 (um) administrador</small>-->
-        <!--<div class="text-input-group">-->
-          <!--<chip-input [(ngModel)]="administrators" [showRemove]="true" name="administrators" [itemFormatter]="securityEntityFormatter" notEmpty="notEmpty">-->
-            <!--<input type="text" [(ngModel)]="administratorsSearch" name="administratorsSearch" [ngbTypeahead]="searchSecurityEntities" [resultFormatter]="securityEntityFormatter" (selectItem)="add($event)" />-->
-          <!--</chip-input>-->
-          <!--<div class="text-field-border"></div>-->
-        <!--</div>-->
-        <!--<label>Administradores</label>-->
-      <!--</div>-->
     </div>
   </div>
 </div>

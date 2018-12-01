@@ -7,6 +7,7 @@ import {DialogModule} from './dialog/dialog.module';
 import {DropdownModule} from './dropdown/dropdown.module';
 import {TypeaheadModule, TypeaheadSelectItemEvent} from './typeahead/typeahead.module';
 import {DropdownInputModule} from './dropdown-input/dropdown-input.module';
+import {ViewPagerModule} from './view-pager/view-pager.module';
 
 const UniversalMaterialModules = [
   CircularProgressModule,
@@ -15,7 +16,8 @@ const UniversalMaterialModules = [
   DropdownInputModule,
   RippleModule,
   TextFieldModule,
-  TypeaheadModule
+  TypeaheadModule,
+  ViewPagerModule
 ];
 
 export {
@@ -53,6 +55,12 @@ export {
   DropdownInputModule,
   DropdownInputComponent
 } from './dropdown-input/dropdown-input.module';
+
+export {
+  ViewPagerModule,
+  ViewPagerComponent,
+  ViewPagerSlideComponent
+} from './view-pager/view-pager.module';
 
 @NgModule({
   imports: [UniversalMaterialModules],
