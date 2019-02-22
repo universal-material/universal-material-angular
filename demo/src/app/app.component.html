@@ -1,12 +1,12 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div class="sidebar-layout h-100">
+<div class="sidebar-layout">
   <div class="sidebar sidebar-lg-fixed">
     <div class="list list-hover">
       <div class="list-item">Getting started</div>
     </div>
   </div>
   <div class="layout-content">
-    <div class="toolbar toolbar-primary">
+    <div class="toolbar toolbar-primary" uToolbarBehavior>
       <div class="toolbar-row">
         <div class="toolbar-title">Universal Material Angular</div>
       </div>
@@ -14,7 +14,7 @@
     <div class="container">
 
       <input type="text" [(ngModel)]="selectedSlide" />
-      <div class="toolbar.mb-4">
+      <div class="toolbar mb-4">
         <div class="toolbar-row">
           <div class="toolbar-title">Tab bar</div>
         </div>
@@ -90,7 +90,7 @@
         </div>
       </div>
       <u-circular-progress></u-circular-progress>
-      <div class="floating-action-area">
+      <div class="floating-action-area" uFloatingActionBehavior>
         <button class="btn-floating btn-secondary">
           <i class="btn-icon mdi mdi-plus"></i>
         </button>

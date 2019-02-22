@@ -8,7 +8,10 @@ import {
   TypeaheadModule,
   CircularProgressModule,
   RippleModule,
-  DropdownInputModule, ViewPagerModule
+  DropdownInputModule,
+  ViewPagerModule,
+  ToolbarBehaviorModule,
+  FloatingActionBehaviorModule
 } from '@universal-material/angular';
 
 import {AppComponent} from './app.component';
@@ -27,7 +30,9 @@ import {AppComponent} from './app.component';
     TypeaheadModule,
     ViewPagerModule,
     DialogModule,
-    RippleModule
+    RippleModule,
+    ToolbarBehaviorModule,
+    FloatingActionBehaviorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

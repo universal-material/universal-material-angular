@@ -8,6 +8,8 @@ import {DropdownModule} from './dropdown/dropdown.module';
 import {TypeaheadModule, TypeaheadSelectItemEvent} from './typeahead/typeahead.module';
 import {DropdownInputModule} from './dropdown-input/dropdown-input.module';
 import {ViewPagerModule} from './view-pager/view-pager.module';
+import {ToolbarBehaviorModule} from './toolbar-behavior/toolbar-behavior.module';
+import {FloatingActionBehaviorModule} from './floating-action-behavior/floating-action-behavior.module';
 
 const UniversalMaterialModules = [
   CircularProgressModule,
@@ -17,7 +19,9 @@ const UniversalMaterialModules = [
   RippleModule,
   TextFieldModule,
   TypeaheadModule,
-  ViewPagerModule
+  ViewPagerModule,
+  ToolbarBehaviorModule,
+  FloatingActionBehaviorModule
 ];
 
 export {
@@ -61,6 +65,9 @@ export {
   ViewPagerComponent,
   ViewPagerSlideComponent
 } from './view-pager/view-pager.module';
+
+export {ToolbarBehaviorModule} from './toolbar-behavior/toolbar-behavior.module';
+export {FloatingActionBehaviorModule} from './floating-action-behavior/floating-action-behavior.module';
 
 @NgModule({
   imports: [UniversalMaterialModules],

@@ -1,11 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
 import {DialogDirective} from './dialog.directive';
 
 @NgModule({
-  imports: [
-
-  ],
   declarations: [DialogDirective],
   exports: [DialogDirective]
 })
