@@ -20,13 +20,13 @@ export interface ResultTemplateContext {
 @Component({
   selector: 'u-typeahead-window',
   exportAs: 'TypeaheadWindow',
-  host: {'class': 'dropdown-menu show', 'role': 'listbox', '[id]': 'id'},
+  host: {'class': 'u-dropdown-menu show', 'role': 'listbox', '[id]': 'id'},
   template: `
     <ng-template #rt let-result="result" let-term="term" let-formatter="formatter">
       <u-highlight [result]="formatter(result)" [term]="term"></u-highlight>
     </ng-template>
     <ng-template ngFor [ngForOf]="results" let-result let-idx="index">
-      <button class="dropdown-item" role="option"
+      <button class="u-dropdown-item" role="option"
         [id]="id + '-' + idx"
         [class.active]="idx === activeIdx"
         (mouseenter)="markActive(idx)"

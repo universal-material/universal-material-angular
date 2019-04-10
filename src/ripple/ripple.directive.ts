@@ -1,12 +1,13 @@
-import {AfterViewInit, Directive, ElementRef} from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, HostBinding, HostListener } from '@angular/core';
 
 import {Ripple, RippleConfigMap} from '@universal-material/core';
 
 @Directive({
-  selector: '[uRipple], .btn, .btn-flat, .btn-borderless, .btn-solid, .btn-raised, .btn-outline, .btn-floating, .tab, .dropdown-item, .chip-remove, .chip-hover, .checkbox, .radio, .switch, .list-item, .list-hover, .text-input.dropdown-toggle'
+  selector: '[uRipple]'
 })
 export class RippleDirective implements AfterViewInit {
-  constructor(private readonly elementRef: ElementRef) {
+
+  constructor(private readonly _elementRef: ElementRef) {
 
   }
 
@@ -20,22 +21,24 @@ export class RippleDirective implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const rippeConfig = this._getRippleConfig(this.elementRef.nativeElement);
+    // const rippeConfig = this._getRippleConfig(this._elementRef.nativeElement);
+    //
+    // if (rippeConfig) {
+    //   if (rippeConfig.subSelector) {
+    //     const elements = this._elementRef.nativeElement.querySelectorAll(rippeConfig.subSelector);
+    //
+    //     for (let i = 0; i < elements.length; i++) {
+    //       const childElement = elements[i];
+    //       Ripple.attach(childElement, rippeConfig.config);
+    //     }
+    //   } else {
+    //     Ripple.attach(this._elementRef.nativeElement, rippeConfig.config);
+    //   }
+    //
+    // } else {
+    //
+    // }
 
-    if (rippeConfig) {
-      if (rippeConfig.subSelector) {
-        const elements = this.elementRef.nativeElement.querySelectorAll(rippeConfig.subSelector);
-
-        for (let i = 0; i < elements.length; i++) {
-          const childElement = elements[i];
-          Ripple.attach(childElement, rippeConfig.config);
-        }
-      } else {
-        Ripple.attach(this.elementRef.nativeElement, rippeConfig.config);
-      }
-
-    } else {
-      Ripple.attach(this.elementRef.nativeElement);
-    }
+    Ripple.attach(this._elementRef.nativeElement);
   }
 }

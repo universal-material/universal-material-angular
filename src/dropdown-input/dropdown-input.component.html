@@ -1,23 +1,26 @@
-<div class="text-field-container">
-  <div class="text-field text-field-box dropdown" uDropdown [class.invalid]="invalid" [class.empty]="nothingSelected()">
-    <div class="text-field-trailing-icon">
-      <i class="mdi mdi-menu-down"></i>
+<div class="u-text-field-container">
+  <div class="u-text-field u-dropdown" uDropdown [ngClass]="appearance ? 'u-text-field-' + appearance : ''" [class.invalid]="invalid" [class.empty]="nothingSelected()">
+    <div class="u-text-field-trailing-icon">
+      <i class="u-dropdown-toggle-icon"></i>
     </div>
-    <button class="text-input dropdown-toggle" type="button" [disabled]="_disabled">
-      <div class="text-input-placeholder" *ngIf="nothingSelected()">
+    <button class="u-text-input u-dropdown-toggle" type="button" [disabled]="_disabled">
+      <div class="u-text-input-placeholder" *ngIf="nothingSelected()">
         {{placeholder}}
       </div>
-      <div class="text-input-value" *ngIf="!nothingSelected()">
-        {{inputFormatter ? inputFormatter(selectedItem) : selectedItem}}
+      <div class="u-text-input-value" *ngIf="!nothingSelected()">
+        {{itemFormatter ? itemFormatter(selectedItem) : selectedItem}}
       </div>
     </button>
-    <div class="dropdown-menu w-100" [ngClass]="direction">
-      <div class="dropdown-content">
-        <div class="dropdown-item" (click)="_selectItem(null)" *ngIf="nullSelectionLabel !== null && nullSelectionLabel !== undefined">{{nullSelectionLabel}}</div>
-        <div class="dropdown-item" (click)="_selectItem(item)" *ngFor="let item of items">{{itemFormatter ? itemFormatter(item) : item}}</div>
+    <div class="u-dropdown-menu w-100" [ngClass]="direction">
+      <div class="u-dropdown-content">
+        <div class="u-dropdown-item" (click)="_selectItem(null)" *ngIf="nullSelectionLabel !== null && nullSelectionLabel !== undefined">{{nullSelectionLabel}}</div>
+        <div class="u-dropdown-item" (click)="_selectItem(item)" *ngFor="let item of items">{{itemFormatter ? itemFormatter(item) : item}}</div>
       </div>
     </div>
     <label>{{label}}</label>
   </div>
-  <ng-content></ng-content>
+  <div *ngIf="helperText || invalidText" class="u-text-field-helper-text">
+    <div *ngIf="helperText" class="u-text-field-helper-text-default">{{helperText}}</div>
+    <div *ngIf="invalidText" class="u-text-field-helper-text-invalid">{{invalidText}}</div>
+  </div>
 </div>

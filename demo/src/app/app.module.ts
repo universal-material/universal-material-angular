@@ -11,10 +11,12 @@ import {
   DropdownInputModule,
   ViewPagerModule,
   ToolbarBehaviorModule,
-  FloatingActionBehaviorModule
+  FloatingActionBehaviorModule,
+  ButtonModule,
 } from '@universal-material/angular';
 
 import {AppComponent} from './app.component';
+import { TEXT_FIELD_DEFAULT_APPEARANCE } from '@universal-material/angular/shared/text-field-base.component';
 
 @NgModule({
   declarations: [
@@ -32,9 +34,16 @@ import {AppComponent} from './app.component';
     DialogModule,
     RippleModule,
     ToolbarBehaviorModule,
-    FloatingActionBehaviorModule
+    FloatingActionBehaviorModule,
+    ButtonModule,
+    TextFieldModule,
+    TextFieldModule,
+    TextFieldModule,
+    TextFieldModule
   ],
-  providers: [],
+  providers: [
+    {provide: TEXT_FIELD_DEFAULT_APPEARANCE, useValue: 'outline'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

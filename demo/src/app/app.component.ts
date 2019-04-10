@@ -15,7 +15,7 @@ const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'C
   'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia',
   'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
 
-const stateObjects = [{name:'Alabama'}, {name:'Alaska'}];
+const stateObjects = [{name:'Alabama'}, {name:'Alaska'}, {name:'American Samoa'}, {name:'Arizona'}, {name:'Arkansas'}, {name:'California'}];
 
 @Component({
   selector: 'app-root',

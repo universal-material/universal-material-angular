@@ -1,15 +1,16 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 
-import {CircularProgressModule} from './circular-progress/circular-progress.module';
-import {RippleModule} from './ripple/ripple.module';
-import {TextFieldModule} from './text-field/text-field.module';
-import {DialogModule} from './dialog/dialog.module';
-import {DropdownModule} from './dropdown/dropdown.module';
-import {TypeaheadModule, TypeaheadSelectItemEvent} from './typeahead/typeahead.module';
-import {DropdownInputModule} from './dropdown-input/dropdown-input.module';
-import {ViewPagerModule} from './view-pager/view-pager.module';
-import {ToolbarBehaviorModule} from './toolbar-behavior/toolbar-behavior.module';
-import {FloatingActionBehaviorModule} from './floating-action-behavior/floating-action-behavior.module';
+import { CircularProgressModule } from './circular-progress/circular-progress.module';
+import { RippleModule } from './ripple/ripple.module';
+import { TextFieldModule } from './text-field/text-field.module';
+import { DialogModule } from './dialog/dialog.module';
+import { DropdownModule } from './dropdown/dropdown.module';
+import { TypeaheadModule, TypeaheadSelectItemEvent } from './typeahead/typeahead.module';
+import { DropdownInputModule } from './dropdown-input/dropdown-input.module';
+import { ViewPagerModule } from './view-pager/view-pager.module';
+import { ToolbarBehaviorModule } from './toolbar-behavior/toolbar-behavior.module';
+import { FloatingActionBehaviorModule } from './floating-action-behavior/floating-action-behavior.module';
+import { ButtonModule } from './button/button.module';
 
 const UniversalMaterialModules = [
   CircularProgressModule,
@@ -21,7 +22,8 @@ const UniversalMaterialModules = [
   TypeaheadModule,
   ViewPagerModule,
   ToolbarBehaviorModule,
-  FloatingActionBehaviorModule
+  FloatingActionBehaviorModule,
+  ButtonModule
 ];
 
 export {
@@ -41,11 +43,13 @@ export {
   SnackbarDefinition
 } from '@universal-material/core';
 
-export {CircularProgressModule} from './circular-progress/circular-progress.module';
-export {DialogModule} from './dialog/dialog.module';
-export {DropdownModule} from './dropdown/dropdown.module';
-export {RippleModule} from './ripple/ripple.module';
-export {TextFieldModule} from './text-field/text-field.module';
+export { CircularProgressModule } from './circular-progress/circular-progress.module';
+export { DialogModule } from './dialog/dialog.module';
+export { DropdownModule } from './dropdown/dropdown.module';
+export { RippleModule } from './ripple/ripple.module';
+export { TextFieldModule } from './text-field/text-field.module';
+export { ButtonModule } from './button/button.module';
+export { TextFieldAppearance, TEXT_FIELD_DEFAULT_APPEARANCE } from './shared/text-field-base.component';
 
 export {
   Highlight,
@@ -66,8 +70,8 @@ export {
   ViewPagerSlideComponent
 } from './view-pager/view-pager.module';
 
-export {ToolbarBehaviorModule} from './toolbar-behavior/toolbar-behavior.module';
-export {FloatingActionBehaviorModule} from './floating-action-behavior/floating-action-behavior.module';
+export { ToolbarBehaviorModule } from './toolbar-behavior/toolbar-behavior.module';
+export { FloatingActionBehaviorModule } from './floating-action-behavior/floating-action-behavior.module';
 
 @NgModule({
   imports: [UniversalMaterialModules],
