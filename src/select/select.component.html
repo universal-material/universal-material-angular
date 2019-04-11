@@ -1,0 +1,15 @@
+<div class="u-dropdown" uDropdown>
+  <button class="u-text-input u-dropdown-toggle" uDropdownToggle type="button" [disabled]="_disabled">
+    <div class="u-text-input-placeholder" *ngIf="nothingSelected()">
+      {{placeholder}}
+    </div>
+    <div class="u-text-input-value" *ngIf="!nothingSelected()">
+      {{selectionFormatter ? selectionFormatter(selectedItem) : selectedItem}}
+    </div>
+  </button>
+  <div class="u-dropdown-menu w-100" uDropdownMenu [ngClass]="direction">
+    <div class="u-dropdown-content">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

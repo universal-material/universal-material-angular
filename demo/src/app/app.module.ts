@@ -8,15 +8,16 @@ import {
   TypeaheadModule,
   CircularProgressModule,
   RippleModule,
-  DropdownInputModule,
+  SelectModule,
   ViewPagerModule,
   ToolbarBehaviorModule,
   FloatingActionBehaviorModule,
-  ButtonModule,
+  ButtonModule, ChipFieldModule,
 } from '@universal-material/angular';
 
 import {AppComponent} from './app.component';
-import { TEXT_FIELD_DEFAULT_APPEARANCE } from '@universal-material/angular/shared/text-field-base.component';
+import { FORM_FIELD_DEFAULT_APPEARANCE } from '@universal-material/angular/form-field/form-field.component';
+import { FormFieldModule } from '@universal-material/angular/form-field/form-field.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { TEXT_FIELD_DEFAULT_APPEARANCE } from '@universal-material/angular/share
     FormsModule,
     CircularProgressModule,
     DropdownModule,
-    DropdownInputModule,
+    SelectModule,
     TextFieldModule,
     TypeaheadModule,
     ViewPagerModule,
@@ -39,10 +40,14 @@ import { TEXT_FIELD_DEFAULT_APPEARANCE } from '@universal-material/angular/share
     TextFieldModule,
     TextFieldModule,
     TextFieldModule,
-    TextFieldModule
+    TextFieldModule,
+    DropdownModule,
+    FormFieldModule,
+    ChipFieldModule,
+    SelectModule
   ],
   providers: [
-    {provide: TEXT_FIELD_DEFAULT_APPEARANCE, useValue: 'outline'}
+    {provide: FORM_FIELD_DEFAULT_APPEARANCE, useValue: 'outline'}
   ],
   bootstrap: [AppComponent]
 })

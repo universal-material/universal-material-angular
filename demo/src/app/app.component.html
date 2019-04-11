@@ -36,8 +36,15 @@
       </div>
     </div>
 
+    <label class="u-checkbox">
+      <input type="checkbox" [(ngModel)]="anchorButtonDisabled" />
+      <div class="u-selection-control">
+        <div class="u-check-indicator"></div>
+      </div>
+      <span>Disabled</span>
+    </label>
     <button u-btn="raised" color="primary"><span class="u-btn-icon mdi mdi-account"></span>Teste</button>
-    <a href="https://www.google.com.br" target="_blank" [disabled]="true" u-btn="outline" color="primary">
+    <a href="https://www.google.com.br" target="_blank" [disabled]="anchorButtonDisabled" u-btn="outline" color="primary">
       <span class="u-btn-icon mdi mdi-account" href="#"></span>Teste
     </a>
 
@@ -93,9 +100,10 @@
       </button>
     </div>
     <div class="u-form-field">
-      <u-text-field label="Text field appearance">
+      <u-form-field>
         <input uTextInput type="text" [(ngModel)]="textFieldAppearance" />
-      </u-text-field>
+        <label uLabel>Appearance</label>
+      </u-form-field>
     </div>
     <label class="u-checkbox">
       <input type="checkbox" [(ngModel)]="textFieldDisabled" />
@@ -104,47 +112,62 @@
       </div>
       <span>Disabled</span>
     </label>
-    <div class="u-form-field">
-      <u-text-field [appearance]="textFieldAppearance" helperText="Informe o nome" invalidText="Você deve informar um nome">
-        <input uTextInput [disabled]="textFieldDisabled" type="text" />
-        <label uLabel>Teste</label>
-      </u-text-field>
-    </div>
+    <u-form-field [appearance]="textFieldAppearance" helperText="Informe o nome" invalidText="Você deve informar um nome">
+      <input uTextInput [disabled]="textFieldDisabled" type="text" />
+      <label uLabel>Teste</label>
+    </u-form-field>
     <div>{{model}}</div>
-    <div class="u-form-field">
-      <form #stateForm="ngForm">
-        {{stateForm.controls.state?.invalid}}
-        <u-dropdown-input [items]="states" label="States" name="state" direction="up" [(ngModel)]="model" required [invalid]="stateForm.controls.state?.invalid" [itemFormatter]="stateFormatter" nullSelectionLabel="None" placeholder="Select state">
-          <small class="u-text-field-helper-text">
-            <span class="u-text-field-helper-u-text-default">Helper text</span>
-            <span class="u-text-field-helper-u-text-invalid">Error text</span>
-          </small>
-        </u-dropdown-input>
-      </form>
-    </div>
-    <div class="u-text-field-container">
-      <div class="u-text-field u-text-field-box u-dropdown" uDropdown>
-        <div class="u-text-field-trailing-icon">
-          <div class="u-dropdown-toggle-icon"></div>
-        </div>
-        <span class="u-text-input u-dropdown-toggle" tabindex="0">
-            <div class="u-text-input-placeholder">No value</div>
-          </span>
-        <div class="u-dropdown-menu up w-100">
-          <div class="u-dropdown-content">
-            <div class="u-dropdown-item">Option A</div>
-            <div class="u-dropdown-item">Option B</div>
-            <div class="u-dropdown-item">Option C</div>
+    <form #stateForm="ngForm">
+      {{stateForm.controls.state?.invalid}}
+
+      <u-form-field>
+        <u-chip-field name="chips" [(ngModel)]="chips">
+          <div class="u-chip" *ngFor="let chip of chips; let i = index">
+            <span class="u-chip-label">{{chip}}</span>
+            <div class="u-chip-remove" uRipple (click)="removeChip(i)"><i class="mdi mdi-close-circle"></i></div>
           </div>
+          <input uChipInput />
+        </u-chip-field>
+        <label uLabel>Chip input</label>
+      </u-form-field>
+      <div>{{stateForm.controls.state.invalid}}</div>
+      <u-form-field [invalid]="stateForm.controls.state?.invalid">
+        <div class="u-text-field-trailing-icon">
+          <span class="u-dropdown-toggle-icon"></span>
         </div>
-        <label>Dropdown</label>
+        <u-select
+          name="state"
+          direction="up"
+          [(ngModel)]="model"
+          required
+          [selectionFormatter]="stateFormatter"
+          placeholder="Select state">
+          <u-option>None</u-option>
+          <u-option *ngFor="let state of states" [value]="state">{{state.name}}</u-option>
+        </u-select>
+        <label uLabel>Country</label>
+      </u-form-field>
+    </form>
+    <div class="u-form-field">
+
+    </div>
+    <div class="u-dropdown" uDropdown>
+      <button u-btn="borderless" class="u-dropdown-toggle" uDropdownToggle tabindex="0">
+        <i class="u-btn-icon mdi mdi-more"></i>
+      </button>
+      <div class="u-dropdown-menu up w-100" uDropdownMenu>
+        <div class="u-dropdown-content">
+          <div class="u-dropdown-item">Option A</div>
+          <div class="u-dropdown-item">Option B</div>
+          <div class="u-dropdown-item">Option C</div>
+        </div>
       </div>
     </div>
 
 
 
     <div class="u-text-field-container">
-      <div class="u-text-field u-text-field-box" style="position: relative;">
+      <div class="u-text-field" style="position: relative;">
         <div class="u-text-field-trailing-icon">
           <div class="mdi mdi-menu-down"></div>
         </div>

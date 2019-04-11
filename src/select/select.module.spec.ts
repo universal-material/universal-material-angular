@@ -1,10 +1,10 @@
-import { DropdownInputModule } from './dropdown-input.module';
+import { SelectModule } from './select.module';
 
 describe('DropdownInputModule', () => {
-  let dropdownInputModule: DropdownInputModule;
+  let dropdownInputModule: SelectModule;
 
   beforeEach(() => {
-    dropdownInputModule = new DropdownInputModule();
+    dropdownInputModule = new SelectModule();
   });
 
   it('should create an instance', () => {

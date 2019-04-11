@@ -1,9 +1,0 @@
-<div class="u-text-field-container">
-  <div class="u-text-field" [ngClass]="appearance ? 'u-text-field-' + appearance : ''" [class.u-text-field-no-label]="!_label" [class.invalid]="invalid" [class.disabled]="_input?.disabled">
-    <ng-content></ng-content>
-  </div>
-  <div *ngIf="helperText || invalidText" class="u-text-field-helper-text">
-    <div *ngIf="helperText" class="u-text-field-helper-text-default">{{helperText}}</div>
-    <div *ngIf="invalidText" class="u-text-field-helper-text-invalid">{{invalidText}}</div>
-  </div>
-</div>

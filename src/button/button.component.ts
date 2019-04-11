@@ -1,17 +1,24 @@
-import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Ripple } from '@universal-material/core';
+import { Component, ElementRef, HostBinding, HostListener, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+
+import { DOCUMENT } from '@angular/common';
+import { RippleDirective } from '../ripple/ripple.directive';
 
 const defaultButton = 'solid';
 const defaultColor = 'default';
+
+const roundClickableConfig = {
+  size: 40,
+  borderRadius: '50%'
+};
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'button[u-btn]',
   template: '<ng-content></ng-content>'
 })
-export class ButtonComponent implements AfterViewInit {
+export class ButtonComponent extends RippleDirective implements OnChanges {
 
-  protected _ripple: Ripple;
+  protected _ripple: RippleDirective;
 
   @HostBinding('class')
   get classNames(): string {
@@ -21,11 +28,18 @@ export class ButtonComponent implements AfterViewInit {
   @Input('color') color;
   @Input('u-btn') uBtn;
 
-  constructor(private readonly _elementRef: ElementRef) {
+  constructor(elementRef: ElementRef,
+              @Inject(DOCUMENT) document: any) {
+    super(elementRef, document);
   }
 
-  ngAfterViewInit(): void {
-    this._ripple = Ripple.attach(this._elementRef.nativeElement);
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if (changes.uBtn.currentValue === 'borderless') {
+      this.rippleConfig = roundClickableConfig;
+    } else {
+      this.rippleConfig = {};
+    }
   }
 }
 
@@ -34,7 +48,7 @@ export class ButtonComponent implements AfterViewInit {
   selector: 'a[u-btn]',
   template: '<ng-content></ng-content>'
 })
-export class LinkButtonComponent extends ButtonComponent implements OnChanges, AfterViewInit {
+export class LinkButtonComponent extends ButtonComponent {
 
   @HostBinding('class.disabled') get _disabled() {
     return this.disabled;
@@ -48,18 +62,8 @@ export class LinkButtonComponent extends ButtonComponent implements OnChanges, A
     }
   }
 
-  constructor(_elementRef: ElementRef) {
-    super(_elementRef);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this._ripple && changes.disabled) {
-      this._ripple.disabled = changes.disabled.currentValue;
-    }
-  }
-
-  ngAfterViewInit(): void {
-    super.ngAfterViewInit();
-    this._ripple.disabled = this.disabled;
+  constructor(elementRef: ElementRef,
+              @Inject(DOCUMENT) document: any) {
+    super(elementRef, document);
   }
 }

@@ -28,6 +28,12 @@ export class AppComponent {
   dropdownOpen: boolean;
   states = stateObjects;
 
+  chips = [];
+
+  removeChip(index: number) {
+    this.chips.splice(index, 1);
+  }
+
   stateFormatter = state => state.name;
 
   showTestSnackbar() {
