@@ -44,10 +44,11 @@ import { FormFieldModule } from '@universal-material/angular/form-field/form-fie
     DropdownModule,
     FormFieldModule,
     ChipFieldModule,
-    SelectModule
+    SelectModule,
+    TypeaheadModule
   ],
   providers: [
-    {provide: FORM_FIELD_DEFAULT_APPEARANCE, useValue: 'outline'}
+    {provide: FORM_FIELD_DEFAULT_APPEARANCE, useValue: 'box'}
   ],
   bootstrap: [AppComponent]
 })

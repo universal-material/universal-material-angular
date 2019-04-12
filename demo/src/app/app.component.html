@@ -99,6 +99,16 @@
         <i class="u-btn-icon mdi mdi-plus"></i>
       </button>
     </div>
+    <u-form-field>
+      <u-chip-field name="chips" [(ngModel)]="chips">
+        <div class="u-chip" *ngFor="let chip of chips; let i = index">
+          <span class="u-chip-label">{{chip}}</span>
+          <div class="u-chip-remove" uRipple (click)="removeChip(i)"><i class="mdi mdi-close-circle"></i></div>
+        </div>
+        <input uChipInput #typeaheadInput [uTypeahead]="search" [(ngModel)]="searchText" (selectItem)="selectCountry($event)" />
+      </u-chip-field>
+      <label uLabel>Country</label>
+    </u-form-field>
     <div class="u-form-field">
       <u-form-field>
         <input uTextInput type="text" [(ngModel)]="textFieldAppearance" />
@@ -130,7 +140,7 @@
         </u-chip-field>
         <label uLabel>Chip input</label>
       </u-form-field>
-      <div>{{stateForm.controls.state.invalid}}</div>
+      <div>{{stateForm.controls.state?.invalid}}</div>
       <u-form-field [invalid]="stateForm.controls.state?.invalid">
         <div class="u-text-field-trailing-icon">
           <span class="u-dropdown-toggle-icon"></span>

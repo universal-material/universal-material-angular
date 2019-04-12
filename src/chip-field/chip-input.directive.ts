@@ -1,41 +1,37 @@
-import { Directive, ElementRef, forwardRef, HostListener, Inject, Optional, Self } from '@angular/core';
-import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { Directive, ElementRef, HostListener } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { TextInputBase } from '../shared/text-input-base';
 
-const U_CHIP_INPUT_VALUE_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => ChipInputDirective),
-  multi: true
-};
-
 @Directive({
-  selector: '[uChipInput]',
-  providers: [U_CHIP_INPUT_VALUE_ACCESSOR]
+  selector: '[uChipInput]'
 })
 export class ChipInputDirective extends TextInputBase {
 
-  protected _inputValueAccessor: { value: any };
+  enterKeyDown = new Subject();
+  backspaceKeyDown = new Subject();
 
-  enterPress = new Subject();
   @HostListener('keydown.enter') keypressEnter = () => {
-    this.enterPress.next();
+    this.enterKeyDown.next();
   }
 
-  get value(): string { return this._inputValueAccessor.value; }
+  @HostListener('keydown.backspace') keypressBackspace = () => {
+    this.backspaceKeyDown.next();
+  }
+
+  get value(): string {
+    return this._elementRef.nativeElement.value;
+  }
+
   set value(value: string) {
     if (value !== this.value) {
-      this._inputValueAccessor.value = value;
+      this._elementRef.nativeElement.value = value;
     }
   }
 
-  constructor(@Optional() @Self() ngControl: NgControl,
-              @Optional() @Inject(U_CHIP_INPUT_VALUE_ACCESSOR) inputValueAccessor: any,
-              elementRef: ElementRef) {
-    super(ngControl, null, elementRef);
+  constructor(elementRef: ElementRef) {
+    super(null, null, elementRef);
 
-    this._inputValueAccessor = inputValueAccessor || elementRef.nativeElement;
     elementRef.nativeElement.classList.add('u-chip-input');
   }
 }

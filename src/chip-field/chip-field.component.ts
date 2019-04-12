@@ -37,6 +37,8 @@ export class ChipFieldComponent implements InputBaseComponent, OnInit, DoCheck {
   @Output() itemRemoved = new EventEmitter();
 
   @Input() addOnEnter = true;
+  @Input() removeOnBackspace = true;
+
   @ContentChild(ChipInputDirective) chipInput: ChipInputDirective;
 
   get disabled(): boolean {
@@ -62,11 +64,9 @@ export class ChipFieldComponent implements InputBaseComponent, OnInit, DoCheck {
     }
   }
 
-
-
   ngOnInit(): void {
-    this.chipInput.enterPress.subscribe(() => {
-      if (!this.addOnEnter) {
+    this.chipInput.enterKeyDown.subscribe(() => {
+      if (!this.addOnEnter || !this.chipInput.value) {
         return;
       }
 
@@ -74,6 +74,14 @@ export class ChipFieldComponent implements InputBaseComponent, OnInit, DoCheck {
 
       this.items.push(this.chipInput.value);
       this.chipInput.value = '';
+    });
+
+    this.chipInput.backspaceKeyDown.subscribe(() => {
+      if (!this.removeOnBackspace || this.chipInput.value || !this.items || !this.items.length) {
+        return;
+      }
+
+      this.items.splice(this.items.length - 1, 1);
     });
   }
 

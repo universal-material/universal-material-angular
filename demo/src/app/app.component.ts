@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
-import { Snackbar } from '@universal-material/angular';
+import {Snackbar, TypeaheadSelectItemEvent} from '@universal-material/angular';
 import {ProgressDialog} from '@universal-material/angular';
 import {ConfirmDialog} from '@universal-material/core';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
@@ -27,8 +27,11 @@ export class AppComponent {
   dialogOpen: boolean;
   dropdownOpen: boolean;
   states = stateObjects;
+  searchText: string;
 
   chips = [];
+
+  @ViewChild('typeaheadInput') typeaheadInputRef: ElementRef;
 
   removeChip(index: number) {
     this.chips.splice(index, 1);
@@ -56,4 +59,11 @@ export class AppComponent {
       map(term => term.length < 2 ? []
         : states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
     )
+
+  selectCountry($event: TypeaheadSelectItemEvent) {
+    $event.preventDefault();
+    this.chips.push($event.item);
+    this.searchText = '';
+    this.typeaheadInputRef.nativeElement.focus();
+  }
 }
