@@ -1,47 +1,66 @@
-import { Component, ElementRef, HostBinding, HostListener, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, HostBinding, HostListener, Inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 import { DOCUMENT } from '@angular/common';
 import { RippleDirective } from '../ripple/ripple.directive';
 
-const defaultButton = 'solid';
+const defaultStyle = 'solid';
 const defaultColor = 'default';
-
-const roundClickableConfig = {
-  size: 40,
-  borderRadius: '50%'
-};
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'button[u-btn]',
   template: '<ng-content></ng-content>'
 })
-export class ButtonComponent extends RippleDirective implements OnChanges {
+export class ButtonComponent extends RippleDirective implements OnInit, OnChanges {
 
-  protected _ripple: RippleDirective;
-
-  @HostBinding('class')
-  get classNames(): string {
-    return `u-btn-${this.color || defaultColor} u-btn-${this.uBtn || defaultButton}`;
-  }
+  private _color: string;
+  private _style: string;
 
   @Input('color') color;
-  @Input('u-btn') uBtn;
+  @Input('u-btn') style;
 
   constructor(elementRef: ElementRef,
               @Inject(DOCUMENT) document: any) {
     super(elementRef, document);
   }
 
+  private _updateColorClass() {
+    const newColor = this.color || defaultColor;
+
+    if (newColor !== this._color) {
+      this._elementRef.nativeElement.classList.remove(`u-btn-${this._color}`);
+      this._elementRef.nativeElement.classList.add(`u-btn-${newColor}`);
+
+      this._color = newColor;
+    }
+  }
+
+  private _updateStyleClass() {
+    const newStyle = this.style || defaultStyle;
+
+    if (newStyle !== this._style) {
+      this._elementRef.nativeElement.classList.remove(`u-btn-${this._style}`);
+      this._elementRef.nativeElement.classList.add(`u-btn-${newStyle}`);
+
+      this._style = newStyle;
+    }
+  }
+
+  ngOnInit(): void {
+    this._updateStyleClass();
+    this._updateColorClass();
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
 
-    if (changes.uBtn.currentValue === 'borderless') {
-      this.rippleConfig = roundClickableConfig;
-    } else {
-      this.rippleConfig = {};
+    if (changes.style) {
+      this._updateStyleClass();
+    } else if (changes.color) {
+      this._updateColorClass();
     }
   }
 }
+
 
 @Component({
   // tslint:disable-next-line:component-selector

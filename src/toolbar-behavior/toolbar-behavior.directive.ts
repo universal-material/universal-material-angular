@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { FloatWhenScrollBehavior } from './float-when-scroll.behavior';
 
 @Directive({
@@ -6,9 +6,10 @@ import { FloatWhenScrollBehavior } from './float-when-scroll.behavior';
 })
 export class ToolbarBehaviorDirective implements OnInit, OnDestroy {
   private behavior: FloatWhenScrollBehavior;
+  @Input() scrollContainer: HTMLElement;
 
   constructor(private readonly elementRef: ElementRef) {
-
+    this.elementRef.nativeElement.style.transition = 'box-shadow 150ms';
   }
 
   ngOnDestroy(): void {
@@ -16,6 +17,6 @@ export class ToolbarBehaviorDirective implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.behavior = FloatWhenScrollBehavior.attach(window, this.elementRef.nativeElement);
+    this.behavior = FloatWhenScrollBehavior.attach(this.scrollContainer || window, this.elementRef.nativeElement);
   }
 }

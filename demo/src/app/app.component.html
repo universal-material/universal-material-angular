@@ -6,35 +6,36 @@
     </nav>
   </aside>
   <div class="u-drawer-backdrop"></div>
-  <div class="u-toolbar u-toolbar-primary" uToolbarBehavior>
+  <div class="u-toolbar u-toolbar-fixed u-toolbar-primary" uToolbarBehavior [scrollContainer]="scrollable">
     <div class="u-toolbar-row">
       <div class="u-toolbar-title">Universal Material Angular</div>
     </div>
   </div>
+
+  <div style="height: 400px; overflow: auto" #scrollable>
+    <div style="height: 800px; background: blue"></div>
+  </div>
+
   <div class="u-container">
-    <input type="text" [(ngModel)]="selectedSlide" />
+    <div>{{selectedTab}}</div>
+    <input type="number" [(ngModel)]="selectedTab" />
     <div class="u-toolbar mb-4">
       <div class="u-toolbar-row">
         <div class="u-toolbar-title">Tab bar</div>
       </div>
-      <div class="u-tab-bar u-toolbar-icon-padding">
-        <div class="u-tab active">
-          <div class="u-tab-content">
-            <div class="u-tab-text">Item one</div>
-          </div>
-        </div>
-        <div class="u-tab">
-          <div class="u-tab-content">
-            <div class="u-tab-text">Item two</div>
-          </div>
-        </div>
-        <div class="u-tab">
-          <div class="u-tab-content">
-            <div class="u-tab-text">Item three</div>
-          </div>
-        </div>
+      <div uTabBar [(tabIndex)]="selectedTab">
+        <u-tab uRipple>Item one</u-tab>
+        <u-tab uRipple>Item two</u-tab>
+        <u-tab uRipple>Item three</u-tab>
+        <div uTabIndicator></div>
       </div>
     </div>
+    <u-form-field>
+      <input uTextInput [(ngModel)]="buttonStyle" />
+    </u-form-field>
+    <u-form-field>
+      <input uTextInput [(ngModel)]="buttonColor" />
+    </u-form-field>
 
     <label class="u-checkbox">
       <input type="checkbox" [(ngModel)]="anchorButtonDisabled" />
@@ -43,7 +44,7 @@
       </div>
       <span>Disabled</span>
     </label>
-    <button u-btn="raised" color="primary"><span class="u-btn-icon mdi mdi-account"></span>Teste</button>
+    <button class="my-button" [u-btn]="buttonStyle" [color]="buttonColor"><span class="u-btn-icon mdi mdi-account"></span>Teste</button>
     <a href="https://www.google.com.br" target="_blank" [disabled]="anchorButtonDisabled" u-btn="outline" color="primary">
       <span class="u-btn-icon mdi mdi-account" href="#"></span>Teste
     </a>
@@ -151,6 +152,7 @@
           [(ngModel)]="model"
           required
           [selectionFormatter]="stateFormatter"
+          [autoClose]="false"
           placeholder="Select state">
           <u-option>None</u-option>
           <u-option *ngFor="let state of states" [value]="state">{{state.name}}</u-option>

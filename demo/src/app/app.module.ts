@@ -18,6 +18,7 @@ import {
 import {AppComponent} from './app.component';
 import { FORM_FIELD_DEFAULT_APPEARANCE } from '@universal-material/angular/form-field/form-field.component';
 import { FormFieldModule } from '@universal-material/angular/form-field/form-field.module';
+import {TabBarModule} from '@universal-material/angular/tab-bar/tab-bar.module';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,9 @@ import { FormFieldModule } from '@universal-material/angular/form-field/form-fie
     FormFieldModule,
     ChipFieldModule,
     SelectModule,
-    TypeaheadModule
+    TypeaheadModule,
+    TextFieldModule,
+    TabBarModule
   ],
   providers: [
     {provide: FORM_FIELD_DEFAULT_APPEARANCE, useValue: 'box'}

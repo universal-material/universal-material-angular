@@ -8,6 +8,8 @@ import { DropdownMenuDirective } from './dropdown-menu.directive';
 })
 export class DropdownDirective implements OnInit {
 
+  private _justToggle = false;
+
   @Input() autoClose = true;
   @Input() open: boolean;
   @Output() openChange = new EventEmitter<boolean>();
@@ -16,6 +18,11 @@ export class DropdownDirective implements OnInit {
   @ContentChild(DropdownMenuDirective) _dropdownMenu: DropdownMenuDirective;
 
   @HostListener('window:click') _windowClick() {
+    if (this._justToggle) {
+      this._justToggle = false;
+      return;
+    }
+
     this._autoClose();
   }
 
@@ -27,12 +34,8 @@ export class DropdownDirective implements OnInit {
 
   ngOnInit() {
 
-    this._dropdownToggle.blur.subscribe(() => {
-      this._autoClose();
-    });
-
     this._dropdownToggle.click.subscribe((e: Event) => {
-      e.stopPropagation();
+      this._justToggle = true;
       this._dropdownMenu.show = !this._dropdownMenu.show;
     });
     this._dropdownMenu.click.subscribe((e: Event) => {

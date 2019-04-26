@@ -13,6 +13,7 @@ import { FloatingActionBehaviorModule } from './floating-action-behavior/floatin
 import { ButtonModule } from './button/button.module';
 import { FormFieldModule } from './form-field/form-field.module';
 import { ChipFieldModule } from './chip-field/chip-field.module';
+import { TabBarModule } from './tab-bar/tab-bar.module';
 
 const UniversalMaterialModules = [
   ChipFieldModule,
@@ -27,7 +28,8 @@ const UniversalMaterialModules = [
   ViewPagerModule,
   ToolbarBehaviorModule,
   FloatingActionBehaviorModule,
-  ButtonModule
+  ButtonModule,
+  TabBarModule
 ];
 
 export {
@@ -66,6 +68,10 @@ export { FormFieldModule } from './form-field/form-field.module';
 
 export { ChipFieldComponent } from './chip-field/chip-field.component';
 export { ChipFieldModule } from './chip-field/chip-field.module';
+
+export { TabBarModule } from './tab-bar/tab-bar.module';
+export { TabBarDirective } from './tab-bar/tab-bar.directive';
+export { TabComponent } from './tab-bar/tab.component';
 
 export {
   Highlight,

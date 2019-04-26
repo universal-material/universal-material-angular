@@ -29,6 +29,10 @@ export class AppComponent {
   states = stateObjects;
   searchText: string;
 
+  buttonStyle = '';
+  buttonColor = '';
+
+  selectedTab = 1;
   chips = [];
 
   @ViewChild('typeaheadInput') typeaheadInputRef: ElementRef;

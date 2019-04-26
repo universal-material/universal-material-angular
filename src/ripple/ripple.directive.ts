@@ -12,7 +12,7 @@ export class RippleDirective {
   disabled = false;
   isTouching = false;
 
-  constructor(private readonly _elementRef: ElementRef,
+  constructor(protected readonly _elementRef: ElementRef,
               @Inject(DOCUMENT) private document: any) {
 
 

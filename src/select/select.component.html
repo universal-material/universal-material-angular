@@ -1,5 +1,5 @@
-<div class="u-dropdown" uDropdown>
-  <button class="u-text-input u-dropdown-toggle" uDropdownToggle type="button" [disabled]="_disabled">
+<div class="u-dropdown" uDropdown [autoClose]="autoClose">
+  <button class="u-text-input u-dropdown-toggle" uDropdownToggle type="button" [disabled]="_disabled" [tabIndex]="tabIndex">
     <div class="u-text-input-placeholder" *ngIf="nothingSelected()">
       {{placeholder}}
     </div>

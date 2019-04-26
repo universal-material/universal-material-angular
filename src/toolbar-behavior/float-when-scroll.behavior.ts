@@ -6,7 +6,7 @@ export class FloatWhenScrollBehavior {
     this._setElevation();
   }
 
-  static attach(scrollContainer: Window, toolbarElement: Element): FloatWhenScrollBehavior {
+  static attach(scrollContainer: any, toolbarElement: Element): FloatWhenScrollBehavior {
     return new FloatWhenScrollBehavior(scrollContainer, toolbarElement);
   }
 
@@ -15,10 +15,10 @@ export class FloatWhenScrollBehavior {
       this._scrollContainer['scrollTop'] ||
       (this._scrollContainer['body'] && this._scrollContainer['body']['scrollTop'])) {
       this._toolbarElement.classList.add('u-elevation-2dp');
-      this._toolbarElement.classList.remove('elevation-0');
+      this._toolbarElement.classList.remove('u-elevation-0');
     } else {
       this._toolbarElement.classList.add('u-elevation-0');
-      this._toolbarElement.classList.remove('elevation-2dp');
+      this._toolbarElement.classList.remove('u-elevation-2dp');
     }
   }
 

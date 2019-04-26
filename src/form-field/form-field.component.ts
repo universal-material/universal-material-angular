@@ -8,7 +8,8 @@ export const FORM_FIELD_DEFAULT_APPEARANCE = new InjectionToken('FORM_FIELD_DEFA
 
 @Component({
   selector: 'u-form-field',
-  templateUrl: './form-field.component.html'
+  templateUrl: './form-field.component.html',
+  styleUrls: ['./form-field.component.scss']
 })
 export class FormFieldComponent {
 
