@@ -77,23 +77,22 @@
     <button class="u-btn-raised u-btn-primary d-block" (click)="showProgressDialog()">Test progress dialog</button>
     <button class="u-btn-raised u-btn-primary d-block" (click)="showConfirmDialog()">Test confirm dialog</button>
     <button class="u-btn-raised u-btn-primary d-block" (click)="dialogOpen = !dialogOpen">Test regular dialog</button>
-    <div class="u-dialog" uDialog [open]="dialogOpen">
-      <div class="u-dialog-backdrop" (click)="dialogOpen = false"></div>
-      <div class="u-dialog-content">
+    <u-dialog [(show)]="dialogOpen">
+      <div class="u-dialog-header">
         <div class="u-dialog-title">Dialog title</div>
-        <div class="u-dialog-body">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a arcu non odio dictum faucibus. Fusce turpis ante, egestas eget pretium non, vestibulum aliquet leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce aliquet bibendum sem et mollis. Aliquam dignissim lectus consectetur risus ultrices, et aliquam nisi aliquam. Donec quis diam vitae nunc rutrum lobortis. In suscipit nulla non suscipit dapibus. Sed tellus est, gravida a velit et, cursus egestas felis. Suspendisse magna neque, viverra eu metus at, sollicitudin finibus velit. Etiam in mi fringilla, accumsan justo at, suscipit lorem. Fusce mi neque, pulvinar quis lorem sit amet, imperdiet tincidunt nunc. Morbi sit amet leo vitae ante sollicitudin pulvinar. Nunc vitae neque quam.
-
-          Donec quis dapibus sapien. Fusce ornare quam nec ultrices posuere. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium nisi gravida justo malesuada, ac consequat erat placerat. Maecenas at nisl leo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum ac ligula quis lorem dictum cursus. Mauris id fringilla purus. Donec tincidunt nisl leo, non hendrerit lorem semper eu.
-
-          Proin congue nibh ligula, in vulputate turpis semper at. Fusce in sagittis tellus. Donec ac nulla hendrerit, aliquam libero id, fermentum mi. Maecenas molestie euismod ipsum in gravida. Integer ac lectus a eros tincidunt convallis. Mauris purus velit, dictum dapibus purus nec, tincidunt imperdiet leo. Suspendisse id orci at lectus aliquam fermentum et non metus. Interdum et malesuada fames ac ante ipsum primis in faucibus. In eget rhoncus sapien. In eget magna ligula. Suspendisse lacus ligula, iaculis sed bibendum in, luctus blandit eros.
-        </div>
-        <div class="u-dialog-actions">
-          <button type="button" class="u-btn-flat u-btn-primary" (click)="dialogOpen = false">Action 1</button>
-          <button type="button" class="u-btn-flat u-btn-primary" (click)="dialogOpen = false">Action 2</button>
-        </div>
       </div>
-    </div>
+      <div uDialogBody class="u-dialog-body">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a arcu non odio dictum faucibus. Fusce turpis ante, egestas eget pretium non, vestibulum aliquet leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce aliquet bibendum sem et mollis. Aliquam dignissim lectus consectetur risus ultrices, et aliquam nisi aliquam. Donec quis diam vitae nunc rutrum lobortis. In suscipit nulla non suscipit dapibus. Sed tellus est, gravida a velit et, cursus egestas felis. Suspendisse magna neque, viverra eu metus at, sollicitudin finibus velit. Etiam in mi fringilla, accumsan justo at, suscipit lorem. Fusce mi neque, pulvinar quis lorem sit amet, imperdiet tincidunt nunc. Morbi sit amet leo vitae ante sollicitudin pulvinar. Nunc vitae neque quam.
+
+        Donec quis dapibus sapien. Fusce ornare quam nec ultrices posuere. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium nisi gravida justo malesuada, ac consequat erat placerat. Maecenas at nisl leo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum ac ligula quis lorem dictum cursus. Mauris id fringilla purus. Donec tincidunt nisl leo, non hendrerit lorem semper eu.
+
+        Proin congue nibh ligula, in vulputate turpis semper at. Fusce in sagittis tellus. Donec ac nulla hendrerit, aliquam libero id, fermentum mi. Maecenas molestie euismod ipsum in gravida. Integer ac lectus a eros tincidunt convallis. Mauris purus velit, dictum dapibus purus nec, tincidunt imperdiet leo. Suspendisse id orci at lectus aliquam fermentum et non metus. Interdum et malesuada fames ac ante ipsum primis in faucibus. In eget rhoncus sapien. In eget magna ligula. Suspendisse lacus ligula, iaculis sed bibendum in, luctus blandit eros.
+      </div>
+      <div class="u-dialog-actions">
+        <button type="button" u-btn="flat" color="primary" (click)="dialogOpen = false">Action 1</button>
+        <button type="button" u-btn="flat" color="primary" (click)="dialogOpen = false">Action 2</button>
+      </div>
+    </u-dialog>
     <u-circular-progress></u-circular-progress>
     <div class="u-floating-action-area" uFloatingActionBehavior>
       <button class="u-btn-floating u-btn-secondary">

@@ -1,4 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {
@@ -26,6 +27,7 @@ import {TabBarModule} from '@universal-material/angular/tab-bar/tab-bar.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     CircularProgressModule,
     DropdownModule,
@@ -38,9 +40,6 @@ import {TabBarModule} from '@universal-material/angular/tab-bar/tab-bar.module';
     ToolbarBehaviorModule,
     FloatingActionBehaviorModule,
     ButtonModule,
-    TextFieldModule,
-    TextFieldModule,
-    TextFieldModule,
     TextFieldModule,
     DropdownModule,
     FormFieldModule,

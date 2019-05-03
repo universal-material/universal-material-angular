@@ -1,8 +1,11 @@
-import {NgModule} from '@angular/core';
-import {DialogDirective} from './dialog.directive';
+import { NgModule } from '@angular/core';
+
+import { DialogComponent } from './dialog.component';
+import { DialogBodyDirective } from './dialog-body.directive';
 
 @NgModule({
-  declarations: [DialogDirective],
-  exports: [DialogDirective]
+  declarations: [DialogComponent, DialogBodyDirective],
+  exports: [DialogComponent, DialogBodyDirective]
 })
-export class DialogModule { }
+export class DialogModule {
+}
