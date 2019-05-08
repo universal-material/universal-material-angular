@@ -1,10 +1,13 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 
-import {Snackbar, TypeaheadSelectItemEvent} from '@universal-material/angular';
-import {ProgressDialog} from '@universal-material/angular';
-import {ConfirmDialog} from '@universal-material/core';
-import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import { TypeaheadSelectItemEvent } from '@universal-material/angular';
+
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { SnackbarService } from '@universal-material/angular/snackbar/snackbar.service';
+import { SnackbarDuration } from '@universal-material/angular/snackbar/snackbar-duration';
+import { ProgressDialogService } from '@universal-material/angular/dialog/progress-dialog/progress-dialog.service';
+import { ConfirmDialogService } from '@universal-material/angular/dialog/confirm-dialog/confirm-dialog.service';
 
 const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
   'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
@@ -26,6 +29,7 @@ export class AppComponent {
   title = 'demo';
   dialogOpen: boolean;
   dropdownOpen: boolean;
+  showDummyTab: boolean;
   states = stateObjects;
   searchText: string;
 
@@ -37,6 +41,32 @@ export class AppComponent {
 
   @ViewChild('typeaheadInput') typeaheadInputRef: ElementRef;
 
+  constructor(readonly snackbar: SnackbarService,
+              readonly progressDialog: ProgressDialogService,
+              readonly confirmDialog: ConfirmDialogService) {
+
+  }
+
+  openSnackbar() {
+    this.snackbar.open('Something happened');
+  }
+
+  openFixedSnackbar() {
+    this.snackbar.open('Working...', null, {
+      duration: SnackbarDuration.infinite
+    });
+  }
+
+  openSnackbarWithAction() {
+    const snackbarRef = this.snackbar.open('Action completed', 'Undo', {
+      dismissWhenOpenAnotherSnackbar: false
+    });
+
+    snackbarRef.onAction.subscribe(() => {
+      alert('Action undone');
+    })
+  }
+
   removeChip(index: number) {
     this.chips.splice(index, 1);
   }
@@ -44,16 +74,20 @@ export class AppComponent {
   stateFormatter = state => state.name;
 
   showTestSnackbar() {
-    Snackbar.show('teste');
+    this.snackbar.open('teste');
   }
 
   showProgressDialog() {
-    const progress = ProgressDialog.open('Carregando');
+    const progress = this.progressDialog.open('Carregando');
     setTimeout(() => progress.close(), 2000);
   }
 
   showConfirmDialog() {
-    ConfirmDialog.open('Do you confirm?', {title: 'Confirm dialog'});
+    const confirmDialog = this.confirmDialog.open('Do you confirm?', {
+      title: 'Confirm dialog'
+    });
+    confirmDialog.onConfirm.subscribe(() => alert('confirmed'));
+    confirmDialog.onCancel.subscribe(() => alert('canceled'));
   }
 
   search = (text$: Observable<string>) =>

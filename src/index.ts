@@ -14,6 +14,7 @@ import { ButtonModule } from './button/button.module';
 import { FormFieldModule } from './form-field/form-field.module';
 import { ChipFieldModule } from './chip-field/chip-field.module';
 import { TabBarModule } from './tab-bar/tab-bar.module';
+import { SnackbarModule } from './snackbar/snackbar.module';
 
 const UniversalMaterialModules = [
   ChipFieldModule,
@@ -29,25 +30,9 @@ const UniversalMaterialModules = [
   ToolbarBehaviorModule,
   FloatingActionBehaviorModule,
   ButtonModule,
-  TabBarModule
+  TabBarModule,
+  SnackbarModule
 ];
-
-export {
-  Dialog,
-  DialogConfig,
-  Dropdown,
-  DropdownConfig,
-  QuickDialog,
-  QuickDialogConfig,
-  ConfirmDialog,
-  ConfirmDialogConfig,
-  ProgressDialog,
-  ProgressDialogConfig,
-  Snackbar,
-  SnackbarButtonDefinition,
-  SnackbarDuration,
-  SnackbarDefinition
-} from '@universal-material/core';
 
 export { CircularProgressModule } from './circular-progress/circular-progress.module';
 export { DialogModule } from './dialog/dialog.module';
@@ -70,8 +55,9 @@ export { ChipFieldComponent } from './chip-field/chip-field.component';
 export { ChipFieldModule } from './chip-field/chip-field.module';
 
 export { TabBarModule } from './tab-bar/tab-bar.module';
-export { TabBarDirective } from './tab-bar/tab-bar.directive';
+export { TabBarComponent } from './tab-bar/tab-bar.component';
 export { TabComponent } from './tab-bar/tab.component';
+export * from './snackbar/snackbar.module';
 
 export {
   Highlight,

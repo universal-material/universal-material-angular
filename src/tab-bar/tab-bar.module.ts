@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RippleModule } from '../ripple/ripple.module';
-import { TabBarDirective } from './tab-bar.directive';
+import { TabBarComponent } from './tab-bar.component';
 import { TabComponent } from './tab.component';
-import { TabIndicatorDirective } from './tab-indicator.directive';
 
 @NgModule({
   imports: [
@@ -12,14 +11,12 @@ import { TabIndicatorDirective } from './tab-indicator.directive';
     RippleModule,
   ],
   declarations: [
-    TabBarDirective,
-    TabComponent,
-    TabIndicatorDirective
+    TabBarComponent,
+    TabComponent
   ],
   exports: [
-    TabBarDirective,
-    TabComponent,
-    TabIndicatorDirective
+    TabBarComponent,
+    TabComponent
   ]
 })
 export class TabBarModule {

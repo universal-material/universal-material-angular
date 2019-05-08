@@ -17,18 +17,27 @@
   </div>
 
   <div class="u-container">
+    <div class="u-btn-set">
+      <button u-btn="flat" color="primary" (click)="openSnackbar()">Snackbar</button>
+      <button u-btn="flat" color="primary" (click)="openFixedSnackbar()">Snackbar fixed</button>
+      <button u-btn="flat" color="primary" (click)="openSnackbarWithAction()">Snackbar with action</button>
+    </div>
+
     <div>{{selectedTab}}</div>
     <input type="number" [(ngModel)]="selectedTab" />
     <div class="u-toolbar mb-4">
       <div class="u-toolbar-row">
         <div class="u-toolbar-title">Tab bar</div>
       </div>
-      <div uTabBar [(tabIndex)]="selectedTab">
-        <u-tab uRipple>Item one</u-tab>
-        <u-tab uRipple>Item two</u-tab>
-        <u-tab uRipple>Item three</u-tab>
+      <button type="button" u-btn="flat" color="primary" (click)="showDummyTab = !showDummyTab">Show dummy tab</button>
+      <u-tab-bar [(tabIndex)]="selectedTab">
+        <u-tab>Item one</u-tab>
+        <u-tab>Item two</u-tab>
+        <u-tab *ngIf="showDummyTab">Item dummy</u-tab>
+        <u-tab>Item three</u-tab>
+        <u-tab *ngIf="showDummyTab">Item dummy</u-tab>
         <div uTabIndicator></div>
-      </div>
+      </u-tab-bar>
     </div>
     <u-form-field>
       <input uTextInput [(ngModel)]="buttonStyle" />

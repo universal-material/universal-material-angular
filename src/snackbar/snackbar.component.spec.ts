@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TabBarDirective } from './tab-bar.directive';
+import { SnackbarComponent } from './snackbar.component';
 
-describe('TabBarDirective', () => {
-  let component: TabBarDirective;
-  let fixture: ComponentFixture<TabBarDirective>;
+describe('SnackbarComponent', () => {
+  let component: SnackbarComponent;
+  let fixture: ComponentFixture<SnackbarComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TabBarDirective ]
+      declarations: [ SnackbarComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TabBarDirective);
+    fixture = TestBed.createComponent(SnackbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

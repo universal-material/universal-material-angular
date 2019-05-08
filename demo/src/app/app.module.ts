@@ -1,25 +1,27 @@
-import {BrowserModule} from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {
-  DropdownModule,
-  TextFieldModule,
-  DialogModule,
-  TypeaheadModule,
+  ButtonModule,
+  ChipFieldModule,
   CircularProgressModule,
+  DialogModule,
+  DropdownModule,
+  FloatingActionBehaviorModule,
   RippleModule,
   SelectModule,
-  ViewPagerModule,
+  TextFieldModule,
   ToolbarBehaviorModule,
-  FloatingActionBehaviorModule,
-  ButtonModule, ChipFieldModule,
+  TypeaheadModule,
+  ViewPagerModule,
 } from '@universal-material/angular';
 
-import {AppComponent} from './app.component';
+import { AppComponent } from './app.component';
 import { FORM_FIELD_DEFAULT_APPEARANCE } from '@universal-material/angular/form-field/form-field.component';
 import { FormFieldModule } from '@universal-material/angular/form-field/form-field.module';
-import {TabBarModule} from '@universal-material/angular/tab-bar/tab-bar.module';
+import { TabBarModule } from '@universal-material/angular/tab-bar/tab-bar.module';
+import { SnackbarModule } from '@universal-material/angular/snackbar/snackbar.module';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import {TabBarModule} from '@universal-material/angular/tab-bar/tab-bar.module';
     SelectModule,
     TypeaheadModule,
     TextFieldModule,
-    TabBarModule
+    TabBarModule,
+    SnackbarModule
   ],
   providers: [
     {provide: FORM_FIELD_DEFAULT_APPEARANCE, useValue: 'box'}
