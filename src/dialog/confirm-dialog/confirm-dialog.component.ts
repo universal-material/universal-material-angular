@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 
 import { DialogComponent } from '../dialog.component';
 import { CONFIRM_DIALOG_DEFAULT_OPTIONS, ConfirmDialogConfig, DefaultConfirmDialogConfig } from './confirm-dialog-config.model';
-import { DialogBodyDirective } from '@universal-material/angular/dialog/dialog-body.directive';
+import { DialogBodyDirective } from '../dialog-body.directive';
 
 @Component({
   selector: 'u-confim-dialog',

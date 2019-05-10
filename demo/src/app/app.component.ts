@@ -52,13 +52,14 @@ export class AppComponent {
   }
 
   openFixedSnackbar() {
-    this.snackbar.open('Working...', null, {
+    this.snackbar.open('Working...', {
       duration: SnackbarDuration.infinite
     });
   }
 
   openSnackbarWithAction() {
-    const snackbarRef = this.snackbar.open('Action completed', 'Undo', {
+    const snackbarRef = this.snackbar.open('Action completed', {
+      actionLabel: 'Undo',
       dismissWhenOpenAnotherSnackbar: false
     });
 

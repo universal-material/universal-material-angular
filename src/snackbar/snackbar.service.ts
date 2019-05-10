@@ -30,13 +30,12 @@ export class SnackbarService {
     this._defaultConfig = { ..._defaultConfig, ... userOptions };
   }
 
-  open(message: string, action?: string, config?: SnackbarConfig): SnackbarRef {
+  open(message: string, config?: SnackbarConfig): SnackbarRef {
 
     const snackbarComponentRef = this._snackbarComponent.create(this._injector);
 
     this._appRef.attachView(snackbarComponentRef.hostView);
 
-    snackbarComponentRef.instance.action = action;
     snackbarComponentRef.instance.message = message;
     snackbarComponentRef.instance._config = { ...this._defaultConfig, ...config };
 

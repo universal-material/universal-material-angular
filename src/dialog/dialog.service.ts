@@ -2,12 +2,11 @@ import { ApplicationRef, ComponentFactoryResolver, Injectable, InjectionToken, I
 
 import { DialogInjector } from './dialog-injector';
 import { DialogStackService } from './dialog-stack.service';
+import { DialogComponent } from './dialog.component';
 
-const DIALOG_DATA = new InjectionToken<any>('DIALOG_DATA');
+export const DIALOG_DATA = new InjectionToken<any>('DIALOG_DATA');
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class DialogService {
 
   constructor(private readonly _componentFactoryResolver: ComponentFactoryResolver,
@@ -17,7 +16,7 @@ export class DialogService {
 
   }
 
-  _internalOpen<T>(dialogType: Type<T>, customInjectionTokens: WeakMap<any, any>): T {
+  _internalOpen<T extends DialogComponent>(dialogType: Type<T>, customInjectionTokens: WeakMap<any, any>): T {
     const dialogComponent = this._componentFactoryResolver.resolveComponentFactory(dialogType);
 
     const dialogComponentRef = dialogComponent.create(new DialogInjector(this._injector, customInjectionTokens));
@@ -38,7 +37,7 @@ export class DialogService {
     return dialogComponentRef.instance;
   }
 
-  open<T>(dialogType: Type<T>, data?: any): T {
-    return this._internalOpen(dialogType, new WeakMap(data && [DIALOG_DATA, data]));
+  open<T extends DialogComponent>(dialogType: Type<T>, data?: any): T {
+    return this._internalOpen(dialogType, new WeakMap(data && [[DIALOG_DATA, data]]));
   }
 }

@@ -35,7 +35,6 @@ const UniversalMaterialModules = [
 ];
 
 export { CircularProgressModule } from './circular-progress/circular-progress.module';
-export { DialogModule } from './dialog/dialog.module';
 export { DropdownModule } from './dropdown/dropdown.module';
 export { RippleModule } from './ripple/ripple.module';
 export { TextFieldModule } from './text-field/text-field.module';
@@ -58,6 +57,7 @@ export { TabBarModule } from './tab-bar/tab-bar.module';
 export { TabBarComponent } from './tab-bar/tab-bar.component';
 export { TabComponent } from './tab-bar/tab.component';
 export * from './snackbar/snackbar.module';
+export * from './dialog/dialog.module';
 
 export {
   Highlight,

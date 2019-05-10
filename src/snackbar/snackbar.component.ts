@@ -15,7 +15,6 @@ export class SnackbarComponent implements SnackbarRef {
   @HostBinding('class.dismiss') dismissed = false;
 
   message: string;
-  action: string;
   _config: SnackbarConfig;
 
   afterOpen: Observable<void> = new Subject();
