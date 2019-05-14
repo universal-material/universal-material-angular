@@ -33,6 +33,8 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ButtonsComponent } from './components/buttons/buttons.component';
 import { ExampleComponent } from './example/example.component';
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
+import { SimpleSnackbarExampleComponent } from './components/snackbar/simple-snackbar-example/simple-snackbar-example.component';
 
 
 
@@ -54,7 +56,9 @@ export function hljsLanguages() {
     ButtonsExampleComponent,
     NavigationComponent,
     ButtonsComponent,
-    ExampleComponent
+    ExampleComponent,
+    SnackbarComponent,
+    SimpleSnackbarExampleComponent
   ],
   imports: [
     AppRoutingModule,
