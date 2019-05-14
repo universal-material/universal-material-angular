@@ -165,7 +165,7 @@ describe('u-typeahead-window', () => {
       expect(fixture.componentInstance.active).toBe('baz');
     });
 
-    it('should have buttons of type button', () => {
+    it('should have buttons of type buttons-example', () => {
       const html = `
            <u-typeahead-window [results]="results" [term]="term"></u-typeahead-window>`;
       const fixture = createTestComponent(html);

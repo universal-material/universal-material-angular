@@ -1,213 +1,198 @@
 <!--The content below is only a placeholder and can be replaced.-->
+
 <div class="u-drawer u-drawer-lg-dismissible">
   <aside class="u-drawer-content u-navigation-drawer">
-    <nav class="u-list u-list-hover">
-      <div class="u-list-item">Getting started</div>
-    </nav>
+    <app-navigation></app-navigation>
   </aside>
   <div class="u-drawer-backdrop"></div>
-  <div class="u-toolbar u-toolbar-fixed u-toolbar-primary" uToolbarBehavior [scrollContainer]="scrollable">
+
+  <div class="u-toolbar u-toolbar-fixed u-toolbar-primary" uToolbarBehavior>
     <div class="u-toolbar-row">
       <div class="u-toolbar-title">Universal Material Angular</div>
     </div>
   </div>
 
-  <div style="height: 400px; overflow: auto" #scrollable>
-    <div style="height: 800px; background: blue"></div>
-  </div>
+  <div class="u-container content">
+    <router-outlet></router-outlet>
+<!--    <div class="u-btn-set">-->
+<!--      <buttons-example u-btn="flat" color="primary" (click)="openSnackbar()">Snackbar</buttons-example>-->
+<!--      <buttons-example u-btn="flat" color="primary" (click)="openFixedSnackbar()">Snackbar fixed</buttons-example>-->
+<!--      <buttons-example u-btn="flat" color="primary" (click)="openSnackbarWithAction()">Snackbar with action</buttons-example>-->
+<!--    </div>-->
 
-  <div class="u-container">
-    <div class="u-btn-set">
-      <button u-btn="flat" color="primary" (click)="openSnackbar()">Snackbar</button>
-      <button u-btn="flat" color="primary" (click)="openFixedSnackbar()">Snackbar fixed</button>
-      <button u-btn="flat" color="primary" (click)="openSnackbarWithAction()">Snackbar with action</button>
-    </div>
+<!--    <div>{{selectedTab}}</div>-->
+<!--    <input type="number" [(ngModel)]="selectedTab" />-->
+<!--    <div class="u-toolbar mb-4">-->
+<!--      <div class="u-toolbar-row">-->
+<!--        <div class="u-toolbar-title">Tab bar</div>-->
+<!--      </div>-->
+<!--      <buttons-example type="buttons-example" u-btn="flat" color="primary" (click)="showDummyTab = !showDummyTab">Show dummy tab</buttons-example>-->
+<!--      <u-tab-bar [(tabIndex)]="selectedTab">-->
+<!--        <u-tab>Item one</u-tab>-->
+<!--        <u-tab>Item two</u-tab>-->
+<!--        <u-tab *ngIf="showDummyTab">Item dummy</u-tab>-->
+<!--        <u-tab>Item three</u-tab>-->
+<!--        <u-tab *ngIf="showDummyTab">Item dummy</u-tab>-->
+<!--        <div uTabIndicator></div>-->
+<!--      </u-tab-bar>-->
+<!--    </div>-->
+<!--    <u-form-field>-->
+<!--      <input uTextInput [(ngModel)]="buttonStyle" />-->
+<!--    </u-form-field>-->
+<!--    <u-form-field>-->
+<!--      <input uTextInput [(ngModel)]="buttonColor" />-->
+<!--    </u-form-field>-->
 
-    <div>{{selectedTab}}</div>
-    <input type="number" [(ngModel)]="selectedTab" />
-    <div class="u-toolbar mb-4">
-      <div class="u-toolbar-row">
-        <div class="u-toolbar-title">Tab bar</div>
-      </div>
-      <button type="button" u-btn="flat" color="primary" (click)="showDummyTab = !showDummyTab">Show dummy tab</button>
-      <u-tab-bar [(tabIndex)]="selectedTab">
-        <u-tab>Item one</u-tab>
-        <u-tab>Item two</u-tab>
-        <u-tab *ngIf="showDummyTab">Item dummy</u-tab>
-        <u-tab>Item three</u-tab>
-        <u-tab *ngIf="showDummyTab">Item dummy</u-tab>
-        <div uTabIndicator></div>
-      </u-tab-bar>
-    </div>
-    <u-form-field>
-      <input uTextInput [(ngModel)]="buttonStyle" />
-    </u-form-field>
-    <u-form-field>
-      <input uTextInput [(ngModel)]="buttonColor" />
-    </u-form-field>
+<!--    <label class="u-checkbox">-->
+<!--      <input type="checkbox" [(ngModel)]="anchorButtonDisabled" />-->
+<!--      <div class="u-selection-control">-->
+<!--        <div class="u-check-indicator"></div>-->
+<!--      </div>-->
+<!--      <span>Disabled</span>-->
+<!--    </label>-->
+<!--    <buttons-example class="my-buttons-example" [u-btn]="buttonStyle" [color]="buttonColor"><span class="u-btn-icon mdi mdi-account"></span>Teste</buttons-example>-->
+<!--    <a href="https://www.google.com.br" target="_blank" [disabled]="anchorButtonDisabled" u-btn="outline" color="primary">-->
+<!--      <span class="u-btn-icon mdi mdi-account" href="#"></span>Teste-->
+<!--    </a>-->
 
-    <label class="u-checkbox">
-      <input type="checkbox" [(ngModel)]="anchorButtonDisabled" />
-      <div class="u-selection-control">
-        <div class="u-check-indicator"></div>
-      </div>
-      <span>Disabled</span>
-    </label>
-    <button class="my-button" [u-btn]="buttonStyle" [color]="buttonColor"><span class="u-btn-icon mdi mdi-account"></span>Teste</button>
-    <a href="https://www.google.com.br" target="_blank" [disabled]="anchorButtonDisabled" u-btn="outline" color="primary">
-      <span class="u-btn-icon mdi mdi-account" href="#"></span>Teste
-    </a>
+<!--    <div class="view-pager-example">-->
+<!--      <u-view-pager [(selectedIndex)]="selectedSlide">-->
+<!--        <u-view-pager-slide>-->
+<!--          <div style="height: 200%; background: red">Slide 1</div>-->
+<!--        </u-view-pager-slide>-->
+<!--        <u-view-pager-slide>-->
+<!--          Slide 2-->
+<!--        </u-view-pager-slide>-->
+<!--        <u-view-pager-slide>-->
+<!--          Slide 3-->
+<!--          Slide 3-->
+<!--        </u-view-pager-slide>-->
+<!--      </u-view-pager>-->
+<!--    </div>-->
 
-    <div class="view-pager-example">
-      <u-view-pager [(selectedIndex)]="selectedSlide">
-        <u-view-pager-slide>
-          <div style="height: 200%; background: red">Slide 1</div>
-        </u-view-pager-slide>
-        <u-view-pager-slide>
-          Slide 2
-        </u-view-pager-slide>
-        <u-view-pager-slide>
-          Slide 3
-          Slide 3
-        </u-view-pager-slide>
-      </u-view-pager>
-    </div>
+<!--    <div class="u-text-field-container form-field">-->
+<!--      <div class="u-text-field u-text-field-outline">-->
+<!--        <div class="u-text-field-leading-icon"><i class="mdi mdi-calendar"></i></div>-->
+<!--        <div class="u-text-field-trailing-icon"><i class="mdi mdi-calendar"></i></div>-->
+<!--        <input class="u-text-input" type="text" placeholder="Placeholder" id="u-text-field-outline" aria-describedby="textFieldOutline">-->
+<!--        <label for="u-text-field-outline">Text field outline</label>-->
+<!--      </div><small class="u-text-field-helper-text" id="textFieldOutline">Text field outline</small>-->
+<!--    </div>-->
+<!--    <buttons-example class="u-btn-borderless u-btn-default"><i class="u-btn-icon mdi mdi-heart"></i></buttons-example>-->
+<!--    <buttons-example class="u-btn-raised u-btn-primary d-block" uRipple (click)="showTestSnackbar()">Test snackbar</buttons-example>-->
+<!--    <buttons-example class="u-btn-raised u-btn-primary d-block" (click)="showProgressDialog()">Test progress dialog</buttons-example>-->
+<!--    <buttons-example class="u-btn-raised u-btn-primary d-block" (click)="showConfirmDialog()">Test confirm dialog</buttons-example>-->
+<!--    <buttons-example class="u-btn-raised u-btn-primary d-block" (click)="dialogOpen = !dialogOpen">Test regular dialog</buttons-example>-->
+<!--    <u-dialog [(show)]="dialogOpen">-->
+<!--      <div class="u-dialog-header">-->
+<!--        <div class="u-dialog-title">Dialog title</div>-->
+<!--      </div>-->
+<!--      <div uDialogBody class="u-dialog-body">-->
+<!--        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a arcu non odio dictum faucibus. Fusce turpis ante, egestas eget pretium non, vestibulum aliquet leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce aliquet bibendum sem et mollis. Aliquam dignissim lectus consectetur risus ultrices, et aliquam nisi aliquam. Donec quis diam vitae nunc rutrum lobortis. In suscipit nulla non suscipit dapibus. Sed tellus est, gravida a velit et, cursus egestas felis. Suspendisse magna neque, viverra eu metus at, sollicitudin finibus velit. Etiam in mi fringilla, accumsan justo at, suscipit lorem. Fusce mi neque, pulvinar quis lorem sit amet, imperdiet tincidunt nunc. Morbi sit amet leo vitae ante sollicitudin pulvinar. Nunc vitae neque quam.-->
 
-    <div class="u-text-field-container form-field">
-      <div class="u-text-field u-text-field-outline">
-        <div class="u-text-field-leading-icon"><i class="mdi mdi-calendar"></i></div>
-        <div class="u-text-field-trailing-icon"><i class="mdi mdi-calendar"></i></div>
-        <input class="u-text-input" type="text" placeholder="Placeholder" id="u-text-field-outline" aria-describedby="textFieldOutline">
-        <label for="u-text-field-outline">Text field outline</label>
-      </div><small class="u-text-field-helper-text" id="textFieldOutline">Text field outline</small>
-    </div>
-    <button class="u-btn-borderless u-btn-default"><i class="u-btn-icon mdi mdi-heart"></i></button>
-    <button class="u-btn-raised u-btn-primary d-block" uRipple (click)="showTestSnackbar()">Test snackbar</button>
-    <button class="u-btn-raised u-btn-primary d-block" (click)="showProgressDialog()">Test progress dialog</button>
-    <button class="u-btn-raised u-btn-primary d-block" (click)="showConfirmDialog()">Test confirm dialog</button>
-    <button class="u-btn-raised u-btn-primary d-block" (click)="dialogOpen = !dialogOpen">Test regular dialog</button>
-    <u-dialog [(show)]="dialogOpen">
-      <div class="u-dialog-header">
-        <div class="u-dialog-title">Dialog title</div>
-      </div>
-      <div uDialogBody class="u-dialog-body">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a arcu non odio dictum faucibus. Fusce turpis ante, egestas eget pretium non, vestibulum aliquet leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce aliquet bibendum sem et mollis. Aliquam dignissim lectus consectetur risus ultrices, et aliquam nisi aliquam. Donec quis diam vitae nunc rutrum lobortis. In suscipit nulla non suscipit dapibus. Sed tellus est, gravida a velit et, cursus egestas felis. Suspendisse magna neque, viverra eu metus at, sollicitudin finibus velit. Etiam in mi fringilla, accumsan justo at, suscipit lorem. Fusce mi neque, pulvinar quis lorem sit amet, imperdiet tincidunt nunc. Morbi sit amet leo vitae ante sollicitudin pulvinar. Nunc vitae neque quam.
+<!--        Donec quis dapibus sapien. Fusce ornare quam nec ultrices posuere. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium nisi gravida justo malesuada, ac consequat erat placerat. Maecenas at nisl leo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum ac ligula quis lorem dictum cursus. Mauris id fringilla purus. Donec tincidunt nisl leo, non hendrerit lorem semper eu.-->
 
-        Donec quis dapibus sapien. Fusce ornare quam nec ultrices posuere. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pretium nisi gravida justo malesuada, ac consequat erat placerat. Maecenas at nisl leo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum ac ligula quis lorem dictum cursus. Mauris id fringilla purus. Donec tincidunt nisl leo, non hendrerit lorem semper eu.
+<!--        Proin congue nibh ligula, in vulputate turpis semper at. Fusce in sagittis tellus. Donec ac nulla hendrerit, aliquam libero id, fermentum mi. Maecenas molestie euismod ipsum in gravida. Integer ac lectus a eros tincidunt convallis. Mauris purus velit, dictum dapibus purus nec, tincidunt imperdiet leo. Suspendisse id orci at lectus aliquam fermentum et non metus. Interdum et malesuada fames ac ante ipsum primis in faucibus. In eget rhoncus sapien. In eget magna ligula. Suspendisse lacus ligula, iaculis sed bibendum in, luctus blandit eros.-->
+<!--      </div>-->
+<!--      <div class="u-dialog-actions">-->
+<!--        <buttons-example type="buttons-example" u-btn="flat" color="primary" (click)="dialogOpen = false">Action 1</buttons-example>-->
+<!--        <buttons-example type="buttons-example" u-btn="flat" color="primary" (click)="dialogOpen = false">Action 2</buttons-example>-->
+<!--      </div>-->
+<!--    </u-dialog>-->
+<!--    <u-circular-progress></u-circular-progress>-->
+<!--    <div class="u-floating-action-area" uFloatingActionBehavior>-->
+<!--      <buttons-example class="u-btn-floating u-btn-secondary">-->
+<!--        <i class="u-btn-icon mdi mdi-plus"></i>-->
+<!--      </buttons-example>-->
+<!--    </div>-->
+<!--    <u-form-field>-->
+<!--      <u-chip-field name="chips" [(ngModel)]="chips">-->
+<!--        <div class="u-chip" *ngFor="let chip of chips; let i = index">-->
+<!--          <span class="u-chip-label">{{chip}}</span>-->
+<!--          <div class="u-chip-remove" uRipple (click)="removeChip(i)"><i class="mdi mdi-close-circle"></i></div>-->
+<!--        </div>-->
+<!--        <input uChipInput #typeaheadInput [uTypeahead]="search" [(ngModel)]="searchText" (selectItem)="selectCountry($event)" />-->
+<!--      </u-chip-field>-->
+<!--      <label uLabel>Country</label>-->
+<!--    </u-form-field>-->
+<!--    <div class="u-form-field">-->
+<!--      <u-form-field>-->
+<!--        <input uTextInput type="text" [(ngModel)]="textFieldAppearance" />-->
+<!--        <label uLabel>Appearance</label>-->
+<!--      </u-form-field>-->
+<!--    </div>-->
+<!--    <label class="u-checkbox">-->
+<!--      <input type="checkbox" [(ngModel)]="textFieldDisabled" />-->
+<!--      <div class="u-selection-control">-->
+<!--        <div class="u-check-indicator"></div>-->
+<!--      </div>-->
+<!--      <span>Disabled</span>-->
+<!--    </label>-->
+<!--    <u-form-field [appearance]="textFieldAppearance" helperText="Informe o nome" invalidText="Você deve informar um nome">-->
+<!--      <input uTextInput [disabled]="textFieldDisabled" type="text" />-->
+<!--      <label uLabel>Teste</label>-->
+<!--    </u-form-field>-->
+<!--    <div>{{model}}</div>-->
+<!--    <form #stateForm="ngForm">-->
+<!--      {{stateForm.controls.state?.invalid}}-->
 
-        Proin congue nibh ligula, in vulputate turpis semper at. Fusce in sagittis tellus. Donec ac nulla hendrerit, aliquam libero id, fermentum mi. Maecenas molestie euismod ipsum in gravida. Integer ac lectus a eros tincidunt convallis. Mauris purus velit, dictum dapibus purus nec, tincidunt imperdiet leo. Suspendisse id orci at lectus aliquam fermentum et non metus. Interdum et malesuada fames ac ante ipsum primis in faucibus. In eget rhoncus sapien. In eget magna ligula. Suspendisse lacus ligula, iaculis sed bibendum in, luctus blandit eros.
-      </div>
-      <div class="u-dialog-actions">
-        <button type="button" u-btn="flat" color="primary" (click)="dialogOpen = false">Action 1</button>
-        <button type="button" u-btn="flat" color="primary" (click)="dialogOpen = false">Action 2</button>
-      </div>
-    </u-dialog>
-    <u-circular-progress></u-circular-progress>
-    <div class="u-floating-action-area" uFloatingActionBehavior>
-      <button class="u-btn-floating u-btn-secondary">
-        <i class="u-btn-icon mdi mdi-plus"></i>
-      </button>
-    </div>
-    <u-form-field>
-      <u-chip-field name="chips" [(ngModel)]="chips">
-        <div class="u-chip" *ngFor="let chip of chips; let i = index">
-          <span class="u-chip-label">{{chip}}</span>
-          <div class="u-chip-remove" uRipple (click)="removeChip(i)"><i class="mdi mdi-close-circle"></i></div>
-        </div>
-        <input uChipInput #typeaheadInput [uTypeahead]="search" [(ngModel)]="searchText" (selectItem)="selectCountry($event)" />
-      </u-chip-field>
-      <label uLabel>Country</label>
-    </u-form-field>
-    <div class="u-form-field">
-      <u-form-field>
-        <input uTextInput type="text" [(ngModel)]="textFieldAppearance" />
-        <label uLabel>Appearance</label>
-      </u-form-field>
-    </div>
-    <label class="u-checkbox">
-      <input type="checkbox" [(ngModel)]="textFieldDisabled" />
-      <div class="u-selection-control">
-        <div class="u-check-indicator"></div>
-      </div>
-      <span>Disabled</span>
-    </label>
-    <u-form-field [appearance]="textFieldAppearance" helperText="Informe o nome" invalidText="Você deve informar um nome">
-      <input uTextInput [disabled]="textFieldDisabled" type="text" />
-      <label uLabel>Teste</label>
-    </u-form-field>
-    <div>{{model}}</div>
-    <form #stateForm="ngForm">
-      {{stateForm.controls.state?.invalid}}
+<!--      <u-form-field>-->
+<!--        <u-chip-field name="chips" [(ngModel)]="chips">-->
+<!--          <div class="u-chip" *ngFor="let chip of chips; let i = index">-->
+<!--            <span class="u-chip-label">{{chip}}</span>-->
+<!--            <div class="u-chip-remove" uRipple (click)="removeChip(i)"><i class="mdi mdi-close-circle"></i></div>-->
+<!--          </div>-->
+<!--          <input uChipInput />-->
+<!--        </u-chip-field>-->
+<!--        <label uLabel>Chip input</label>-->
+<!--      </u-form-field>-->
+<!--      <div>{{stateForm.controls.state?.invalid}}</div>-->
+<!--      <u-form-field [invalid]="stateForm.controls.state?.invalid">-->
+<!--        <div class="u-text-field-trailing-icon">-->
+<!--          <span class="u-dropdown-toggle-icon"></span>-->
+<!--        </div>-->
+<!--        <u-select-->
+<!--          name="state"-->
+<!--          direction="up"-->
+<!--          [(ngModel)]="model"-->
+<!--          required-->
+<!--          [selectionFormatter]="stateFormatter"-->
+<!--          [autoClose]="false"-->
+<!--          placeholder="Select state">-->
+<!--          <u-option>None</u-option>-->
+<!--          <u-option *ngFor="let state of states" [value]="state">{{state.name}}</u-option>-->
+<!--        </u-select>-->
+<!--        <label uLabel>Country</label>-->
+<!--      </u-form-field>-->
+<!--    </form>-->
+<!--    <div class="u-form-field">-->
 
-      <u-form-field>
-        <u-chip-field name="chips" [(ngModel)]="chips">
-          <div class="u-chip" *ngFor="let chip of chips; let i = index">
-            <span class="u-chip-label">{{chip}}</span>
-            <div class="u-chip-remove" uRipple (click)="removeChip(i)"><i class="mdi mdi-close-circle"></i></div>
-          </div>
-          <input uChipInput />
-        </u-chip-field>
-        <label uLabel>Chip input</label>
-      </u-form-field>
-      <div>{{stateForm.controls.state?.invalid}}</div>
-      <u-form-field [invalid]="stateForm.controls.state?.invalid">
-        <div class="u-text-field-trailing-icon">
-          <span class="u-dropdown-toggle-icon"></span>
-        </div>
-        <u-select
-          name="state"
-          direction="up"
-          [(ngModel)]="model"
-          required
-          [selectionFormatter]="stateFormatter"
-          [autoClose]="false"
-          placeholder="Select state">
-          <u-option>None</u-option>
-          <u-option *ngFor="let state of states" [value]="state">{{state.name}}</u-option>
-        </u-select>
-        <label uLabel>Country</label>
-      </u-form-field>
-    </form>
-    <div class="u-form-field">
-
-    </div>
-    <div class="u-dropdown" uDropdown>
-      <button u-btn="borderless" class="u-dropdown-toggle" uDropdownToggle tabindex="0">
-        <i class="u-btn-icon mdi mdi-more"></i>
-      </button>
-      <div class="u-dropdown-menu up w-100" uDropdownMenu>
-        <div class="u-dropdown-content">
-          <div class="u-dropdown-item">Option A</div>
-          <div class="u-dropdown-item">Option B</div>
-          <div class="u-dropdown-item">Option C</div>
-        </div>
-      </div>
-    </div>
+<!--    </div>-->
+<!--    <div class="u-dropdown" uDropdown>-->
+<!--      <buttons-example u-btn="borderless" class="u-dropdown-toggle" uDropdownToggle tabindex="0">-->
+<!--        <i class="u-btn-icon mdi mdi-more"></i>-->
+<!--      </buttons-example>-->
+<!--      <div class="u-dropdown-menu up w-100" uDropdownMenu>-->
+<!--        <div class="u-dropdown-content">-->
+<!--          <div class="u-dropdown-item">Option A</div>-->
+<!--          <div class="u-dropdown-item">Option B</div>-->
+<!--          <div class="u-dropdown-item">Option C</div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
 
 
 
-    <div class="u-text-field-container">
-      <div class="u-text-field" style="position: relative;">
-        <div class="u-text-field-trailing-icon">
-          <div class="mdi mdi-menu-down"></div>
-        </div>
-        <input class="u-text-input" id="typeahead-basic" type="text" [(ngModel)]="model" [uTypeahead]="search" />
-        <label>Dropdown</label>
-      </div>
-    </div>
+<!--    <div class="u-text-field-container">-->
+<!--      <div class="u-text-field" style="position: relative;">-->
+<!--        <div class="u-text-field-trailing-icon">-->
+<!--          <div class="mdi mdi-menu-down"></div>-->
+<!--        </div>-->
+<!--        <input class="u-text-input" id="typeahead-basic" type="text" [(ngModel)]="model" [uTypeahead]="search" />-->
+<!--        <label>Dropdown</label>-->
+<!--      </div>-->
+<!--    </div>-->
 
 
   </div>
 </div>
-
-<!--<div class="u-sidebar-layout">-->
-<!--  <div class="u-sidebar u-sidebar-lg-fixed">-->
-<!--    <div class="u-list u-list-hover">-->
-<!--      <div class="u-list-item">Getting started</div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="layout-content">-->
-<!--    -->
-<!--  </div>-->
-<!--</div>-->
-

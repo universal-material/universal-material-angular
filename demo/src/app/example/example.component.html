@@ -1,0 +1,33 @@
+<div class="u-card">
+  <div class="u-toolbar">
+    <div class="u-toolbar-row">
+      <div class="u-toolbar-title">{{title}}</div>
+      <div class="u-toolbar-end">
+        <div class="u-toolbar-actions">
+          <button class="u-toolbar-action" u-btn="borderless" (click)="showCode = !showCode">
+            <i class="u-btn-icon mdi mdi-code-tags"></i>
+          </button>
+          <button class="u-toolbar-action" u-btn="borderless" (click)="createProject()">
+            <i class="u-btn-icon mdi mdi-open-in-new"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showCode">
+    <u-tab-bar [(tabIndex)]="tabIndex">
+      <u-tab>HTML</u-tab>
+      <u-tab>TS</u-tab>
+      <u-tab>CSS</u-tab>
+    </u-tab-bar>
+    <div class="u-card-content" highlightChildren [ngSwitch]="tabIndex">
+      <pre *ngSwitchCase="0"><code [textContent]="htmlCode"></code></pre>
+      <pre *ngSwitchCase="1"><code [textContent]="tsCode"></code></pre>
+      <pre *ngSwitchCase="2"><code [textContent]="fixLineBreaks(cssCode)"></code></pre>
+    </div>
+    <div class="u-divider"></div>
+  </div>
+  <div class="u-card-content">
+    <ng-content></ng-content>
+  </div>
+</div>
