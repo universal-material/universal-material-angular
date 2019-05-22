@@ -8,5 +8,7 @@ export class DropdownToggleDirective {
 
   click = new Subject();
 
-  @HostListener('click', ['$event']) _click = (e) => this.click.next(e);
+  @HostListener('click', ['$event']) _click = (e) => {
+    this.click.next(e);
+  }
 }

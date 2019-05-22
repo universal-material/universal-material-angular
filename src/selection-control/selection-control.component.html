@@ -1,0 +1,12 @@
+<label [ngClass]="appearance ? 'u-' + appearance : ''">
+  <ng-content></ng-content>
+  <span class="u-selection-control" *ngIf="appearance === SelectionControlAppearance.Switch; else notSwitch">
+    <span class="u-check-indicator" uRipple></span>
+  </span>
+  <ng-template #notSwitch>
+    <span class="u-selection-control" uRipple>
+    <span class="u-check-indicator"></span>
+  </span>
+  </ng-template>
+  <span class="u-selection-control-label">{{label}}</span>
+</label>

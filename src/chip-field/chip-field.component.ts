@@ -10,7 +10,7 @@ import {
   Optional,
   Output
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputBaseComponent } from '../shared/input-base.component';
 import { FormFieldComponent } from '../form-field/form-field.component';
 import { ChipInputDirective } from '../chip-field/chip-input.directive';
@@ -27,7 +27,7 @@ const CHIP_INPUT_VALUE_ACCESSOR = {
   styleUrls: ['./chip-field.component.scss'],
   providers: [CHIP_INPUT_VALUE_ACCESSOR]
 })
-export class ChipFieldComponent implements InputBaseComponent, OnInit, DoCheck {
+export class ChipFieldComponent implements InputBaseComponent, ControlValueAccessor, OnInit, DoCheck {
 
   @Input() showIcon: boolean;
   @Input() showRemove: boolean;

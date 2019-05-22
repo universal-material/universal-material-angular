@@ -89,6 +89,11 @@
       "sourceRoot": "src",
       "projectType": "library",
       "prefix": "u",
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",

@@ -1,0 +1,13 @@
+<div class="u-dropdown" uDropdown [autoClose]="autoClose">
+  <button class="u-text-input u-dropdown-toggle" uDropdownToggle type="button" [disabled]="_disabled" [tabIndex]="tabIndex">
+    <div class="u-text-input-placeholder" *ngIf="!date">
+      {{placeholder}}
+    </div>
+    <div class="u-text-input-value" *ngIf="date">
+      {{date | date: _config.format}}
+    </div>
+  </button>
+  <div class="u-dropdown-menu" uDropdownMenu [ngClass]="direction">
+    <u-datepicker [date]="date" (dateChange)="_setDate($event)"></u-datepicker>
+  </div>
+</div>

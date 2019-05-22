@@ -15,6 +15,8 @@ import { FormFieldModule } from './form-field/form-field.module';
 import { ChipFieldModule } from './chip-field/chip-field.module';
 import { TabBarModule } from './tab-bar/tab-bar.module';
 import { SnackbarModule } from './snackbar/snackbar.module';
+import { SelectionControlModule } from './selection-control/selection-control.module';
+import { DatepickerModule } from './datepicker/datepicker.module';
 
 const UniversalMaterialModules = [
   ChipFieldModule,
@@ -30,8 +32,10 @@ const UniversalMaterialModules = [
   ToolbarBehaviorModule,
   FloatingActionBehaviorModule,
   ButtonModule,
+  SelectionControlModule,
   TabBarModule,
-  SnackbarModule
+  SnackbarModule,
+  DatepickerModule
 ];
 
 export { CircularProgressModule } from './circular-progress/circular-progress.module';
@@ -49,6 +53,7 @@ export { InputBaseComponent } from './shared/input-base.component';
 export { TextInputBase } from './shared/text-input-base';
 
 export { FormFieldModule } from './form-field/form-field.module';
+export { SelectionControlModule }from './selection-control/selection-control.module';
 
 export { ChipFieldComponent } from './chip-field/chip-field.component';
 export { ChipFieldModule } from './chip-field/chip-field.module';
@@ -78,11 +83,19 @@ export {
   ViewPagerSlideComponent
 } from './view-pager/view-pager.module';
 
+export {
+  DatepickerModule,
+  DatepickerConfig,
+  DatepickerInputConfig,
+  DATEPICKER_DEFAULT_OPTIONS,
+  DATEPICKER_INPUT_DEFAULT_OPTIONS
+} from './datepicker/datepicker.module';
+
 export { ToolbarBehaviorModule } from './toolbar-behavior/toolbar-behavior.module';
 export { FloatingActionBehaviorModule } from './floating-action-behavior/floating-action-behavior.module';
 
 @NgModule({
-  imports: [UniversalMaterialModules],
+  imports: UniversalMaterialModules,
   exports: UniversalMaterialModules
 })
 export class UniversalMaterialModule {

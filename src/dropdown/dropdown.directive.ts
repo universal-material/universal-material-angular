@@ -10,7 +10,7 @@ export class DropdownDirective implements OnInit {
 
   private _justToggle = false;
 
-  @Input() autoClose = true;
+  @Input() autoClose: boolean | 'outside' = true;
   @Input() open: boolean;
   @Output() openChange = new EventEmitter<boolean>();
 
@@ -23,7 +23,9 @@ export class DropdownDirective implements OnInit {
       return;
     }
 
-    this._autoClose();
+    if ((this.autoClose || this.autoClose === 'outside') && this._dropdownMenu.show) {
+      this._dropdownMenu.show = false;
+    }
   }
 
   private _autoClose() {
@@ -39,7 +41,10 @@ export class DropdownDirective implements OnInit {
       this._dropdownMenu.show = !this._dropdownMenu.show;
     });
     this._dropdownMenu.click.subscribe((e: Event) => {
-      this._autoClose();
+
+      if (this.autoClose && this.autoClose !== 'outside' && this._dropdownMenu.show) {
+        this._dropdownMenu.show = false;
+      }
     });
   }
 }

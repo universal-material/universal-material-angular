@@ -90,12 +90,12 @@ export class RippleDirective {
       const largestDimensionSize = Math.max(rippleWrapper.clientWidth, rippleWrapper.clientHeight);
       const rippleSize = this.rippleConfig.size || largestDimensionSize * 2;
       RippleDirective._setElementSquareSizeAndCenter(ripple, rippleSize);
-      ripple.style.transitionDuration = (1080 * Math.pow(rippleSize, 0.3)) + 'ms, 750ms';
+      ripple.style.transitionDuration = `${1080 * Math.pow(rippleSize, 0.3)}ms, 750ms`;
 
       const x = (pageX - clientRect.left) + ((rippleSize - this._elementRef.nativeElement.clientWidth) / 2);
       const y = (pageY - clientRect.top) + ((rippleSize - this._elementRef.nativeElement.clientHeight) / 2);
 
-      ripple.style.transformOrigin = x + 'px ' + y + 'px';
+      ripple.style.transformOrigin = `${x}px ${y}px`;
       ripple.classList.add('show');
     });
   }

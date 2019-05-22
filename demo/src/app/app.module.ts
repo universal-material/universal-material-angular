@@ -35,7 +35,19 @@ import { ButtonsComponent } from './components/buttons/buttons.component';
 import { ExampleComponent } from './example/example.component';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { SimpleSnackbarExampleComponent } from './components/snackbar/simple-snackbar-example/simple-snackbar-example.component';
-
+import { InputComponent } from './components/input/input.component';
+import { TextFieldExampleComponent } from './components/input/text-field-example/text-field-example.component';
+import { SelectionControlModule } from '@universal-material/angular/selection-control/selection-control.module';
+import { SelectionControlsComponent } from './components/selection-controls/selection-controls.component';
+import {
+  SelectionControlsExampleComponent
+} from './components/selection-controls/selection-controls-example/selection-controls-example.component';
+import { DatepickerModule } from '@universal-material/angular/datepicker/datepicker.module';
+import { DatepickerComponent } from './components/datepicker/datepicker.component';
+import { DatepickerExampleComponent } from './components/datepicker/datepicker-example/datepicker-example.component';
+import { DATEPICKER_DEFAULT_OPTIONS } from '@universal-material/angular/datepicker/datepicker-config.model';
+import { SelectComponent } from './components/select/select.component';
+import { SelectExampleComponent } from './components/select/select-example/select-example.component';
 
 
 /**
@@ -58,7 +70,15 @@ export function hljsLanguages() {
     ButtonsComponent,
     ExampleComponent,
     SnackbarComponent,
-    SimpleSnackbarExampleComponent
+    SimpleSnackbarExampleComponent,
+    InputComponent,
+    TextFieldExampleComponent,
+    SelectionControlsComponent,
+    SelectionControlsExampleComponent,
+    DatepickerComponent,
+    DatepickerExampleComponent,
+    SelectComponent,
+    SelectExampleComponent
   ],
   imports: [
     AppRoutingModule,
@@ -78,6 +98,8 @@ export function hljsLanguages() {
     RippleModule,
     ToolbarBehaviorModule,
     FloatingActionBehaviorModule,
+    SelectionControlModule,
+    DatepickerModule,
     ButtonModule,
     TextFieldModule,
     DropdownModule,
@@ -90,7 +112,13 @@ export function hljsLanguages() {
     SnackbarModule
   ],
   providers: [
-    {provide: FORM_FIELD_DEFAULT_APPEARANCE, useValue: 'box'}
+    {provide: FORM_FIELD_DEFAULT_APPEARANCE, useValue: 'box'},
+    // {
+    //   provide: DATEPICKER_DEFAULT_OPTIONS,
+    //   useValue: {
+    //     clearLabel: 'Clear date'
+    //   }
+    // }
   ],
   bootstrap: [AppComponent]
 })

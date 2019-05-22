@@ -1,0 +1,16 @@
+<u-form-field>
+  <div class="u-text-field-trailing-icon">
+    <span class="u-dropdown-toggle-icon"></span>
+  </div>
+  <u-select
+    name="state"
+    direction="down"
+    [selectionFormatter]="stateFormatter"
+    required
+    [autoClose]="false"
+    placeholder="Select state">
+    <u-option>None</u-option>
+    <u-option *ngFor="let state of states$ | async" [value]="state">{{state.name}}</u-option>
+  </u-select>
+  <label uLabel>Country</label>
+</u-form-field>
