@@ -31,8 +31,4 @@ export class ExampleComponent {
       name: this.dashName
     });
   }
-
-  fixLineBreaks(code: string): string {
-    return replaceAll(code, ' }', '\n}');
-  }
 }

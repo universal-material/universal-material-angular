@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import htmlCode from './selection-controls-example/selection-controls-example.component.html';
-import cssCode from './selection-controls-example/selection-controls-example.component.scss';
+import cssCode from '!raw-loader!./selection-controls-example/selection-controls-example.component.scss';
 // @ts-ignore
 import tsCode from '!raw-loader!./selection-controls-example/selection-controls-example.component.ts';
 

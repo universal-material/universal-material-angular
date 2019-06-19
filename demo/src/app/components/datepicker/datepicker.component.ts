@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import htmlCode from './datepicker-example/datepicker-example.component.html';
-import cssCode from './datepicker-example/datepicker-example.component.scss';
+import cssCode from '!raw-loader!./datepicker-example/datepicker-example.component.scss';
 // @ts-ignore
 import tsCode from '!raw-loader!./datepicker-example/datepicker-example.component.ts';
 

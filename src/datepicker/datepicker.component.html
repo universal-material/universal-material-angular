@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="u-btn-set justify-content-end">
-      <button u-btn="flat" color="primary" (click)="selectDate(null)">{{_config.clearLabel}}</button>
+      <button *ngIf="!_innerConfig.hideClear" type="button" u-btn="flat" color="primary" (click)="selectDate(null)">{{_innerConfig.clearLabel}}</button>
     </div>
   </ng-template>
   <ng-template [ngIf]="pickerState === DatepickerState.SelectYear">

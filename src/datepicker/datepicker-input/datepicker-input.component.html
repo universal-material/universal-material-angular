@@ -4,10 +4,10 @@
       {{placeholder}}
     </div>
     <div class="u-text-input-value" *ngIf="date">
-      {{date | date: _config.format}}
+      {{date | date: _innerConfig.format}}
     </div>
   </button>
   <div class="u-dropdown-menu" uDropdownMenu [ngClass]="direction">
-    <u-datepicker [date]="date" (dateChange)="_setDate($event)"></u-datepicker>
+    <u-datepicker [date]="date" (dateChange)="_setDate($event)" ></u-datepicker>
   </div>
 </div>

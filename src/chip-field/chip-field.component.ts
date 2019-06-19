@@ -29,12 +29,10 @@ const CHIP_INPUT_VALUE_ACCESSOR = {
 })
 export class ChipFieldComponent implements InputBaseComponent, ControlValueAccessor, OnInit, DoCheck {
 
-  @Input() showIcon: boolean;
-  @Input() showRemove: boolean;
   @Input() itemFormatter: (item: any) => string;
   @Input() items: any[];
   @Output() itemsChange = new EventEmitter();
-  @Output() itemRemoved = new EventEmitter();
+  @Output() afterRemove = new EventEmitter();
 
   @Input() addOnEnter = true;
   @Input() removeOnBackspace = true;
@@ -81,12 +79,14 @@ export class ChipFieldComponent implements InputBaseComponent, ControlValueAcces
         return;
       }
 
+      const item = this.items[this.items.length - 1];
       this.items.splice(this.items.length - 1, 1);
+      this.afterRemove.emit(item);
     });
   }
 
-  private _onTouched = () => {}
-  private _onChange = (_: any) => {}
+  private _onTouched = () => {};
+  private _onChange = (_: any) => {};
 
   removeItem(item: {}) {
 
@@ -96,7 +96,7 @@ export class ChipFieldComponent implements InputBaseComponent, ControlValueAcces
 
     const index = this.items.indexOf(item);
     this.items.splice(index, 1);
-    this.itemRemoved.emit(item);
+    this.afterRemove.emit(item);
     this.itemsChange.emit(this.items);
     this._onChange(this.items);
   }

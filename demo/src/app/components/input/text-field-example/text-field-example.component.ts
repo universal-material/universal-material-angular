@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TextFieldExampleComponent implements OnInit {
 
-  constructor() { }
+  invalid: boolean;
+
+  constructor() {}
 
   ngOnInit() {
   }

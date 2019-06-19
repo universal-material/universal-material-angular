@@ -8,5 +8,7 @@
     <span class="u-check-indicator"></span>
   </span>
   </ng-template>
-  <span class="u-selection-control-label">{{label}}</span>
+  <span class="u-selection-control-label">{{label}}
+    <ng-content select="[uLabel]"></ng-content>
+  </span>
 </label>

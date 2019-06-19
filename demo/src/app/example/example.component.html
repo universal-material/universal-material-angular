@@ -18,13 +18,13 @@
     <u-tab-bar [(tabIndex)]="tabIndex">
       <u-tab>HTML</u-tab>
       <u-tab>TS</u-tab>
-      <u-tab>CSS</u-tab>
+      <u-tab>SCSS</u-tab>
     </u-tab-bar>
     <div class="u-divider"></div>
     <div class="u-card-content" highlightChildren [ngSwitch]="tabIndex">
       <pre *ngSwitchCase="0"><code [textContent]="htmlCode"></code></pre>
       <pre *ngSwitchCase="1"><code [textContent]="tsCode"></code></pre>
-      <pre *ngSwitchCase="2"><code [textContent]="fixLineBreaks(cssCode)"></code></pre>
+      <pre *ngSwitchCase="2"><code [textContent]="cssCode"></code></pre>
     </div>
     <div class="u-divider"></div>
   </div>

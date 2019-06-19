@@ -17,7 +17,7 @@ export class DatepickerComponent implements OnChanges {
   private readonly _yearsGroupsCount = 6;
   private readonly _yearsPerGroup = 4;
 
-  readonly _config: DatepickerConfig;
+  _innerConfig: DatepickerConfig;
 
   readonly weekDayNames: string[];
   readonly totalVisibleYears = this._yearsGroupsCount * this._yearsPerGroup;
@@ -33,40 +33,37 @@ export class DatepickerComponent implements OnChanges {
   DatepickerState = DatepickerState;
   pickerState = DatepickerState.SelectDay;
 
+  @Input() config: DatepickerConfig;
   @Input() date;
   @Output() dateChange = new EventEmitter();
 
   constructor(@Inject(LOCALE_ID) private readonly _locale: string,
-              @Optional() @Inject(DATEPICKER_DEFAULT_OPTIONS) defaultConfig: DatepickerConfig) {
-    this._config = {
-      ...DefaultDatepickerConfig,
-      firstDayOfWeek: getLocaleFirstDayOfWeek(_locale),
-      ...defaultConfig
-    };
+              @Optional() @Inject(DATEPICKER_DEFAULT_OPTIONS) private readonly _defaultConfig: DatepickerConfig) {
+    this._setInnerConfig();
 
-    this.weekDayNames = this.getOrderedWeekDayNames();
+    this.weekDayNames = this._getOrderedWeekDayNames();
 
-    this.setDate(null);
+    this._setDate(null);
     this.setYearGroups(this.currentMonth.getUTCFullYear() - 2);
-    this.setMonthGroups();
+    this._setMonthGroups();
   }
 
-  getOrderedWeekDayNames(): string[] {
+  private _getOrderedWeekDayNames(): string[] {
     const orderedDayNames = [];
     const dayNames = getLocaleDayNames(this._locale, FormStyle.Standalone, TranslationWidth.Narrow);
-    let currentDay = this._config.firstDayOfWeek;
+    let currentDay = this._innerConfig.firstDayOfWeek;
 
     do {
       orderedDayNames.push(dayNames[currentDay]);
 
-      currentDay = this.getNextWeekDay(currentDay);
+      currentDay = this._getNextWeekDay(currentDay);
     }
-    while (currentDay !== this._config.firstDayOfWeek);
+    while (currentDay !== this._innerConfig.firstDayOfWeek);
 
     return orderedDayNames;
   }
 
-  getNextWeekDay(weekDay: WeekDay) {
+  private _getNextWeekDay(weekDay: WeekDay) {
     return weekDay === WeekDay.Saturday
       ? WeekDay.Sunday
       : ++weekDay;
@@ -87,7 +84,16 @@ export class DatepickerComponent implements OnChanges {
     }
   }
 
-  private setMonthGroups() {
+  private _setInnerConfig() {
+    this._innerConfig = {
+      ...DefaultDatepickerConfig,
+      firstDayOfWeek: getLocaleFirstDayOfWeek(this._locale),
+      ...this._defaultConfig,
+      ...this.config
+    };
+  }
+
+  private _setMonthGroups() {
     let m = 0;
 
     while (m < 12) {
@@ -102,24 +108,24 @@ export class DatepickerComponent implements OnChanges {
   }
 
   setYear(year: number) {
-    this.setCurrentMonth(new Date(year, this.currentMonth.getUTCMonth()));
+    this._setCurrentMonth(new Date(year, this.currentMonth.getUTCMonth()));
     this.pickerState = DatepickerState.SelectMonth;
   }
 
   setMonth(month: Date) {
-    this.setCurrentMonth(new Date(this.currentMonth.getUTCFullYear(), month.getUTCMonth()));
+    this._setCurrentMonth(new Date(this.currentMonth.getUTCFullYear(), month.getUTCMonth()));
     this.pickerState = DatepickerState.SelectDay;
   }
 
-  private setDate(date: Date) {
+  private _setDate(date: Date) {
     this.date = date;
 
     date = date || new Date();
-    this.setCurrentMonth(new Date(date.getUTCFullYear(), date.getUTCMonth()));
+    this._setCurrentMonth(new Date(date.getUTCFullYear(), date.getUTCMonth()));
   }
 
-  private addToCurrentMonth(value: number) {
-    this.setCurrentMonth(new Date(this.currentMonth.getUTCFullYear(), this.currentMonth.getUTCMonth() + value));
+  private _addToCurrentMonth(value: number) {
+    this._setCurrentMonth(new Date(this.currentMonth.getUTCFullYear(), this.currentMonth.getUTCMonth() + value));
   }
 
   private _getCurrentMonthInitialDate(): Date {
@@ -129,22 +135,22 @@ export class DatepickerComponent implements OnChanges {
   private _getInitialDateForCurrentMonth(): Date {
     const currentMonthInitialDate = this._getCurrentMonthInitialDate();
 
-    if (currentMonthInitialDate.getDay() === this._config.firstDayOfWeek) {
+    if (currentMonthInitialDate.getDay() === this._innerConfig.firstDayOfWeek) {
       return currentMonthInitialDate;
     }
 
-    if (currentMonthInitialDate.getDay() > this._config.firstDayOfWeek) {
+    if (currentMonthInitialDate.getDay() > this._innerConfig.firstDayOfWeek) {
       currentMonthInitialDate
-        .setDate(currentMonthInitialDate.getDate() - (currentMonthInitialDate.getDay() - this._config.firstDayOfWeek));
+        .setDate(currentMonthInitialDate.getDate() - (currentMonthInitialDate.getDay() - this._innerConfig.firstDayOfWeek));
     } else {
       currentMonthInitialDate
-        .setDate(currentMonthInitialDate.getDate() - (WeekDay.Saturday - (this._config.firstDayOfWeek - currentMonthInitialDate.getDay() - 1)));
+        .setDate(currentMonthInitialDate.getDate() - (WeekDay.Saturday - (this._innerConfig.firstDayOfWeek - currentMonthInitialDate.getDay() - 1)));
     }
 
     return currentMonthInitialDate;
   }
 
-  private setCurrentMonth(date: Date) {
+  private _setCurrentMonth(date: Date) {
     this.currentMonth = date;
     this.weeks.length = 0;
     const processDate = new Date(this._getInitialDateForCurrentMonth());
@@ -166,30 +172,30 @@ export class DatepickerComponent implements OnChanges {
   }
 
   showNextMonth() {
-    this.addToCurrentMonth(1);
+    this._addToCurrentMonth(1);
   }
 
   showPreviousMonth() {
-    this.addToCurrentMonth(-1);
+    this._addToCurrentMonth(-1);
   }
 
   selectDate(date: Date) {
-    this.setDate(date);
+    this._setDate(date);
     this.dateChange.emit(date);
   }
 
-  datesAreEqual(dateA: Date, dateB: Date) {
+  private _datesAreEqual(dateA: Date, dateB: Date) {
     return dateA.getUTCMonth() === dateB.getUTCMonth()
       && dateA.getUTCFullYear() === dateB.getUTCFullYear()
       && dateA.getDate() === dateB.getDate();
   }
 
   isEqualToSelectedDate(date: Date) {
-    return this.date && this.datesAreEqual(this.date, date);
+    return this.date && this._datesAreEqual(this.date, date);
   }
 
   isEqualToTodayDate(date: Date) {
-    return this.datesAreEqual(new Date(), date);
+    return this._datesAreEqual(new Date(), date);
   }
 
   trackByWeek(index: number, week: Week) {
@@ -202,7 +208,11 @@ export class DatepickerComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.date && changes.date.currentValue && changes.date.currentValue !== changes.date.previousValue) {
-      this.setDate(changes.date.currentValue);
+      this._setDate(changes.date.currentValue);
+    }
+
+    if (changes.config) {
+      this._innerConfig = {...DefaultDatepickerConfig, ...this._defaultConfig, ...this.config};
     }
   }
 }

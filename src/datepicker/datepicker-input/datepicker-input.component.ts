@@ -36,7 +36,7 @@ export class DatepickerInputComponent implements InputBaseComponent, ControlValu
 
   date: Date;
   _disabled: boolean;
-  _config: DatepickerInputConfig;
+  _innerConfig: DatepickerInputConfig;
 
   get focused(): boolean {
     return this._dropdownMenu && this._dropdownMenu.show;
@@ -56,7 +56,7 @@ export class DatepickerInputComponent implements InputBaseComponent, ControlValu
       formField._input = this;
     }
 
-    this._config = {...DefaultDatepickerInputConfig, ..._userDefaultConfig};
+    this._innerConfig = {...DefaultDatepickerInputConfig, ..._userDefaultConfig};
   }
 
   private _onTouched = () => {};
@@ -90,7 +90,7 @@ export class DatepickerInputComponent implements InputBaseComponent, ControlValu
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.config) {
-      this._config = {...DefaultDatepickerInputConfig, ...this._userDefaultConfig, ...this.config};
+      this._innerConfig = {...DefaultDatepickerInputConfig, ...this._userDefaultConfig, ...this.config};
     }
   }
 }

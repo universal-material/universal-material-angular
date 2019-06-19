@@ -13,6 +13,7 @@ export const FORM_FIELD_DEFAULT_APPEARANCE = new InjectionToken('FORM_FIELD_DEFA
 })
 export class FormFieldComponent {
 
+  _appearanceClass: string;
   _appearance: FormFieldAppearance;
   _defaultAppearance: FormFieldAppearance;
 
@@ -20,29 +21,34 @@ export class FormFieldComponent {
   _input: InputBaseComponent;
 
   @Input() invalid: boolean;
+  @Input() removeMargin: boolean;
   @Input() helperText: string;
-  @Input() invalidText: string;
+  @Input() errorMessage: string;
 
   @Input()
   get appearance(): FormFieldAppearance {
-    if (!this._appearance || this._appearance === 'default') {
-      return this._defaultAppearance;
-    }
-
-    if (this._appearance === 'floating-label' ||
-      this._appearance === 'box' ||
-      this._appearance === 'outline') {
-      return this._appearance;
-    }
-
-    return null;
+    return this._appearance;
   }
-
   set appearance(value: FormFieldAppearance) {
     this._appearance = value;
+
+    if (!value || value === 'default') {
+      this._appearanceClass = this._defaultAppearance;
+    }
+
+    if (value.indexOf('search') > -1) {
+      this._appearanceClass = value === 'search-elevated'
+        ? 'u-search-field u-search-field-elevated'
+        : 'u-search-field';
+      return;
+    }
+
+    this._appearanceClass = `u-text-field-${value}`;
   }
+
 
   constructor(@Optional() @Inject(FORM_FIELD_DEFAULT_APPEARANCE) defaultAppearance: FormFieldAppearance) {
     this._defaultAppearance = defaultAppearance || 'box';
+    this.appearance = this._defaultAppearance;
   }
 }

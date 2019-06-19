@@ -28,11 +28,12 @@ export interface SelectItemEvent {
 @Component({
   selector: 'u-select',
   templateUrl: './select.component.html',
-  styleUrls: [ './select.component.scss' ],
+  styleUrls: ['./select.component.scss'],
   providers: [SelectValueAcessor]
 })
 export class SelectComponent implements InputBaseComponent, ControlValueAccessor {
 
+  private _emptyOverride: boolean;
   _disabled: boolean;
 
   @Input() autoClose = true;
@@ -47,8 +48,18 @@ export class SelectComponent implements InputBaseComponent, ControlValueAccessor
     return this._dropdownMenu && this._dropdownMenu.show;
   }
 
+  @Input()
+  set empty(value: boolean) {
+    this._emptyOverride = value;
+  }
+
   get empty(): boolean {
-    return !this.selectedItem;
+
+    if (this._emptyOverride !== undefined) {
+      return this._emptyOverride;
+    }
+
+    return this.selectedItem === undefined || this.selectedItem === null;
   }
 
   get disabled(): boolean {
@@ -72,16 +83,18 @@ export class SelectComponent implements InputBaseComponent, ControlValueAccessor
     }
   }
 
-  nothingSelected() {
-    return this.selectedItem === null || this.selectedItem === undefined;
+  private _onTouched = () => {
   }
-
-  private _onTouched = () => {};
-  private _onChange = (_: any) => {};
+  private _onChange = (_: any) => {
+  }
 
   _setItem(item: any) {
     let defaultPrevented = false;
-    this.selectItem.emit({item: item, preventDefault: () => { defaultPrevented = true; }});
+    this.selectItem.emit({
+      item: item, preventDefault: () => {
+        defaultPrevented = true;
+      }
+    });
 
     if (!defaultPrevented) {
       this.writeValue(item);
@@ -89,11 +102,17 @@ export class SelectComponent implements InputBaseComponent, ControlValueAccessor
     }
   }
 
-  registerOnChange(fn: (value: any) => any): void { this._onChange = fn; }
+  registerOnChange(fn: (value: any) => any): void {
+    this._onChange = fn;
+  }
 
-  registerOnTouched(fn: () => any): void { this._onTouched = fn; }
+  registerOnTouched(fn: () => any): void {
+    this._onTouched = fn;
+  }
 
-  writeValue(value) { this.selectedItem = value; }
+  writeValue(value) {
+    this.selectedItem = value;
+  }
 
   setDisabledState(isDisabled: boolean): void {
     this._disabled = isDisabled;

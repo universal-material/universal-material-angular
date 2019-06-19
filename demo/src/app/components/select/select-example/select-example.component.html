@@ -7,8 +7,9 @@
     direction="down"
     [selectionFormatter]="stateFormatter"
     required
-    [autoClose]="false"
-    placeholder="Select state">
+    [autoClose]="true"
+    placeholder="Select state"
+    [(ngModel)]="selectedState">
     <u-option>None</u-option>
     <u-option *ngFor="let state of states$ | async" [value]="state">{{state.name}}</u-option>
   </u-select>

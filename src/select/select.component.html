@@ -1,9 +1,9 @@
 <div class="u-dropdown" uDropdown [autoClose]="autoClose">
   <button class="u-text-input u-dropdown-toggle" uDropdownToggle type="button" [disabled]="_disabled" [tabIndex]="tabIndex">
-    <div class="u-text-input-placeholder" *ngIf="nothingSelected()">
+    <div class="u-text-input-placeholder" *ngIf="empty">
       {{placeholder}}
     </div>
-    <div class="u-text-input-value" *ngIf="!nothingSelected()">
+    <div class="u-text-input-value" *ngIf="!empty">
       {{selectionFormatter ? selectionFormatter(selectedItem) : selectedItem}}
     </div>
   </button>

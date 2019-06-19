@@ -9,4 +9,5 @@ export const DefaultDatepickerConfig: DatepickerConfig = {
 export interface DatepickerConfig {
   firstDayOfWeek?: number;
   clearLabel?: string;
+  hideClear?: boolean;
 }

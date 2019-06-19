@@ -39,15 +39,16 @@ import { InputComponent } from './components/input/input.component';
 import { TextFieldExampleComponent } from './components/input/text-field-example/text-field-example.component';
 import { SelectionControlModule } from '@universal-material/angular/selection-control/selection-control.module';
 import { SelectionControlsComponent } from './components/selection-controls/selection-controls.component';
-import {
-  SelectionControlsExampleComponent
-} from './components/selection-controls/selection-controls-example/selection-controls-example.component';
+import { SelectionControlsExampleComponent } from './components/selection-controls/selection-controls-example/selection-controls-example.component';
 import { DatepickerModule } from '@universal-material/angular/datepicker/datepicker.module';
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
 import { DatepickerExampleComponent } from './components/datepicker/datepicker-example/datepicker-example.component';
-import { DATEPICKER_DEFAULT_OPTIONS } from '@universal-material/angular/datepicker/datepicker-config.model';
 import { SelectComponent } from './components/select/select.component';
 import { SelectExampleComponent } from './components/select/select-example/select-example.component';
+import { RipplesComponent } from './components/ripples/ripples.component';
+import { RipplesExampleComponent } from './components/ripples/ripples-example/ripples-example.component';
+import { ChipInputComponent } from './components/chip-input/chip-input.component';
+import { ChipInputExampleComponent } from './components/chip-input/chip-input-example/chip-input-example.component';
 
 
 /**
@@ -78,7 +79,11 @@ export function hljsLanguages() {
     DatepickerComponent,
     DatepickerExampleComponent,
     SelectComponent,
-    SelectExampleComponent
+    SelectExampleComponent,
+    RipplesComponent,
+    RipplesExampleComponent,
+    ChipInputComponent,
+    ChipInputExampleComponent
   ],
   imports: [
     AppRoutingModule,
@@ -116,7 +121,7 @@ export function hljsLanguages() {
     // {
     //   provide: DATEPICKER_DEFAULT_OPTIONS,
     //   useValue: {
-    //     clearLabel: 'Clear date'
+    //     clearLabel: 'Clear date',
     //   }
     // }
   ],

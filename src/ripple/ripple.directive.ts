@@ -1,12 +1,12 @@
-import { Directive, ElementRef, HostListener, Inject, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener, Inject, Input, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
-import { RippleConfig } from '@universal-material/core';
+import { RippleConfig } from './ripple-config.model';
 
 @Directive({
   selector: '[uRipple]'
 })
-export class RippleDirective {
+export class RippleDirective implements OnInit {
 
   @Input() rippleConfig: RippleConfig = {};
   disabled = false;
@@ -14,12 +14,6 @@ export class RippleDirective {
 
   constructor(protected readonly _elementRef: ElementRef,
               @Inject(DOCUMENT) private document: any) {
-
-
-    if (document.defaultView.getComputedStyle(_elementRef.nativeElement).position !== 'absolute' &&
-        document.defaultView.getComputedStyle(_elementRef.nativeElement).position !== 'fixed') {
-      _elementRef.nativeElement.style.position = 'relative';
-    }
   }
 
   private static _setElementSquareSizeAndCenter(element: HTMLElement, size: number) {
@@ -46,6 +40,12 @@ export class RippleDirective {
     }, e.touches[0].clientX, e.touches[0].clientY);
   }
 
+  ngOnInit(): void {
+    if (document.defaultView.getComputedStyle(this._elementRef.nativeElement).position !== 'absolute' &&
+      document.defaultView.getComputedStyle(this._elementRef.nativeElement).position !== 'fixed') {
+      this._elementRef.nativeElement.style.position = 'relative';
+    }
+  }
 
   createRipple(releaseEventName: string, releaseCallback: Function, pageX: number, pageY: number) {
     if (this.disabled) { return; }
@@ -76,11 +76,13 @@ export class RippleDirective {
 
     window.addEventListener(releaseEventName, release);
     this._elementRef.nativeElement.addEventListener('dragover', release);
+    this._elementRef.nativeElement.addEventListener('mouseleave', release);
 
     ripple.addEventListener('transitionend', () => {
       if (ripple.classList.contains('dismiss')) {
         this._elementRef.nativeElement.removeChild(rippleWrapper);
         this._elementRef.nativeElement.removeEventListener('dragover', release);
+        this._elementRef.nativeElement.removeEventListener('mouseleave', release);
         window.removeEventListener(releaseEventName, release);
       }
     });

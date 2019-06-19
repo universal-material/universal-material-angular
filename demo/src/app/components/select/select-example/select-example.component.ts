@@ -7,7 +7,9 @@ import { Observable, of } from 'rxjs';
   styleUrls: ['./select-example.component.scss']
 })
 export class SelectExampleComponent {
-  private states$: Observable<{ name: string }[]>;
+  states$: Observable<{ name: string }[]>;
+
+  selectedState = {name: 'Alabama'};
 
   constructor() {
     this.states$ = of([
