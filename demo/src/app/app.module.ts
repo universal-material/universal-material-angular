@@ -49,6 +49,10 @@ import { RipplesComponent } from './components/ripples/ripples.component';
 import { RipplesExampleComponent } from './components/ripples/ripples-example/ripples-example.component';
 import { ChipInputComponent } from './components/chip-input/chip-input.component';
 import { ChipInputExampleComponent } from './components/chip-input/chip-input-example/chip-input-example.component';
+import { TabsComponent } from './components/tabs/tabs.component';
+import { TabsExampleComponent } from './components/tabs/tabs-example/tabs-example.component';
+import { TypeaheadComponent } from './components/typeahead/typeahead.component';
+import { TypeaheadExampleComponent } from './components/typeahead/typeahead-example/typeahead-example.component';
 
 
 /**
@@ -83,7 +87,11 @@ export function hljsLanguages() {
     RipplesComponent,
     RipplesExampleComponent,
     ChipInputComponent,
-    ChipInputExampleComponent
+    ChipInputExampleComponent,
+    TabsComponent,
+    TabsExampleComponent,
+    TypeaheadComponent,
+    TypeaheadExampleComponent
   ],
   imports: [
     AppRoutingModule,

@@ -1,8 +1,9 @@
 <u-form-field>
   <u-chip-field [(items)]="items">
-    <div class="u-chip" *ngFor="let item of items, let i = $index"><span class="u-chip-label">{{item}}</span>
-      <div class="u-chip-remove" uRipple="uRipple" (click)="removeMember(member)"><i class="mdi mdi-close-circle"></i></div>
+    <div class="u-chip" *ngFor="let item of items, let i = index"><span class="u-chip-label">{{item}}</span>
+      <div class="u-chip-remove" uRipple="uRipple" (click)="removeItem(i)"><i class="mdi mdi-close-circle"></i></div>
     </div>
-    <input uChipInput [disabled]="true"/>
+    <input uChipInput/>
   </u-chip-field>
+  <label uLabel>Names</label>
 </u-form-field>

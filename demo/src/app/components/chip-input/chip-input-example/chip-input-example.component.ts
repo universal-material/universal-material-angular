@@ -8,4 +8,8 @@ import { Component } from '@angular/core';
 export class ChipInputExampleComponent {
 
   items = [];
+
+  removeItem(index: number) {
+    this.items.splice(index, 1);
+  }
 }

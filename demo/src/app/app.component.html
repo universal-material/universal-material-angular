@@ -1,13 +1,18 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
-<div class="u-drawer u-drawer-lg-dismissible">
+<div class="u-drawer u-drawer-lg-permanent" [class.open]="showMenu">
   <aside class="u-drawer-content u-navigation-drawer">
     <app-navigation></app-navigation>
   </aside>
-  <div class="u-drawer-backdrop"></div>
+  <div class="u-drawer-backdrop" (click)="showMenu = false"></div>
 
   <div class="u-toolbar u-toolbar-fixed u-toolbar-primary" uToolbarBehavior>
     <div class="u-toolbar-row">
+      <div class="u-toolbar-start d-lg-none">
+        <button type="button" class="u-toolbar-navigation" u-btn="borderless" (click)="showMenu = !showMenu">
+          <i class="u-btn-icon mdi mdi-menu"></i>
+        </button>
+      </div>
       <div class="u-toolbar-title">Universal Material Angular</div>
     </div>
   </div>

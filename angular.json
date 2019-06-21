@@ -41,6 +41,7 @@
                   "with": "demo/src/environments/environment.prod.ts"
                 }
               ],
+              "baseHref": "/angular/",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,

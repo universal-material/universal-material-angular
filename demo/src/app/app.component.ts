@@ -26,6 +26,8 @@ const stateObjects = [{name:'Alabama'}, {name:'Alaska'}, {name:'American Samoa'}
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  showMenu = false;
   title = 'demo';
   dialogOpen: boolean;
   dropdownOpen: boolean;

@@ -9,6 +9,8 @@ import { DatepickerComponent } from './components/datepicker/datepicker.componen
 import { SelectComponent } from './components/select/select.component';
 import { RipplesComponent } from './components/ripples/ripples.component';
 import { ChipInputComponent } from './components/chip-input/chip-input.component';
+import { TabsComponent } from './components/tabs/tabs.component';
+import { TypeaheadComponent } from './components/typeahead/typeahead.component';
 
 const routes: Routes = [
   {
@@ -32,12 +34,20 @@ const routes: Routes = [
     component: RipplesComponent
   },
   {
+    path: 'tabs',
+    component: TabsComponent
+  },
+  {
     path: 'select',
     component: SelectComponent
   },
   {
     path: 'selection-controls',
     component: SelectionControlsComponent
+  },
+  {
+    path: 'typeahead',
+    component: TypeaheadComponent
   },
   {
     path: 'snackbar',
