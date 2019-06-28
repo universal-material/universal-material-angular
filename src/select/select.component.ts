@@ -39,7 +39,6 @@ export class SelectComponent implements InputBaseComponent, ControlValueAccessor
   @Input() autoClose = true;
   @Input() appearance: any;
   @Input() placeholder: string;
-  @Input() nullSelectionLabel: string;
   @Input() tabIndex: number;
 
   @ViewChild(DropdownMenuDirective) _dropdownMenu: DropdownMenuDirective;

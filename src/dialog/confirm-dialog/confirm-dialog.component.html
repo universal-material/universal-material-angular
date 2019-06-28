@@ -5,7 +5,13 @@
   </div>
   <div class="u-dialog-body u-text-low-contrast" uDialogBody>{{message}}</div>
   <div class="u-dialog-actions">
-    <button type="button" u-btn="flat" color="primary" (click)="_cancelClick()">{{_confirmDialogConfig.cancelLabel}}</button>
-    <button type="button" u-btn="flat" color="primary" (click)="_confirmClick()">{{_confirmDialogConfig.confirmLabel}}</button>
+    <button type="button"
+            [u-btn]="_confirmDialogConfig.cancelButton.appearance"
+            [color]="_confirmDialogConfig.cancelButton.color"
+            (click)="_cancelClick()">{{_confirmDialogConfig.cancelButton.text}}</button>
+    <button type="button"
+            [u-btn]="_confirmDialogConfig.confirmButton.appearance"
+            [color]="_confirmDialogConfig.confirmButton.color"
+            (click)="_confirmClick()">{{_confirmDialogConfig.confirmButton.text}}</button>
   </div>
 </div>

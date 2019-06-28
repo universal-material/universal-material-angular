@@ -7,12 +7,26 @@ export const CONFIRM_DIALOG_DEFAULT_OPTIONS = new InjectionToken<any>('CONFIRM_D
 
 export const DefaultConfirmDialogConfig: ConfirmDialogConfig = {
   ...DefaultDialogConfig,
-  confirmLabel: 'OK',
-  cancelLabel: 'Cancel',
+  confirmButton: {
+    text: 'OK',
+    appearance: 'flat',
+    color: 'primary'
+  },
+  cancelButton: {
+    text: 'Cancel',
+    appearance: 'flat',
+    color: 'primary'
+  },
+};
+
+export class ConfirmDialogButtonConfig {
+  text?: string;
+  appearance?: string;
+  color?: string;
 }
 
 export class ConfirmDialogConfig extends DialogConfig {
   title?: string;
-  confirmLabel?: string;
-  cancelLabel?: string;
+  confirmButton?: ConfirmDialogButtonConfig;
+  cancelButton?: ConfirmDialogButtonConfig;
 }

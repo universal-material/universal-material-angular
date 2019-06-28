@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { CircularProgressModule } from './circular-progress/circular-progress.module';
+import { ProgressSpinnerModule } from './progress-spinner/progress-spinner.module';
 import { RippleModule } from './ripple/ripple.module';
 import { TextFieldModule } from './text-field/text-field.module';
 import { DialogModule } from './dialog/dialog.module';
@@ -20,7 +20,7 @@ import { DatepickerModule } from './datepicker/datepicker.module';
 
 const UniversalMaterialModules = [
   ChipFieldModule,
-  CircularProgressModule,
+  ProgressSpinnerModule,
   DialogModule,
   DropdownModule,
   SelectModule,
@@ -38,7 +38,7 @@ const UniversalMaterialModules = [
   DatepickerModule
 ];
 
-export { CircularProgressModule } from './circular-progress/circular-progress.module';
+export { ProgressSpinnerModule } from './progress-spinner/progress-spinner.module';
 export { DropdownModule } from './dropdown/dropdown.module';
 export { RippleModule } from './ripple/ripple.module';
 export { TextFieldModule } from './text-field/text-field.module';

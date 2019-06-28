@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import {
   ButtonModule,
   ChipFieldModule,
-  CircularProgressModule,
+  ProgressSpinnerModule,
   DialogModule,
   DropdownModule,
   FloatingActionBehaviorModule,
@@ -53,6 +53,12 @@ import { TabsComponent } from './components/tabs/tabs.component';
 import { TabsExampleComponent } from './components/tabs/tabs-example/tabs-example.component';
 import { TypeaheadComponent } from './components/typeahead/typeahead.component';
 import { TypeaheadExampleComponent } from './components/typeahead/typeahead-example/typeahead-example.component';
+import { ProgressSpinnerComponent } from './components/progress-spinner/progress-spinner.component';
+import { ProgressSpinnerExampleComponent } from './components/progress-spinner/progress-spinner-example/progress-spinner-example.component';
+import { ProgressDialogComponent } from './components/progress-dialog/progress-dialog.component';
+import { ProgressDialogExampleComponent } from './components/progress-dialog/progress-dialog-example/progress-dialog-example.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogExampleComponent } from './components/confirm-dialog/confirm-dialog-example/confirm-dialog-example.component';
 
 
 /**
@@ -91,7 +97,13 @@ export function hljsLanguages() {
     TabsComponent,
     TabsExampleComponent,
     TypeaheadComponent,
-    TypeaheadExampleComponent
+    TypeaheadExampleComponent,
+    ProgressSpinnerComponent,
+    ProgressSpinnerExampleComponent,
+    ProgressDialogComponent,
+    ProgressDialogExampleComponent,
+    ConfirmDialogComponent,
+    ConfirmDialogExampleComponent
   ],
   imports: [
     AppRoutingModule,
@@ -101,7 +113,7 @@ export function hljsLanguages() {
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    CircularProgressModule,
+    ProgressSpinnerModule,
     DropdownModule,
     SelectModule,
     TextFieldModule,

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CircularProgressComponent } from './circular-progress.component';
+import { ProgressSpinnerComponent } from './progress-spinner.component';
 
-describe('CircularProgressComponent', () => {
-  let component: CircularProgressComponent;
-  let fixture: ComponentFixture<CircularProgressComponent>;
+describe('ProgressSpinnerComponent', () => {
+  let component: ProgressSpinnerComponent;
+  let fixture: ComponentFixture<ProgressSpinnerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CircularProgressComponent ]
+      declarations: [ ProgressSpinnerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CircularProgressComponent);
+    fixture = TestBed.createComponent(ProgressSpinnerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

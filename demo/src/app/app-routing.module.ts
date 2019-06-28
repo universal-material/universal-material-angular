@@ -11,6 +11,9 @@ import { RipplesComponent } from './components/ripples/ripples.component';
 import { ChipInputComponent } from './components/chip-input/chip-input.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { TypeaheadComponent } from './components/typeahead/typeahead.component';
+import { ProgressSpinnerComponent } from './components/progress-spinner/progress-spinner.component';
+import { ProgressDialogComponent } from './components/progress-dialog/progress-dialog.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 const routes: Routes = [
   {
@@ -22,12 +25,24 @@ const routes: Routes = [
     component: ChipInputComponent
   },
   {
+    path: 'confirm-dialog',
+    component: ConfirmDialogComponent
+  },
+  {
     path: 'datepicker',
     component: DatepickerComponent
   },
   {
     path: 'input',
     component: InputComponent
+  },
+  {
+    path: 'progress-dialog',
+    component: ProgressDialogComponent
+  },
+  {
+    path: 'progress-spinner',
+    component: ProgressSpinnerComponent
   },
   {
     path: 'ripples',

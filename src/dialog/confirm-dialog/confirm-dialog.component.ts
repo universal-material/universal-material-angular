@@ -24,8 +24,23 @@ export class ConfirmDialogComponent extends DialogComponent {
               @Optional() confirmDialogConfig: ConfirmDialogConfig,
               @Optional() @Inject(CONFIRM_DIALOG_DEFAULT_OPTIONS) defaultOptions: ConfirmDialogConfig) {
     super(elementRef, null);
-    this._confirmDialogConfig = { ...DefaultConfirmDialogConfig, ...defaultOptions, ...confirmDialogConfig };
+    this._confirmDialogConfig = DefaultConfirmDialogConfig;
+    this._confirmDialogConfig = this._assignConfig(this._confirmDialogConfig, defaultOptions);
+    this._confirmDialogConfig = this._assignConfig(this._confirmDialogConfig, confirmDialogConfig);
+
     this._dialogConfig = this._confirmDialogConfig;
+  }
+
+  private _assignConfig(baseConfig: ConfirmDialogConfig, partialConfig: ConfirmDialogConfig): ConfirmDialogConfig {
+
+    if (partialConfig) {
+      baseConfig.confirmButton = {...baseConfig.confirmButton, ...partialConfig.confirmButton};
+      baseConfig.cancelButton = {...baseConfig.cancelButton, ...partialConfig.cancelButton};
+      delete partialConfig.confirmButton;
+      delete partialConfig.cancelButton;
+    }
+
+    return {...baseConfig, ...partialConfig};
   }
 
   close() {
