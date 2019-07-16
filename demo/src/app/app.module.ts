@@ -59,6 +59,10 @@ import { ProgressDialogComponent } from './components/progress-dialog/progress-d
 import { ProgressDialogExampleComponent } from './components/progress-dialog/progress-dialog-example/progress-dialog-example.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogExampleComponent } from './components/confirm-dialog/confirm-dialog-example/confirm-dialog-example.component';
+import { CollapseModule } from '@universal-material/angular/collapse/collapse.module';
+import { ExpansionPanelComponent } from './components/expansion-panel/expansion-panel.component';
+import { ExpansionPanelExampleComponent } from './components/expansion-panel/expansion-panel-example/expansion-panel-example.component';
+import { ExpansionPanelModule } from '@universal-material/angular/expansion-panel/expansion-panel.module';
 
 
 /**
@@ -103,7 +107,9 @@ export function hljsLanguages() {
     ProgressDialogComponent,
     ProgressDialogExampleComponent,
     ConfirmDialogComponent,
-    ConfirmDialogExampleComponent
+    ConfirmDialogExampleComponent,
+    ExpansionPanelComponent,
+    ExpansionPanelExampleComponent
   ],
   imports: [
     AppRoutingModule,
@@ -134,7 +140,9 @@ export function hljsLanguages() {
     TypeaheadModule,
     TextFieldModule,
     TabBarModule,
-    SnackbarModule
+    SnackbarModule,
+    CollapseModule,
+    ExpansionPanelModule
   ],
   providers: [
     {provide: FORM_FIELD_DEFAULT_APPEARANCE, useValue: 'box'},

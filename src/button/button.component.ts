@@ -11,17 +11,25 @@ const defaultColor = 'default';
   selector: 'button[u-btn]',
   template: '<ng-content></ng-content>'
 })
-export class ButtonComponent extends RippleDirective implements OnInit, OnChanges {
+export class ButtonComponent extends RippleDirective implements OnChanges {
 
   private _color: string;
   private _style: string;
 
-  @Input('color') color;
-  @Input('u-btn') style;
+  @Input('color') color: string;
 
-  constructor(elementRef: ElementRef,
+  // tslint:disable-next-line:no-input-rename
+  @Input('u-btn') style: string;
+
+  constructor(elementRef: ElementRef<HTMLElement>,
               @Inject(DOCUMENT) document: any) {
     super(elementRef, document);
+
+    this.color = elementRef.nativeElement.getAttribute('color');
+    this.style = elementRef.nativeElement.getAttribute('u-btn');
+
+    this._updateStyleClass();
+    this._updateColorClass();
   }
 
   private _updateColorClass() {
@@ -46,16 +54,13 @@ export class ButtonComponent extends RippleDirective implements OnInit, OnChange
     }
   }
 
-  ngOnInit(): void {
-    this._updateStyleClass();
-    this._updateColorClass();
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
 
     if (changes.style) {
       this._updateStyleClass();
-    } else if (changes.color) {
+    }
+
+    if (changes.color) {
       this._updateColorClass();
     }
   }

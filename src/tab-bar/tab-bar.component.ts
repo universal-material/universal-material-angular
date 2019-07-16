@@ -22,7 +22,7 @@ import { TabComponent } from './tab.component';
   selector: 'u-tab-bar',
   templateUrl: './tab-bar.component.html'
 })
-export class TabBarComponent implements AfterContentInit, OnInit, OnChanges {
+export class TabBarComponent implements AfterContentInit, OnChanges {
 
   @ContentChildren(TabComponent) _tabs: QueryList<TabComponent>;
   @ViewChild('tabIndicator') _tabIndicator: ElementRef;
@@ -45,10 +45,6 @@ export class TabBarComponent implements AfterContentInit, OnInit, OnChanges {
     this._windowResize$
       .pipe(debounceTime(100))
       .subscribe(() => this._updateTabIndicator());
-  }
-
-  ngOnInit() {
-
   }
 
   private _updateTabs(tabs: QueryList<TabComponent>) {

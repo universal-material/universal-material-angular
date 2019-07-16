@@ -1,0 +1,9 @@
+<div class="u-expansion-panel-header" uRipple (click)="toggle()">
+  <ng-content select="[uExpansionPanelHeader]"></ng-content>
+  <div class="u-expansion-toggle-icon" uExpansionPanelHeader>
+    <i class="u-chevron-down"></i>
+  </div>
+</div>
+<u-collapse class="u-expansion-panel-content" [show]="open">
+  <ng-content></ng-content>
+</u-collapse>

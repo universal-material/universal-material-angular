@@ -22,7 +22,7 @@
     "@angular/router": "^6.1.0",
     "@mdi/font": "^2.6.95",
     "@stackblitz/sdk": "^1.3.0",
-    "@universal-material/core": "~0.77.0",
+    "@universal-material/core": "~0.82.0",
     "core-js": "^2.5.4",
     "dragdealer": "^0.10.0",
     "highlight.js": "^9.15.6",

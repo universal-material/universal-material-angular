@@ -36,7 +36,7 @@ export class SelectComponent implements InputBaseComponent, ControlValueAccessor
   private _emptyOverride: boolean;
   _disabled: boolean;
 
-  @Input() autoClose = true;
+  @Input() autoClose: boolean | 'outside' = true;
   @Input() placeholder: string;
   @Input() tabIndex: number;
 

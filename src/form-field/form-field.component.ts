@@ -1,4 +1,4 @@
-import { Component, ContentChild, Inject, InjectionToken, Input, Optional } from '@angular/core';
+import { Component, ContentChild, ElementRef, HostBinding, Inject, InjectionToken, Input, Optional, ViewChild } from '@angular/core';
 import { LabelDirective } from './label.directive';
 import { InputBaseComponent } from '../shared/input-base.component';
 import { FormFieldAppearance } from './form-field-appearance';
@@ -16,9 +16,13 @@ export class FormFieldComponent {
   _appearanceClass: string;
   _appearance: FormFieldAppearance;
   _defaultAppearance: FormFieldAppearance;
+  _input: InputBaseComponent;
+
+  @HostBinding('style.margin-bottom') get removeMarginStyle() {
+    return this.removeMargin ? '0' : '';
+  }
 
   @ContentChild(LabelDirective) _label: LabelDirective;
-  _input: InputBaseComponent;
 
   @Input() invalid: boolean;
   @Input() removeMargin: boolean;
@@ -47,8 +51,10 @@ export class FormFieldComponent {
   }
 
 
-  constructor(@Optional() @Inject(FORM_FIELD_DEFAULT_APPEARANCE) defaultAppearance: FormFieldAppearance) {
+  constructor(readonly _elementRef: ElementRef,
+              @Optional() @Inject(FORM_FIELD_DEFAULT_APPEARANCE) defaultAppearance: FormFieldAppearance) {
     this._defaultAppearance = defaultAppearance || 'box';
     this.appearance = this._defaultAppearance;
+    _elementRef.nativeElement.classList.add('u-form-field');
   }
 }

@@ -17,6 +17,8 @@ import { TabBarModule } from './tab-bar/tab-bar.module';
 import { SnackbarModule } from './snackbar/snackbar.module';
 import { SelectionControlModule } from './selection-control/selection-control.module';
 import { DatepickerModule } from './datepicker/datepicker.module';
+import { CollapseModule } from './collapse/collapse.module';
+import { ExpansionPanelModule } from './expansion-panel/expansion-panel.module';
 
 const UniversalMaterialModules = [
   ChipFieldModule,
@@ -35,7 +37,9 @@ const UniversalMaterialModules = [
   SelectionControlModule,
   TabBarModule,
   SnackbarModule,
-  DatepickerModule
+  DatepickerModule,
+  CollapseModule,
+  ExpansionPanelModule
 ];
 
 export { ProgressSpinnerModule } from './progress-spinner/progress-spinner.module';
@@ -90,6 +94,18 @@ export {
   DATEPICKER_DEFAULT_OPTIONS,
   DATEPICKER_INPUT_DEFAULT_OPTIONS
 } from './datepicker/datepicker.module';
+
+export {
+  CollapseModule,
+  CollapseComponent
+} from './collapse/collapse.module';
+
+
+export {
+  ExpansionPanelModule,
+  ExpansionPanelComponent,
+  ExpansionPanelContainerComponent
+} from './expansion-panel/expansion-panel.module';
 
 export { ToolbarBehaviorModule } from './toolbar-behavior/toolbar-behavior.module';
 export { FloatingActionBehaviorModule } from './floating-action-behavior/floating-action-behavior.module';

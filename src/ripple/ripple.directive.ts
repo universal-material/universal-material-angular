@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Inject, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, HostListener, Inject, Input } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 import { RippleConfig } from './ripple-config.model';
@@ -6,13 +6,13 @@ import { RippleConfig } from './ripple-config.model';
 @Directive({
   selector: '[uRipple]'
 })
-export class RippleDirective implements OnInit {
+export class RippleDirective implements AfterViewInit {
 
   @Input() rippleConfig: RippleConfig = {};
   disabled = false;
   isTouching = false;
 
-  constructor(protected readonly _elementRef: ElementRef,
+  constructor(protected readonly _elementRef: ElementRef<HTMLElement>,
               @Inject(DOCUMENT) private document: any) {
   }
 
@@ -40,15 +40,20 @@ export class RippleDirective implements OnInit {
     }, e.touches[0].clientX, e.touches[0].clientY);
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     if (document.defaultView.getComputedStyle(this._elementRef.nativeElement).position !== 'absolute' &&
-      document.defaultView.getComputedStyle(this._elementRef.nativeElement).position !== 'fixed') {
+      document.defaultView.getComputedStyle(this._elementRef.nativeElement).position !== 'fixed' &&
+      (!this.rippleConfig || !this.rippleConfig.dontChangePositioning)) {
       this._elementRef.nativeElement.style.position = 'relative';
     }
   }
 
   createRipple(releaseEventName: string, releaseCallback: Function, pageX: number, pageY: number) {
-    if (this.disabled) { return; }
+    if (this.disabled ||
+      this._elementRef.nativeElement.hasAttribute('disabled') ||
+      this._elementRef.nativeElement.classList.contains('disabled')) {
+      return;
+    }
 
     const rippleWrapper = document.createElement('DIV');
     rippleWrapper.classList.add('u-ripple-wrapper');

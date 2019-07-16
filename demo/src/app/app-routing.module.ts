@@ -14,6 +14,7 @@ import { TypeaheadComponent } from './components/typeahead/typeahead.component';
 import { ProgressSpinnerComponent } from './components/progress-spinner/progress-spinner.component';
 import { ProgressDialogComponent } from './components/progress-dialog/progress-dialog.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { ExpansionPanelComponent } from './components/expansion-panel/expansion-panel.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: 'datepicker',
     component: DatepickerComponent
+  },
+  {
+    path: 'expansion-panel',
+    component: ExpansionPanelComponent
   },
   {
     path: 'input',

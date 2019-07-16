@@ -1,7 +1,7 @@
 import {
   Component,
   ContentChild,
-  DoCheck,
+  DoCheck, ElementRef,
   EventEmitter,
   forwardRef,
   Inject,
@@ -10,6 +10,7 @@ import {
   Optional,
   Output
 } from '@angular/core';
+
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputBaseComponent } from '../shared/input-base.component';
 import { FormFieldComponent } from '../form-field/form-field.component';
@@ -53,12 +54,15 @@ export class ChipFieldComponent implements InputBaseComponent, ControlValueAcces
 
   differ;
 
-  constructor(private readonly differs: IterableDiffers,
+  constructor(elementRef: ElementRef,
+              private readonly differs: IterableDiffers,
               @Optional() @Inject(forwardRef(() => FormFieldComponent)) formField: FormFieldComponent) {
     this.differ = differs.find([]).create(null);
 
+    elementRef.nativeElement.classList.add('u-text-input');
     if (formField) {
       formField._input = this;
+      formField._elementRef.nativeElement.classList.add('u-chip-field');
     }
   }
 
