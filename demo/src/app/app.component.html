@@ -7,11 +7,15 @@
   <div class="u-toolbar u-toolbar-fixed u-toolbar-primary" uToolbarBehavior>
     <div class="u-toolbar-row">
       <div class="u-toolbar-start d-lg-none">
-        <button type="button" class="u-toolbar-navigation" u-btn="borderless" (click)="showMenu = !showMenu">
-          <i class="u-btn-icon mdi mdi-menu"></i>
-        </button>
+        <div class="u-toolbar-actions">
+          <button type="button" u-btn="borderless" (click)="showMenu = !showMenu">
+            <i class="u-btn-icon mdi mdi-menu"></i>
+          </button>
+        </div>
       </div>
-      <div class="u-toolbar-title">Universal Material Angular</div>
+      <div class="u-toolbar-center">
+        <div class="u-toolbar-title">Universal Material Angular</div>
+      </div>
     </div>
   </div>
 

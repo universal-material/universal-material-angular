@@ -1,7 +1,7 @@
 import { InjectionToken } from '@angular/core';
 
 import { DialogConfig } from '../dialog-config.model';
-import { DefaultDialogConfig } from '../dialog.component';
+import { DefaultDialogConfig } from '../dialog-base.component';
 
 export const CONFIRM_DIALOG_DEFAULT_OPTIONS = new InjectionToken<any>('CONFIRM_DIALOG_DEFAULT_OPTIONS');
 

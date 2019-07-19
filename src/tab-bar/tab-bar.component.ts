@@ -7,7 +7,6 @@ import {
   HostListener,
   Input,
   OnChanges,
-  OnInit,
   Output,
   QueryList,
   SimpleChanges,
@@ -18,6 +17,8 @@ import { debounceTime } from 'rxjs/operators';
 
 import { TabComponent } from './tab.component';
 
+const defaultColor = 'primary';
+
 @Component({
   selector: 'u-tab-bar',
   templateUrl: './tab-bar.component.html'
@@ -26,6 +27,9 @@ export class TabBarComponent implements AfterContentInit, OnChanges {
 
   @ContentChildren(TabComponent) _tabs: QueryList<TabComponent>;
   @ViewChild('tabIndicator') _tabIndicator: ElementRef;
+
+  private _color: string;
+  @Input() color: string;
 
   @Input() tabIndex: number;
   @Output() tabIndexChange = new EventEmitter<number>();
@@ -45,6 +49,9 @@ export class TabBarComponent implements AfterContentInit, OnChanges {
     this._windowResize$
       .pipe(debounceTime(100))
       .subscribe(() => this._updateTabIndicator());
+
+    this.color = _elementRef.nativeElement.getAttribute('color');
+    this._updateColorClass();
   }
 
   private _updateTabs(tabs: QueryList<TabComponent>) {
@@ -105,6 +112,10 @@ export class TabBarComponent implements AfterContentInit, OnChanges {
     if (changes.tabIndex) {
       this.setActiveTab();
     }
+
+    if (changes.color) {
+      this._updateColorClass();
+    }
   }
 
   private _setTabIndexByTab(tab: TabComponent) {
@@ -149,5 +160,16 @@ export class TabBarComponent implements AfterContentInit, OnChanges {
 
     this._tabIndicator.nativeElement.style.left = offset + 'px';
     this._tabIndicator.nativeElement.style.width = tabBounds.width + 'px';
+  }
+
+  private _updateColorClass() {
+    const newColor = this.color || defaultColor;
+
+    if (newColor !== this._color) {
+      this._elementRef.nativeElement.classList.remove(`u-tab-bar-${this._color}`);
+      this._elementRef.nativeElement.classList.add(`u-tab-bar-${newColor}`);
+
+      this._color = newColor;
+    }
   }
 }

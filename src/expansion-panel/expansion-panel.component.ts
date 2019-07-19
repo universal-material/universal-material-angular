@@ -9,16 +9,18 @@ import { Subject } from 'rxjs';
 })
 export class ExpansionPanelComponent {
 
-  private _open: boolean;
+  private _expanded: boolean;
 
+  @HostBinding('class.disabled') @Input() disabled = false;
   @Input() hideToggle = false;
 
-  @HostBinding('class.open')
-  get open(): boolean {
-    return this._open;
+  @HostBinding('class.expanded')
+  get expanded(): boolean {
+    return this._expanded;
   }
-  set open(value: boolean) {
-    this._open = value;
+
+  set expanded(value: boolean) {
+    this._expanded = value;
     this._toggleChange.next(this);
   }
 
@@ -29,6 +31,10 @@ export class ExpansionPanelComponent {
   }
 
   toggle() {
-    this.open = !this.open;
+    if (this.disabled) {
+      return;
+    }
+
+    this.expanded = !this.expanded;
   }
 }

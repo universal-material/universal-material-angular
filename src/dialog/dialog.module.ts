@@ -9,6 +9,7 @@ import { ProgressDialogComponent } from './progress-dialog/progress-dialog.compo
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { DialogService } from './dialog.service';
 
+export { DialogBaseComponent } from './dialog-base.component';
 export { DialogConfig, DIALOG_DEFAULT_OPTIONS } from './dialog-config.model';
 export { DialogComponent } from './dialog.component';
 export { DialogBodyDirective } from './dialog-body.directive';

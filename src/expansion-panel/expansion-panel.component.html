@@ -1,9 +1,9 @@
-<div class="u-expansion-panel-header" uRipple (click)="toggle()">
+<div class="u-expansion-panel-header" uRipple [class.disabled]="disabled" (click)="toggle()">
   <ng-content select="[uExpansionPanelHeader]"></ng-content>
-  <div class="u-expansion-toggle-icon" uExpansionPanelHeader>
+  <div class="u-expansion-toggle-icon" *ngIf="!hideToggle" uExpansionPanelHeader>
     <i class="u-chevron-down"></i>
   </div>
 </div>
-<u-collapse class="u-expansion-panel-content" [show]="open">
+<u-collapse class="u-expansion-panel-content" [show]="expanded">
   <ng-content></ng-content>
 </u-collapse>

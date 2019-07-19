@@ -6,10 +6,12 @@
   <div class="u-dialog-body u-text-low-contrast" uDialogBody>{{message}}</div>
   <div class="u-dialog-actions">
     <button type="button"
+            class="u-dialog-action"
             [u-btn]="_confirmDialogConfig.cancelButton.appearance"
             [color]="_confirmDialogConfig.cancelButton.color"
             (click)="_cancelClick()">{{_confirmDialogConfig.cancelButton.text}}</button>
     <button type="button"
+            class="u-dialog-action"
             [u-btn]="_confirmDialogConfig.confirmButton.appearance"
             [color]="_confirmDialogConfig.confirmButton.color"
             (click)="_confirmClick()">{{_confirmDialogConfig.confirmButton.text}}</button>

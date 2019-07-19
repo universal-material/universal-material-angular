@@ -18,7 +18,7 @@ export class SnackbarQueueService {
     SnackbarQueueService._queue.unshift(snackbar);
 
     if (!SnackbarQueueService._showingSnackbar || SnackbarQueueService._showingSnackbar.instance._config.dismissWhenOpenAnotherSnackbar) {
-      this._showNext();
+      setTimeout(() => this._showNext(), SnackbarQueueService._showingSnackbar ? 100 : 0);
     }
   }
 

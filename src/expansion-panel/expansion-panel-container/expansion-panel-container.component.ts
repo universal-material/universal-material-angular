@@ -23,7 +23,7 @@ export class ExpansionPanelContainerComponent implements AfterContentInit {
   }
 
   _toggle = (panel: ExpansionPanelComponent) => {
-    if (!panel.open || this.multi) {
+    if (!panel.expanded || this.multi) {
       return;
     }
 
@@ -32,7 +32,7 @@ export class ExpansionPanelContainerComponent implements AfterContentInit {
         continue;
       }
 
-      p.open = false;
+      p.expanded = false;
     }
   }
 
