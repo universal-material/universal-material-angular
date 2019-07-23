@@ -58,14 +58,18 @@ export class RippleDirective implements AfterViewInit {
     let release: () => void;
     let cancel = false;
 
-    this._elementRef.nativeElement.addEventListener("touchmove", () => {
+    const touchMove = () => {
+
       cancel = true;
+
+      this._elementRef.nativeElement.removeEventListener("touchmove", touchMove);
 
       if (release) {
         release();
       }
-    });
+    };
 
+    this._elementRef.nativeElement.addEventListener("touchmove", touchMove);
 
     setTimeout(() => {
       if (cancel) {
