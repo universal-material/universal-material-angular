@@ -55,55 +55,73 @@ export class RippleDirective implements AfterViewInit {
       return;
     }
 
-    const rippleWrapper = document.createElement('DIV');
-    rippleWrapper.classList.add('u-ripple-wrapper');
+    let release: () => void;
+    let cancel = false;
 
-    const ripple = document.createElement('DIV');
-    ripple.classList.add('u-ripple');
-    rippleWrapper.appendChild(ripple);
-    this._elementRef.nativeElement.insertAdjacentElement('afterbegin', rippleWrapper);
+    this._elementRef.nativeElement.addEventListener("touchmove", () => {
+      cancel = true;
 
-    if (this.rippleConfig.size) {
-      RippleDirective._setElementSquareSizeAndCenter(rippleWrapper, this.rippleConfig.size);
-    }
-
-    if (this.rippleConfig.borderRadius) {
-      rippleWrapper.style.borderRadius = this.rippleConfig.borderRadius;
-    }
-
-    const release = function () {
-      ripple.classList.add('dismiss');
-
-      if (releaseCallback) {
-        releaseCallback();
-      }
-    };
-
-    window.addEventListener(releaseEventName, release);
-    this._elementRef.nativeElement.addEventListener('dragover', release);
-    this._elementRef.nativeElement.addEventListener('mouseleave', release);
-
-    ripple.addEventListener('transitionend', () => {
-      if (ripple.classList.contains('dismiss')) {
-        this._elementRef.nativeElement.removeChild(rippleWrapper);
-        this._elementRef.nativeElement.removeEventListener('dragover', release);
-        this._elementRef.nativeElement.removeEventListener('mouseleave', release);
-        window.removeEventListener(releaseEventName, release);
+      if (release) {
+        release();
       }
     });
 
-    requestAnimationFrame(() => {
-      const clientRect = this._elementRef.nativeElement.getBoundingClientRect();
-      const largestDimensionSize = Math.max(rippleWrapper.clientWidth, rippleWrapper.clientHeight);
-      const rippleSize = this.rippleConfig.size || largestDimensionSize * 2;
-      RippleDirective._setElementSquareSizeAndCenter(ripple, rippleSize);
-      ripple.style.transitionDuration = `${1080 * Math.pow(rippleSize, 0.3)}ms, 750ms`;
 
-      const x = (pageX - clientRect.left) + ((rippleSize - this._elementRef.nativeElement.clientWidth) / 2);
-      const y = (pageY - clientRect.top) + ((rippleSize - this._elementRef.nativeElement.clientHeight) / 2);
+    setTimeout(() => {
+      if (cancel) {
+        return;
+      }
 
-      ripple.style.transformOrigin = `${x}px ${y}px`;
-      ripple.classList.add('show');
-    });
+      const rippleWrapper = document.createElement('DIV');
+      rippleWrapper.classList.add('u-ripple-wrapper');
+
+      const ripple = document.createElement('DIV');
+      ripple.classList.add('u-ripple');
+      rippleWrapper.appendChild(ripple);
+      this._elementRef.nativeElement.insertAdjacentElement('afterbegin', rippleWrapper);
+
+      if (this.rippleConfig.size) {
+        RippleDirective._setElementSquareSizeAndCenter(rippleWrapper, this.rippleConfig.size);
+      }
+
+      if (this.rippleConfig.borderRadius) {
+        rippleWrapper.style.borderRadius = this.rippleConfig.borderRadius;
+      }
+
+      release = () => {
+        ripple.classList.add('dismiss');
+
+        if (releaseCallback) {
+          releaseCallback();
+        }
+      };
+
+      window.addEventListener(releaseEventName, release);
+      this._elementRef.nativeElement.addEventListener('dragover', release);
+      this._elementRef.nativeElement.addEventListener('mouseleave', release);
+
+      ripple.addEventListener('transitionend', () => {
+        if (ripple.classList.contains('dismiss')) {
+          this._elementRef.nativeElement.removeChild(rippleWrapper);
+          this._elementRef.nativeElement.removeEventListener('dragover', release);
+          this._elementRef.nativeElement.removeEventListener('mouseleave', release);
+          window.removeEventListener(releaseEventName, release);
+        }
+      });
+
+      requestAnimationFrame(() => {
+        const clientRect = this._elementRef.nativeElement.getBoundingClientRect();
+        const largestDimensionSize = Math.max(rippleWrapper.clientWidth, rippleWrapper.clientHeight);
+        const rippleSize = this.rippleConfig.size || largestDimensionSize * 2;
+        RippleDirective._setElementSquareSizeAndCenter(ripple, rippleSize);
+        ripple.style.transitionDuration = `${1080 * Math.pow(rippleSize, 0.3)}ms, 750ms`;
+
+        const x = (pageX - clientRect.left) + ((rippleSize - this._elementRef.nativeElement.clientWidth) / 2);
+        const y = (pageY - clientRect.top) + ((rippleSize - this._elementRef.nativeElement.clientHeight) / 2);
+
+        ripple.style.transformOrigin = `${x}px ${y}px`;
+        ripple.classList.add('show');
+      });
+    }, 100);
   }
 }

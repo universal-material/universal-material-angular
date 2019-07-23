@@ -13,7 +13,7 @@
     "@angular/core": "^6.0.0-rc.0 || ^6.0.0"
   },
   "dependencies": {
-    "@universal-material/core": "~0.87.6",
+    "@universal-material/core": "~0.88.1",
     "dragdealer": "^0.10.0"
   }
 }
