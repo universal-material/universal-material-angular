@@ -19,6 +19,7 @@ import { SelectionControlModule } from './selection-control/selection-control.mo
 import { DatepickerModule } from './datepicker/datepicker.module';
 import { CollapseModule } from './collapse/collapse.module';
 import { ExpansionPanelModule } from './expansion-panel/expansion-panel.module';
+import { SliderModule } from './slider/slider.module';
 
 const UniversalMaterialModules = [
   ChipFieldModule,
@@ -39,8 +40,10 @@ const UniversalMaterialModules = [
   SnackbarModule,
   DatepickerModule,
   CollapseModule,
-  ExpansionPanelModule
+  ExpansionPanelModule,
+  SliderModule
 ];
+
 
 export { ProgressSpinnerModule } from './progress-spinner/progress-spinner.module';
 export { DropdownModule } from './dropdown/dropdown.module';
@@ -107,7 +110,8 @@ export {
   ExpansionPanelContainerComponent
 } from './expansion-panel/expansion-panel.module';
 
-export { ToolbarBehaviorModule } from './toolbar-behavior/toolbar-behavior.module';
+export * from './toolbar-behavior/toolbar-behavior.module';
+export * from './slider/slider.module';
 export { FloatingActionBehaviorModule } from './floating-action-behavior/floating-action-behavior.module';
 
 @NgModule({

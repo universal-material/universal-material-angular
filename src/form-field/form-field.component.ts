@@ -3,7 +3,6 @@ import { LabelDirective } from './label.directive';
 import { InputBaseComponent } from '../shared/input-base.component';
 import { FormFieldAppearance } from './form-field-appearance';
 
-
 export const FORM_FIELD_DEFAULT_APPEARANCE = new InjectionToken('FORM_FIELD_DEFAULT_APPEARANCE');
 
 @Component({
@@ -49,7 +48,6 @@ export class FormFieldComponent {
 
     this._appearanceClass = `u-text-field-${value}`;
   }
-
 
   constructor(readonly _elementRef: ElementRef,
               @Optional() @Inject(FORM_FIELD_DEFAULT_APPEARANCE) defaultAppearance: FormFieldAppearance) {

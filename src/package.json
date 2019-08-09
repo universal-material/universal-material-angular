@@ -1,6 +1,6 @@
 {
   "name": "@universal-material/angular",
-  "version": "0.35.1",
+  "version": "0.37.1",
   "author": "https://github.com/universal-material/universal-material-angular/graphs/contributors",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
     "@angular/core": "^6.0.0-rc.0 || ^6.0.0"
   },
   "dependencies": {
-    "@universal-material/core": "~0.88.2",
+    "@universal-material/core": "~0.92.0",
     "dragdealer": "^0.10.0"
   }
 }

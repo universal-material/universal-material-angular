@@ -15,6 +15,7 @@ import { ProgressSpinnerComponent } from './components/progress-spinner/progress
 import { ProgressDialogComponent } from './components/progress-dialog/progress-dialog.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { ExpansionPanelComponent } from './components/expansion-panel/expansion-panel.component';
+import { SliderComponent } from './components/slider/slider.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,10 @@ const routes: Routes = [
   {
     path: 'ripples',
     component: RipplesComponent
+  },
+  {
+    path: 'slider',
+    component: SliderComponent
   },
   {
     path: 'tabs',

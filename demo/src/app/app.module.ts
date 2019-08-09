@@ -15,6 +15,7 @@ import {
   ToolbarBehaviorModule,
   TypeaheadModule,
   ViewPagerModule,
+  SliderModule
 } from '@universal-material/angular';
 
 import { HighlightModule } from 'ngx-highlightjs';
@@ -63,6 +64,8 @@ import { CollapseModule } from '@universal-material/angular/collapse/collapse.mo
 import { ExpansionPanelComponent } from './components/expansion-panel/expansion-panel.component';
 import { ExpansionPanelExampleComponent } from './components/expansion-panel/expansion-panel-example/expansion-panel-example.component';
 import { ExpansionPanelModule } from '@universal-material/angular/expansion-panel/expansion-panel.module';
+import { SliderComponent } from './components/slider/slider.component';
+import { SliderExampleComponent } from './components/slider/slider-example/slider-example.component';
 
 
 /**
@@ -109,7 +112,9 @@ export function hljsLanguages() {
     ConfirmDialogComponent,
     ConfirmDialogExampleComponent,
     ExpansionPanelComponent,
-    ExpansionPanelExampleComponent
+    ExpansionPanelExampleComponent,
+    SliderComponent,
+    SliderExampleComponent
   ],
   imports: [
     AppRoutingModule,
@@ -134,6 +139,7 @@ export function hljsLanguages() {
     ButtonModule,
     TextFieldModule,
     DropdownModule,
+    SliderModule,
     FormFieldModule,
     ChipFieldModule,
     SelectModule,

@@ -1,0 +1,10 @@
+<input type="range" [min]="min" [max]="max" [step]="step" aria-hidden="true" [disabled]="_disabled" [valueAsNumber]="_value" #input>
+<div class="u-slider-thumb-container">
+  <div class="u-slider-thumb" [style.width]="_trackWidth"></div>
+</div>
+<div class="u-slider-track-container">
+  <div class="u-slider-track-marker-container" *ngIf="showTrack">
+    <div class="u-slider-track-marker"></div>
+  </div>
+  <div class="u-slider-track" [style.width]="_trackWidth"></div>
+</div>
