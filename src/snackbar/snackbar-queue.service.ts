@@ -15,10 +15,18 @@ export class SnackbarQueueService {
   }
 
   add(snackbar: ComponentRef<SnackbarComponent>) {
+
+    if (SnackbarQueueService._showingSnackbar && SnackbarQueueService._showingSnackbar.instance._config.dismissWhenOpenAnotherSnackbar) {
+      for (const snackbarRef of SnackbarQueueService._queue) {
+        snackbarRef.instance.afterOpen.subscribe(() => snackbarRef.instance.dismiss());
+      }
+    }
+
     SnackbarQueueService._queue.unshift(snackbar);
 
-    if (!SnackbarQueueService._showingSnackbar || SnackbarQueueService._showingSnackbar.instance._config.dismissWhenOpenAnotherSnackbar) {
-      setTimeout(() => this._showNext(), SnackbarQueueService._showingSnackbar ? 100 : 0);
+    if (!SnackbarQueueService._showingSnackbar ||
+      SnackbarQueueService._showingSnackbar.instance._config.dismissWhenOpenAnotherSnackbar) {
+      this._showNext()
     }
   }
 

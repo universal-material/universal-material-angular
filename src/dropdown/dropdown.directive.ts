@@ -28,6 +28,10 @@ export class DropdownDirective implements OnInit {
     }
   }
 
+  constructor(private readonly _elementRef: ElementRef) {
+
+  }
+
   private _autoClose() {
     if (this.autoClose && this._dropdownMenu.show) {
       this._dropdownMenu.show = false;
@@ -38,6 +42,13 @@ export class DropdownDirective implements OnInit {
 
     this._dropdownToggle.click.subscribe((e: Event) => {
       this._justToggle = true;
+
+      if (!this._dropdownMenu.show) {
+        if (this._dropdownMenu.direction.indexOf('auto') === 0) {
+          this._dropdownMenu.setDirectionClass(`${this.openDropdownUpOrDown()}${this._dropdownMenu.direction.substring(4)}`);
+        }
+      }
+
       this._dropdownMenu.show = !this._dropdownMenu.show;
     });
     this._dropdownMenu.click.subscribe((e: Event) => {
@@ -47,4 +58,13 @@ export class DropdownDirective implements OnInit {
       }
     });
   }
+
+  openDropdownUpOrDown(): string {
+    const menuElement = this._dropdownMenu._elementRef.nativeElement;
+    const dropdownElement = this._elementRef.nativeElement;
+    const rect = dropdownElement.getBoundingClientRect() as DOMRect;
+    const styles = getComputedStyle(menuElement);
+    return window.innerHeight < rect.y + rect.height + parseInt(styles.height, 10) ? 'up' : 'down';
+  }
 }
+

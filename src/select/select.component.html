@@ -7,7 +7,7 @@
       {{selectionFormatter ? selectionFormatter(selectedItem) : selectedItem}}
     </div>
   </button>
-  <div class="u-dropdown-menu w-100" uDropdownMenu [ngClass]="direction">
+  <div class="u-dropdown-menu w-100" uDropdownMenu [direction]="direction">
     <div class="u-dropdown-content">
       <ng-content></ng-content>
     </div>

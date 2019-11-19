@@ -20,6 +20,7 @@ import { DatepickerModule } from './datepicker/datepicker.module';
 import { CollapseModule } from './collapse/collapse.module';
 import { ExpansionPanelModule } from './expansion-panel/expansion-panel.module';
 import { SliderModule } from './slider/slider.module';
+import { CircularProgressModule } from './circular-progress/circular-progress.module';
 
 const UniversalMaterialModules = [
   ChipFieldModule,
@@ -41,7 +42,8 @@ const UniversalMaterialModules = [
   DatepickerModule,
   CollapseModule,
   ExpansionPanelModule,
-  SliderModule
+  SliderModule,
+  CircularProgressModule
 ];
 
 
@@ -70,6 +72,7 @@ export { TabBarComponent } from './tab-bar/tab-bar.component';
 export { TabComponent } from './tab-bar/tab.component';
 export * from './snackbar/snackbar.module';
 export * from './dialog/dialog.module';
+export * from './circular-progress/circular-progress.module';
 
 export {
   Highlight,

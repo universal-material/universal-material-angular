@@ -70,7 +70,7 @@ export class SelectComponent implements InputBaseComponent, ControlValueAccessor
    */
   @Input() selectionFormatter: (value: any) => string;
 
-  @Input() direction: Direction = 'down';
+  @Input() direction: Direction = 'auto';
 
   selectedItem: any;
   @Output() selectItem = new EventEmitter<SelectItemEvent>();

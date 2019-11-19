@@ -35,6 +35,11 @@ export class SnackbarComponent implements SnackbarRef {
   }
 
   dismiss() {
+
+    if (this.dismissed) {
+      return;
+    }
+
     this.dismissed = true;
     AnimationEvents.attachAnimationEndEvents(this._elementRef.nativeElement, this.dismissAnimationEnd.bind(this));
   }

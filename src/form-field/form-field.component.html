@@ -9,6 +9,7 @@
     <ng-content></ng-content>
   </div>
   <div [class.d-none]="!helperText && !helperTextContent.children.length && !errorMessage && !errorMessageContent.children.length"
+       [class.hide-helper-text]="!invalid && !helperText && !helperTextContent.children.length"
        class="u-text-field-helper-text">
     <div class="u-text-field-helper-text-default" #helperTextContent>
       <span *ngIf="helperText">{{helperText}}</span>

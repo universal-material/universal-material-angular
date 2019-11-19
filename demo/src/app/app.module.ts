@@ -15,7 +15,8 @@ import {
   ToolbarBehaviorModule,
   TypeaheadModule,
   ViewPagerModule,
-  SliderModule
+  SliderModule,
+  CircularProgressModule
 } from '@universal-material/angular';
 
 import { HighlightModule } from 'ngx-highlightjs';
@@ -148,7 +149,8 @@ export function hljsLanguages() {
     TabBarModule,
     SnackbarModule,
     CollapseModule,
-    ExpansionPanelModule
+    ExpansionPanelModule,
+    CircularProgressModule
   ],
   providers: [
     {provide: FORM_FIELD_DEFAULT_APPEARANCE, useValue: 'box'},
