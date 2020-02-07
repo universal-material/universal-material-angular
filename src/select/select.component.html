@@ -1,11 +1,18 @@
 <div class="u-dropdown" uDropdown [autoClose]="autoClose">
+
   <button class="u-text-input u-dropdown-toggle" uDropdownToggle type="button" [disabled]="_disabled" [tabIndex]="tabIndex">
-    <div class="u-text-input-placeholder" *ngIf="empty">
-      {{placeholder}}
+    <div #content>
+      <ng-content select="[selection]"></ng-content>
     </div>
-    <div class="u-text-input-value" *ngIf="!empty">
-      {{selectionFormatter ? selectionFormatter(selectedItem) : selectedItem}}
-    </div>
+
+    <ng-template [ngIf]="!content?.childNodes?.length">
+      <div class="u-text-input-placeholder" *ngIf="empty">
+        {{placeholder}}
+      </div>
+      <div class="u-text-input-value" *ngIf="!empty">
+        {{selectionFormatter ? selectionFormatter(selectedItem) : selectedItem}}
+      </div>
+    </ng-template>
   </button>
   <div class="u-dropdown-menu w-100" uDropdownMenu [direction]="direction">
     <div class="u-dropdown-content">

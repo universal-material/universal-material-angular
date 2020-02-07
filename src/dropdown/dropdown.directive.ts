@@ -44,7 +44,7 @@ export class DropdownDirective implements OnInit {
       this._justToggle = true;
 
       if (!this._dropdownMenu.show) {
-        if (this._dropdownMenu.direction.indexOf('auto') === 0) {
+        if (this._dropdownMenu.direction && this._dropdownMenu.direction.indexOf('auto') === 0) {
           this._dropdownMenu.setDirectionClass(`${this.openDropdownUpOrDown()}${this._dropdownMenu.direction.substring(4)}`);
         }
       }

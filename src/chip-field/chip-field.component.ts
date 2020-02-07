@@ -3,7 +3,7 @@ import {
   ContentChild,
   DoCheck, ElementRef,
   EventEmitter,
-  forwardRef,
+  forwardRef, HostBinding,
   Inject,
   Input,
   IterableDiffers, OnInit,
@@ -40,6 +40,7 @@ export class ChipFieldComponent implements InputBaseComponent, ControlValueAcces
 
   @ContentChild(ChipInputDirective) chipInput: ChipInputDirective;
 
+  @HostBinding('attr.disabled')
   get disabled(): boolean {
     return this.chipInput.disabled;
   }

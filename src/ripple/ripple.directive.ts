@@ -19,10 +19,10 @@ export class RippleDirective implements AfterViewInit {
   private static _setElementSquareSizeAndCenter(element: HTMLElement, size: number) {
     element.style.top = '50%';
     element.style.left = '50%';
-    element.style.width = size + 'px';
-    element.style.height = size + 'px';
-    element.style.marginLeft = -size / 2 + 'px';
-    element.style.marginTop = -size / 2 + 'px';
+    element.style.width = `${size}px`;
+    element.style.height = `${size}px`;
+    element.style.marginLeft = `${-size / 2}px`;
+    element.style.marginTop = `${-size / 2}px`;
   }
 
   @HostListener('mousedown', ['$event']) _mousedown = (e: MouseEvent) => {
@@ -56,76 +56,67 @@ export class RippleDirective implements AfterViewInit {
     }
 
     let release: () => void;
-    let cancel = false;
 
-    const touchMove = () => {
+    const cancelRippleIfNecessary = () => {
 
-      cancel = true;
-
-      this._elementRef.nativeElement.removeEventListener("touchmove", touchMove);
+      this._elementRef.nativeElement.removeEventListener("touchmove", cancelRippleIfNecessary);
+      window.removeEventListener(releaseEventName, cancelRippleIfNecessary);
 
       if (release) {
         release();
       }
     };
 
-    this._elementRef.nativeElement.addEventListener("touchmove", touchMove);
+    this._elementRef.nativeElement.addEventListener("touchmove", cancelRippleIfNecessary);
+    window.addEventListener(releaseEventName, cancelRippleIfNecessary);
 
-    setTimeout(() => {
-      if (cancel) {
-        return;
+    const rippleWrapper = document.createElement('DIV');
+    rippleWrapper.classList.add('u-ripple-wrapper');
+
+    const ripple = document.createElement('DIV');
+    ripple.classList.add('u-ripple');
+    rippleWrapper.appendChild(ripple);
+    this._elementRef.nativeElement.insertAdjacentElement('afterbegin', rippleWrapper);
+
+    if (this.rippleConfig.size) {
+      RippleDirective._setElementSquareSizeAndCenter(rippleWrapper, this.rippleConfig.size);
+    }
+
+    if (this.rippleConfig.borderRadius) {
+      rippleWrapper.style.borderRadius = this.rippleConfig.borderRadius;
+    }
+
+    release = () => {
+      ripple.classList.add('dismiss');
+
+      if (releaseCallback) {
+        releaseCallback();
       }
+    };
 
-      const rippleWrapper = document.createElement('DIV');
-      rippleWrapper.classList.add('u-ripple-wrapper');
+    this._elementRef.nativeElement.addEventListener('dragover', release);
+    this._elementRef.nativeElement.addEventListener('mouseleave', release);
 
-      const ripple = document.createElement('DIV');
-      ripple.classList.add('u-ripple');
-      rippleWrapper.appendChild(ripple);
-      this._elementRef.nativeElement.insertAdjacentElement('afterbegin', rippleWrapper);
-
-      if (this.rippleConfig.size) {
-        RippleDirective._setElementSquareSizeAndCenter(rippleWrapper, this.rippleConfig.size);
+    ripple.addEventListener('transitionend', () => {
+      if (ripple.classList.contains('dismiss')) {
+        this._elementRef.nativeElement.removeChild(rippleWrapper);
+        this._elementRef.nativeElement.removeEventListener('dragover', release);
+        this._elementRef.nativeElement.removeEventListener('mouseleave', release);
       }
+    });
 
-      if (this.rippleConfig.borderRadius) {
-        rippleWrapper.style.borderRadius = this.rippleConfig.borderRadius;
-      }
+    requestAnimationFrame(() => {
+      const clientRect = this._elementRef.nativeElement.getBoundingClientRect();
+      const largestDimensionSize = Math.max(rippleWrapper.clientWidth, rippleWrapper.clientHeight);
+      const rippleSize = this.rippleConfig.size || largestDimensionSize * 2;
+      RippleDirective._setElementSquareSizeAndCenter(ripple, rippleSize);
+      ripple.style.transitionDuration = `${1080 * Math.pow(rippleSize, 0.3)}ms, 750ms`;
 
-      release = () => {
-        ripple.classList.add('dismiss');
+      const x = (pageX - clientRect.left) + ((rippleSize - this._elementRef.nativeElement.clientWidth) / 2);
+      const y = (pageY - clientRect.top) + ((rippleSize - this._elementRef.nativeElement.clientHeight) / 2);
 
-        if (releaseCallback) {
-          releaseCallback();
-        }
-      };
-
-      window.addEventListener(releaseEventName, release);
-      this._elementRef.nativeElement.addEventListener('dragover', release);
-      this._elementRef.nativeElement.addEventListener('mouseleave', release);
-
-      ripple.addEventListener('transitionend', () => {
-        if (ripple.classList.contains('dismiss')) {
-          this._elementRef.nativeElement.removeChild(rippleWrapper);
-          this._elementRef.nativeElement.removeEventListener('dragover', release);
-          this._elementRef.nativeElement.removeEventListener('mouseleave', release);
-          window.removeEventListener(releaseEventName, release);
-        }
-      });
-
-      requestAnimationFrame(() => {
-        const clientRect = this._elementRef.nativeElement.getBoundingClientRect();
-        const largestDimensionSize = Math.max(rippleWrapper.clientWidth, rippleWrapper.clientHeight);
-        const rippleSize = this.rippleConfig.size || largestDimensionSize * 2;
-        RippleDirective._setElementSquareSizeAndCenter(ripple, rippleSize);
-        ripple.style.transitionDuration = `${1080 * Math.pow(rippleSize, 0.3)}ms, 750ms`;
-
-        const x = (pageX - clientRect.left) + ((rippleSize - this._elementRef.nativeElement.clientWidth) / 2);
-        const y = (pageY - clientRect.top) + ((rippleSize - this._elementRef.nativeElement.clientHeight) / 2);
-
-        ripple.style.transformOrigin = `${x}px ${y}px`;
-        ripple.classList.add('show');
-      });
-    }, 100);
+      ripple.style.transformOrigin = `${x}px ${y}px`;
+      ripple.classList.add('show');
+    });
   }
 }

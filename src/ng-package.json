@@ -5,5 +5,5 @@
   "lib": {
     "entryFile": "index.ts"
   },
-  "whitelistedNonPeerDependencies": ["@universal-material/core", "dragdealer"]
+  "whitelistedNonPeerDependencies": ["@universal-material/core", "animated-scroll-to must", "dragdealer"]
 }

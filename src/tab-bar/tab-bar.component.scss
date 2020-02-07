@@ -1,0 +1,64 @@
+$tab-bar-indicator-size: 2rem;
+
+:host {
+  display: block;
+  position: relative;
+}
+
+.u-tab-bar-overflow-hidden-container {
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.u-tab-bar {
+  position: static;
+}
+
+.u-tab-bar-scroll-container {
+  position: relative;
+  overflow-x: scroll;
+}
+
+
+
+.u-tab-bar-left-scroll-indicator,
+.u-tab-bar-right-scroll-indicator {
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $tab-bar-indicator-size;
+  height: 100%;
+  font-size: 1.5rem;
+  background: #fff;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, .4);
+}
+
+.u-tab-bar-left-scroll-indicator {
+  left: 0;
+
+  ~ .u-tab-bar-wrapper {
+    padding-left: $tab-bar-indicator-size;
+
+    .u-tab-bar-scroll-container {
+      margin-left: -$tab-bar-indicator-size;
+    }
+  }
+}
+
+.u-tab-bar-right-scroll-indicator {
+  right: 0;
+
+
+  ~ .u-tab-bar-wrapper {
+    padding-right: $tab-bar-indicator-size;
+
+    .u-tab-bar-scroll-container {
+      margin-right: -$tab-bar-indicator-size;
+    }
+  }
+}

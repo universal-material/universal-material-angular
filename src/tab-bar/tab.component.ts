@@ -18,9 +18,9 @@ export class TabComponent extends RippleDirective {
     this._clicked.next();
   }
 
-  constructor(public _elementRef: ElementRef,
+  constructor(public _elementRef: ElementRef<HTMLElement>,
               @Inject(DOCUMENT) _document: any) {
-    super(_elementRef, _document)
+    super(_elementRef, _document);
     _elementRef.nativeElement.classList.add('u-tab');
   }
 }

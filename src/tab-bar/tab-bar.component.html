@@ -1,2 +1,26 @@
-<ng-content></ng-content>
-<div class="u-tab-indicator" #tabIndicator></div>
+<div
+  *ngIf="_showLeftScrollIndicator"
+  class="u-tab-bar-left-scroll-indicator"
+  uRipple
+  [style.background-color]="_indicatorsBackgroundColor"
+  (click)="addToScroll(-200)">
+  <i [ngClass]="leftScrollIndicatorIconClass"></i>
+</div>
+<div
+  *ngIf="_showRightScrollIndicator"
+  class="u-tab-bar-right-scroll-indicator"
+  uRipple
+  [style.background-color]="_indicatorsBackgroundColor"
+  (click)="addToScroll(200)">
+  <i [ngClass]="rightScrollIndicatorIconClass"></i>
+</div>
+<div class="u-tab-bar-wrapper">
+  <div class="u-tab-bar-overflow-hidden-container">
+    <div class="u-tab-bar-scroll-container" [style.height]="scrollContainerHeight" #scrollContainer>
+      <div [ngClass]="tabBarClass">
+        <ng-content></ng-content>
+        <div class="u-tab-indicator" #tabIndicator></div>
+      </div>
+    </div>
+  </div>
+</div>

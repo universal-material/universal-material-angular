@@ -63,6 +63,10 @@ export class SelectComponent implements InputBaseComponent, ControlValueAccessor
   get disabled(): boolean {
     return this._disabled;
   }
+  @Input()
+  set disabled(value: boolean) {
+    this._disabled = value;
+  }
 
   /**
    * A function to format a given result before display. This function should return a formatted string without any
