@@ -11,12 +11,10 @@ import { SelectComponent } from './select.component';
 })
 export class OptionComponent {
   @Input() value: any;
+  @Input() displayValue: string;
+  _selectComponent: SelectComponent;
 
   @HostListener('click') _click = () => {
-    this._selectComponent._setItem(this.value);
-  }
-
-  constructor(@Inject(forwardRef(() => SelectComponent)) private readonly _selectComponent: SelectComponent) {
-
+    this._selectComponent._setOption(this);
   }
 }

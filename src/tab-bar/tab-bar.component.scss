@@ -3,6 +3,7 @@ $tab-bar-indicator-size: 2rem;
 :host {
   display: block;
   position: relative;
+  overflow: hidden;
 }
 
 .u-tab-bar-overflow-hidden-container {
@@ -34,7 +35,6 @@ $tab-bar-indicator-size: 2rem;
   width: $tab-bar-indicator-size;
   height: 100%;
   font-size: 1.5rem;
-  background: #fff;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, .4);
 }
 

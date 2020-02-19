@@ -10,7 +10,7 @@
         {{placeholder}}
       </div>
       <div class="u-text-input-value" *ngIf="!empty">
-        {{selectionFormatter ? selectionFormatter(selectedItem) : selectedItem}}
+        {{selectionFormatter ? selectionFormatter(selectedValue) : selectedOption?.displayValue || selectedValue}}
       </div>
     </ng-template>
   </button>

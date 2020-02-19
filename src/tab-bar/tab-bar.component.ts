@@ -3,7 +3,8 @@ import {
   Component,
   ContentChildren,
   ElementRef,
-  EventEmitter, HostBinding,
+  EventEmitter,
+  HostBinding,
   HostListener,
   Input,
   OnChanges,
@@ -17,10 +18,14 @@ import { debounceTime } from 'rxjs/operators';
 
 import { TabComponent } from './tab.component';
 import { smoothScrollLeft } from '../util/animations/smooth-scroll';
-import { getParentBackground } from '@universal-material/angular/util/background/get-parent-background';
+import { PreventableEvent } from '../util/events/preventable-event';
 
 const defaultColor = 'primary';
 const tabSelectionExtraSpace = 96;
+
+export interface TabChangeEvent extends PreventableEvent {
+  tabIndex: number;
+}
 
 @Component({
   selector: 'u-tab-bar',
@@ -41,6 +46,7 @@ export class TabBarComponent implements AfterContentInit, OnChanges {
 
   @Input() tabIndex: number;
   @Output() tabIndexChange = new EventEmitter<number>();
+  @Output() beforeChangeTab = new EventEmitter<TabChangeEvent>();
 
   private _tabsArray: TabComponent[];
   private _tabsClickSubscriptions: Subscription[] = [];
@@ -53,7 +59,6 @@ export class TabBarComponent implements AfterContentInit, OnChanges {
   scrollContainerHeight: string;
   _showLeftScrollIndicator: boolean;
   _showRightScrollIndicator: boolean;
-  _indicatorsBackgroundColor: string;
 
   @HostListener('window:resize') _windowResize = () => {
     this._windowResize$.next();
@@ -124,7 +129,6 @@ export class TabBarComponent implements AfterContentInit, OnChanges {
     this._updateTabs(this._tabs);
     this._tabs.changes.subscribe(tabs => setTimeout(() => this._updateTabs(tabs)));
     this._scrollContainer.nativeElement.addEventListener('scroll', () => this._setScrollIndicators());
-    this._indicatorsBackgroundColor = getParentBackground(this._scrollContainer.nativeElement);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -154,6 +158,18 @@ export class TabBarComponent implements AfterContentInit, OnChanges {
       return false;
     });
 
+    let defaultPrevented = false;
+    this.beforeChangeTab.emit({
+      tabIndex,
+      preventDefault: () => {
+        defaultPrevented = true;
+      }
+    });
+
+    if (defaultPrevented) {
+      return;
+    }
+
     this.setTabIndexAndEmit(tabIndex);
     this.setActiveTab();
   }
@@ -181,12 +197,10 @@ export class TabBarComponent implements AfterContentInit, OnChanges {
   }
 
   private _updateTabIndicator() {
-    const tabBounds = this._activeTab._elementRef.nativeElement.getBoundingClientRect();
-    let offset = tabBounds.left - this._elementRef.nativeElement.getBoundingClientRect().left;
-    offset += this._scrollContainer.nativeElement.scrollLeft;
+    const tab = this._activeTab._elementRef.nativeElement;
 
-    this._tabIndicator.nativeElement.style.left = offset + 'px';
-    this._tabIndicator.nativeElement.style.width = tabBounds.width + 'px';
+    this._tabIndicator.nativeElement.style.left = `${tab.offsetLeft}px`;
+    this._tabIndicator.nativeElement.style.width = `${tab.offsetWidth}px`;
   }
 
   private _updateScrollPosition() {
@@ -208,7 +222,7 @@ export class TabBarComponent implements AfterContentInit, OnChanges {
     const scrollElement = this._scrollContainer.nativeElement;
 
     this._showLeftScrollIndicator = scrollElement.scrollLeft !== 0;
-    this._showRightScrollIndicator = scrollElement.scrollWidth - scrollElement.scrollLeft !== scrollElement.offsetWidth;
+    this._showRightScrollIndicator = scrollElement.scrollWidth - scrollElement.scrollLeft > scrollElement.offsetWidth + 1;
   }
 
   private _setScrollLeft(scrollLeft: number) {
@@ -225,10 +239,6 @@ export class TabBarComponent implements AfterContentInit, OnChanges {
 
     this._color = newColor;
     this.tabBarClass = `u-tab-bar u-tab-bar-${this._color}`;
-
-    if (this._scrollContainer) {
-      this._indicatorsBackgroundColor = getParentBackground(this._scrollContainer.nativeElement);
-    }
   }
 
   setHostAndContainerHeight() {

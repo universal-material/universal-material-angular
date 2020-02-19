@@ -20,7 +20,6 @@
   </div>
   <u-select
     name="state"
-    [selectionFormatter]="stateFormatter"
     required
     [autoClose]="true"
     placeholder="Select state"
@@ -31,6 +30,38 @@
       <span>*</span>
       {{selectedState?.name}}
     </div>
+  </u-select>
+  <label uLabel>Country</label>
+</u-form-field>
+<u-form-field>
+  <div class="u-text-field-trailing-icon">
+    <span class="u-dropdown-toggle-icon"></span>
+  </div>
+  <u-select
+    name="state"
+    [selectionFormatter]="stateFormatter"
+    required
+    [autoClose]="true"
+    placeholder="Select state"
+    [(ngModel)]="selectedState">
+    <u-option>None</u-option>
+    <u-option *ngFor="let state of states$ | async" [value]="state">{{state.name}}</u-option>
+  </u-select>
+  <label uLabel>Country</label>
+</u-form-field>
+<u-form-field>
+  <div class="u-text-field-trailing-icon">
+    <span class="u-dropdown-toggle-icon"></span>
+  </div>
+  <u-select
+    name="state"
+    required
+    [autoClose]="true"
+    [valueComparer]="stateComparer"
+    placeholder="Select state"
+    [(ngModel)]="selectedState">
+    <u-option>None</u-option>
+    <u-option *ngFor="let state of states$ | async" [displayValue]="state.name" [value]="state">{{state.name}}</u-option>
   </u-select>
   <label uLabel>Country</label>
 </u-form-field>

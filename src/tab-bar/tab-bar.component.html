@@ -2,7 +2,6 @@
   *ngIf="_showLeftScrollIndicator"
   class="u-tab-bar-left-scroll-indicator"
   uRipple
-  [style.background-color]="_indicatorsBackgroundColor"
   (click)="addToScroll(-200)">
   <i [ngClass]="leftScrollIndicatorIconClass"></i>
 </div>
@@ -10,7 +9,6 @@
   *ngIf="_showRightScrollIndicator"
   class="u-tab-bar-right-scroll-indicator"
   uRipple
-  [style.background-color]="_indicatorsBackgroundColor"
   (click)="addToScroll(200)">
   <i [ngClass]="rightScrollIndicatorIconClass"></i>
 </div>
