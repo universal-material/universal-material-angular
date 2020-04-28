@@ -23,8 +23,6 @@ $tab-bar-indicator-size: 2rem;
   overflow-x: scroll;
 }
 
-
-
 .u-tab-bar-left-scroll-indicator,
 .u-tab-bar-right-scroll-indicator {
   position: absolute;
@@ -52,7 +50,6 @@ $tab-bar-indicator-size: 2rem;
 
 .u-tab-bar-right-scroll-indicator {
   right: 0;
-
 
   ~ .u-tab-bar-wrapper {
     padding-right: $tab-bar-indicator-size;

@@ -1,6 +1,6 @@
 {
   "name": "@universal-material/angular",
-  "version": "0.41.2",
+  "version": "0.42.0",
   "author": "https://github.com/universal-material/universal-material-angular/graphs/contributors",
   "repository": {
     "type": "git",
@@ -9,11 +9,11 @@
   "license": "MIT",
   "homepage": "https://github.com/universal-material/universal-material-angular#readme",
   "peerDependencies": {
-    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
-    "@angular/core": "^6.0.0-rc.0 || ^6.0.0"
+    "@angular/common": "^6.0.0 || ^9.0.0",
+    "@angular/core": "^6.0.0 || ^9.0.0"
   },
   "dependencies": {
-    "@universal-material/core": "~0.93.9",
+    "@universal-material/core": "~0.94.2",
     "animated-scroll-to": "^2.0.5",
     "dragdealer": "^0.10.0"
   }

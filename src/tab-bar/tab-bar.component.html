@@ -15,7 +15,7 @@
 <div class="u-tab-bar-wrapper">
   <div class="u-tab-bar-overflow-hidden-container">
     <div class="u-tab-bar-scroll-container" [style.height]="scrollContainerHeight" #scrollContainer>
-      <div [ngClass]="tabBarClass">
+      <div class="u-tab-bar" [ngClass]="_innerTabBarClass">
         <ng-content></ng-content>
         <div class="u-tab-indicator" #tabIndicator></div>
       </div>

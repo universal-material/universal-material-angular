@@ -10,7 +10,7 @@
   <u-tab>Tab C</u-tab>
 </u-tab-bar>
 
-<u-tab-bar [(tabIndex)]="tabIndex">
+<u-tab-bar [(tabIndex)]="tabIndex" tabBarClass="u-tab-bar-primary">
   <u-tab>Tab A</u-tab>
   <u-tab>Tab B</u-tab>
   <u-tab>Tab C</u-tab>
@@ -23,11 +23,24 @@
   <u-tab>Tab J</u-tab>
   <u-tab>Tab K</u-tab>
 </u-tab-bar>
+<u-tab-bar [activeTabId]="tabId" tabBarClass="u-tab-bar-secondary">
+  <u-tab [tabId]="10">Tab A</u-tab>
+  <u-tab [tabId]="20">Tab B</u-tab>
+  <u-tab>Tab C</u-tab>
+  <u-tab>Tab D</u-tab>
+  <u-tab>Tab E</u-tab>
+  <u-tab>Tab F</u-tab>
+  <u-tab>Tab G</u-tab>
+  <u-tab>Tab H</u-tab>
+  <u-tab>Tab I</u-tab>
+  <u-tab>Tab J</u-tab>
+  <u-tab>Tab K</u-tab>
+</u-tab-bar>
 
-<div class="u-toolbar u-toolbar-primary">
-  <u-tab-bar [(tabIndex)]="tabIndex">
-    <u-tab>Tab A</u-tab>
-    <u-tab>Tab B</u-tab>
+<div class="u-toolbar u-toolbar-primary u-bg-dark">
+  <u-tab-bar [(tabIndex)]="tabIndex" (afterChangeTab)="afterChangeTab($event)">
+    <u-tab [tabId]="10">Tab A</u-tab>
+    <u-tab [tabId]="20">Tab B</u-tab>
     <u-tab>Tab C</u-tab>
     <u-tab>Tab D</u-tab>
     <u-tab>Tab E</u-tab>

@@ -1,6 +1,6 @@
 import {
-  AfterViewChecked,
   AfterViewInit,
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
   ContentChildren,
   ElementRef,
@@ -14,40 +14,48 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import {Subject, Subscription} from 'rxjs';
+import {debounceTime} from 'rxjs/operators';
 
-import { TabComponent } from './tab.component';
-import { smoothScrollLeft } from '../util/animations/smooth-scroll';
-import { PreventableEvent } from '../util/events/preventable-event';
+import {TabComponent} from './tab.component';
+import {smoothScrollLeft} from '../util/animations/smooth-scroll';
+import {PreventableEvent} from '../util/events/preventable-event';
 
-const defaultColor = 'primary';
 const tabSelectionExtraSpace = 96;
 
-export interface TabChangeEvent extends PreventableEvent {
+export interface TabChangeEvent {
   tabIndex: number;
+  tabId: any;
+}
+
+export interface BeforeTabChangeEvent extends TabChangeEvent, PreventableEvent {
+  tabIndex: number;
+  tabId: any;
 }
 
 @Component({
   selector: 'u-tab-bar',
   templateUrl: './tab-bar.component.html',
-  styleUrls: ['./tab-bar.component.scss']
+  styleUrls: ['./tab-bar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TabBarComponent implements AfterViewInit, AfterViewChecked, OnChanges {
+export class TabBarComponent implements AfterViewInit, OnChanges {
 
   @ContentChildren(TabComponent) _tabs: QueryList<TabComponent>;
   @ViewChild('tabIndicator') _tabIndicator: ElementRef;
   @ViewChild('scrollContainer') _scrollContainer: ElementRef<HTMLElement>;
   @HostBinding('style.height') hostHeight: string;
 
-  private _color: string;
-  @Input() color: string;
+  private _tabBarClass: string;
+  @Input() tabBarClass: string;
   @Input() leftScrollIndicatorIconClass: string = 'mdi mdi-chevron-left';
   @Input() rightScrollIndicatorIconClass: string = 'mdi mdi-chevron-right';
 
+  @Input() activeTabId: any;
   @Input() tabIndex = 0;
   @Output() tabIndexChange = new EventEmitter<number>();
-  @Output() beforeChangeTab = new EventEmitter<TabChangeEvent>();
+  @Output() beforeChangeTab = new EventEmitter<BeforeTabChangeEvent>();
+  @Output() afterChangeTab = new EventEmitter<TabChangeEvent>();
 
   private _tabsArray: TabComponent[];
   private _tabsClickSubscriptions: Subscription[] = [];
@@ -56,16 +64,17 @@ export class TabBarComponent implements AfterViewInit, AfterViewChecked, OnChang
   private _windowResize$ = new Subject();
   private _scrollContainerScrollLeft = 0;
 
-  tabBarClass: string;
+  _innerTabBarClass: string;
   scrollContainerHeight: string;
-  _showLeftScrollIndicator: boolean;
-  _showRightScrollIndicator: boolean;
+  _showLeftScrollIndicator = false;
+  _showRightScrollIndicator = false;
 
   @HostListener('window:resize') _windowResize = () => {
     this._windowResize$.next();
   }
 
-  constructor(private readonly _elementRef: ElementRef) {
+  constructor(private readonly _elementRef: ElementRef,
+              private readonly _changeDetectorRef: ChangeDetectorRef) {
     this._windowResize$
       .pipe(debounceTime(100))
       .subscribe(() => {
@@ -73,19 +82,18 @@ export class TabBarComponent implements AfterViewInit, AfterViewChecked, OnChang
         this._updateTabIndicator();
       });
 
-    this.color = _elementRef.nativeElement.getAttribute('color');
-    this._updateColorClass();
+    this.tabBarClass = _elementRef.nativeElement.getAttribute('tabBarClass');
     this.setHostAndContainerHeight();
   }
 
-  private _updateTabs(tabs: QueryList<TabComponent>) {
+  private _updateTabs(tabs: TabComponent[]) {
     this._tabsClickSubscriptions.forEach(subscription => {
       subscription.unsubscribe();
     });
 
     this._tabsClickSubscriptions.length = 0;
 
-    this._tabsArray = tabs.toArray();
+    this._tabsArray = tabs;
     this._tabsArray.forEach(tab => {
       this._tabsClickSubscriptions.push(tab._clicked
         .subscribe(() => {
@@ -113,7 +121,7 @@ export class TabBarComponent implements AfterViewInit, AfterViewChecked, OnChang
       this.setTabIndexAndEmit(newTabIndex);
     }
 
-    this.setActiveTab();
+    this._setActiveTab();
   }
 
   addToScroll(value: number) {
@@ -126,19 +134,14 @@ export class TabBarComponent implements AfterViewInit, AfterViewChecked, OnChang
   }
 
   ngAfterViewInit(): void {
-    this._tabs.changes.subscribe(tabs => setTimeout(() => this._updateTabs(tabs)));
+    this._tabs.changes.subscribe(tabs => this._updateTabs(tabs.toArray()));
     this._scrollContainer.nativeElement.addEventListener('scroll', () => this._setScrollIndicators());
+    this._updateTabs(this._tabs.toArray())
+    this._updateTabBarClass();
     this._updateTabIndicator();
     this._updateScrollPosition();
-  }
-
-  ngAfterViewChecked(): void {
-    setTimeout(() => {
-      if (!this._contentInitialized) {
-        this._updateTabs(this._tabs);
-        this._contentInitialized = true;
-      }
-    }, 100);
+    this._changeDetectorRef.detectChanges();
+    this._contentInitialized = true;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -148,19 +151,24 @@ export class TabBarComponent implements AfterViewInit, AfterViewChecked, OnChang
     }
 
     if (changes.tabIndex) {
-      this.setActiveTab();
+      this._setActiveTab();
+    }
+
+    if (changes.activeTabId) {
+      this._setTabIndexByTabId(this.activeTabId);
+      this._setActiveTab();
     }
 
     if (changes.color) {
-      this._updateColorClass();
+      this._updateTabBarClass();
     }
   }
 
-  private _setTabIndexByTab(tab: TabComponent) {
-    let tabIndex = 0;
+  private _setTabIndexByExpression(expression: (tab: TabComponent) => boolean) {
+    let tabIndex = null;
 
-    this._tabs.find((tabItem, index) => {
-      if (tab === tabItem) {
+    const tab = this._tabs.find((tab, index) => {
+      if (expression(tab)) {
         tabIndex = index;
         return true;
       }
@@ -168,9 +176,14 @@ export class TabBarComponent implements AfterViewInit, AfterViewChecked, OnChang
       return false;
     });
 
+    const tabChangeEvent = {
+      tabIndex,
+      tabId: tab && tab.tabId,
+    };
+
     let defaultPrevented = false;
     this.beforeChangeTab.emit({
-      tabIndex,
+      ...tabChangeEvent,
       preventDefault: () => {
         defaultPrevented = true;
       }
@@ -181,10 +194,23 @@ export class TabBarComponent implements AfterViewInit, AfterViewChecked, OnChang
     }
 
     this.setTabIndexAndEmit(tabIndex);
-    this.setActiveTab();
+    this._setActiveTab();
+    this.afterChangeTab.emit(tabChangeEvent);
   }
 
-  setActiveTab() {
+  private _setTabIndexByTabId(tabId: any) {
+    this._setTabIndexByExpression((tab) => tab.tabId === tabId);
+  }
+
+  private _setTabIndexByTab(tab: TabComponent) {
+    this._setTabIndexByExpression((tabItem) => tab === tabItem);
+  }
+
+  _setActiveTab() {
+    if (!this._tabsArray || !this._tabsArray.length) {
+      return;
+    }
+
     if (isNaN(this.tabIndex)) {
       if (this._activeTab) {
         this._activeTab.active = false;
@@ -206,6 +232,7 @@ export class TabBarComponent implements AfterViewInit, AfterViewChecked, OnChang
     this._activeTab.active = true;
     this._updateTabIndicator();
     this._updateScrollPosition();
+    this._changeDetectorRef.detectChanges();
   }
 
   private _updateTabIndicator() {
@@ -220,6 +247,9 @@ export class TabBarComponent implements AfterViewInit, AfterViewChecked, OnChang
   }
 
   private _updateScrollPosition() {
+
+    this._setScrollIndicators();
+
     if (!this._activeTab) {
       return;
     }
@@ -234,8 +264,6 @@ export class TabBarComponent implements AfterViewInit, AfterViewChecked, OnChang
       this._setScrollLeft(
         Math.min(tabElement.offsetLeft + tabElement.offsetWidth + tabSelectionExtraSpace - scrollElement.offsetWidth, scrollElement.scrollWidth));
     }
-
-    this._setScrollIndicators();
   }
 
   private _setScrollIndicators() {
@@ -243,6 +271,7 @@ export class TabBarComponent implements AfterViewInit, AfterViewChecked, OnChang
 
     this._showLeftScrollIndicator = scrollElement.scrollLeft !== 0;
     this._showRightScrollIndicator = scrollElement.scrollWidth - scrollElement.scrollLeft > scrollElement.offsetWidth + 1;
+    this._changeDetectorRef.detectChanges();
   }
 
   private _setScrollLeft(scrollLeft: number) {
@@ -250,15 +279,15 @@ export class TabBarComponent implements AfterViewInit, AfterViewChecked, OnChang
     smoothScrollLeft(this._scrollContainer.nativeElement, scrollLeft);
   }
 
-  private _updateColorClass() {
-    const newColor = this.color || defaultColor;
+  private _updateTabBarClass() {
 
-    if (newColor === this._color) {
+    if (this.tabBarClass === this._tabBarClass) {
       return;
     }
 
-    this._color = newColor;
-    this.tabBarClass = `u-tab-bar u-tab-bar-${this._color}`;
+    this._tabBarClass = this.tabBarClass;
+    this._innerTabBarClass = `u-tab-bar ${this._tabBarClass}`;
+    this._changeDetectorRef.detectChanges();
   }
 
   setHostAndContainerHeight() {

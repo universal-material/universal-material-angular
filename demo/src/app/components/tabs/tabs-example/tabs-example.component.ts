@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { TabChangeEvent } from '@universal-material/angular';
+import { BeforeTabChangeEvent, TabChangeEvent } from '@universal-material/angular';
 
 @Component({
   selector: 'app-tabs-example',
@@ -10,10 +10,15 @@ import { TabChangeEvent } from '@universal-material/angular';
 export class TabsExampleComponent {
 
   tabIndex: number;
+  tabId: any;
 
-  beforeChangeTab($event: TabChangeEvent) {
+  beforeChangeTab($event: BeforeTabChangeEvent) {
     if ($event.tabIndex === 2) {
       $event.preventDefault();
     }
+  }
+
+  afterChangeTab($event: TabChangeEvent) {
+    this.tabId = $event.tabId;
   }
 }

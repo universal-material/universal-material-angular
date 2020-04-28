@@ -68,7 +68,7 @@ export { ChipFieldComponent } from './chip-field/chip-field.component';
 export { ChipFieldModule } from './chip-field/chip-field.module';
 
 export { TabBarModule } from './tab-bar/tab-bar.module';
-export { TabBarComponent, TabChangeEvent } from './tab-bar/tab-bar.component';
+export { TabBarComponent, TabChangeEvent, BeforeTabChangeEvent } from './tab-bar/tab-bar.component';
 export { TabComponent } from './tab-bar/tab.component';
 export * from './snackbar/snackbar.module';
 export * from './dialog/dialog.module';
