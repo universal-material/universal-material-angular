@@ -1,8 +1,8 @@
-import { ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterContentInit, ElementRef, Input, OnDestroy } from '@angular/core';
 
 import { ScrollableContainerWrapper } from '../util/scrollable-container-wrapper';
 
-export abstract class ToolbarBehavior implements OnInit, OnDestroy {
+export abstract class ToolbarBehavior implements AfterContentInit, OnDestroy {
   @Input() scrollContainer: HTMLElement;
   protected _scrollableWrapper: ScrollableContainerWrapper;
 
@@ -18,7 +18,7 @@ export abstract class ToolbarBehavior implements OnInit, OnDestroy {
     this._processBehavior();
   }
 
-  ngOnInit(): void {
+  ngAfterContentInit(): void {
     this._setScrollWrapper();
   }
 

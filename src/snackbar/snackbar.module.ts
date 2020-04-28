@@ -8,7 +8,7 @@ import { SnackbarComponent } from './snackbar.component';
 export { SnackbarConfig, SNACKBAR_DEFAULT_OPTIONS } from './snackbar-config.model';
 export { SnackbarDuration } from './snackbar-duration';
 export { SnackbarService } from './snackbar.service';
-export { SnackbarRef } from './snackbar-ref.model.js';
+export { SnackbarRef } from './snackbar-ref.model';
 
 @NgModule({
   imports: [

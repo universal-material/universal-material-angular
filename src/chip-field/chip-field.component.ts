@@ -1,4 +1,5 @@
 import {
+  AfterContentInit,
   Component,
   ContentChild,
   DoCheck, ElementRef,
@@ -28,7 +29,7 @@ const CHIP_INPUT_VALUE_ACCESSOR = {
   styleUrls: ['./chip-field.component.scss'],
   providers: [CHIP_INPUT_VALUE_ACCESSOR]
 })
-export class ChipFieldComponent implements InputBaseComponent, ControlValueAccessor, OnInit, DoCheck {
+export class ChipFieldComponent implements InputBaseComponent, ControlValueAccessor, AfterContentInit, DoCheck {
 
   @Input() itemFormatter: (item: any) => string;
   @Input() items: any[];
@@ -67,7 +68,7 @@ export class ChipFieldComponent implements InputBaseComponent, ControlValueAcces
     }
   }
 
-  ngOnInit(): void {
+  ngAfterContentInit(): void {
     this.chipInput.enterKeyDown.subscribe(() => {
       if (!this.addOnEnter || !this.chipInput.value) {
         return;

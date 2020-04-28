@@ -30,8 +30,8 @@ export class ToolbarHideWhenScrollDirective extends ToolbarBehavior implements O
     this._elementRef.nativeElement.style.willChange = 'transform';
   }
 
-  ngOnInit(): void {
-    super.ngOnInit();
+  ngAfterContentInit(): void {
+    super.ngAfterContentInit();
     if (this._innerOptions.autoElevate) {
       if (this._elementRef.nativeElement.style.transition) {
         this._elementRef.nativeElement.style.transition += ', box-shadow 450ms';

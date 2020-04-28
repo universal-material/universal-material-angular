@@ -1,5 +1,6 @@
 import {
-  AfterContentInit,
+  AfterViewChecked,
+  AfterViewInit,
   Component,
   ContentChildren,
   ElementRef,
@@ -32,7 +33,7 @@ export interface TabChangeEvent extends PreventableEvent {
   templateUrl: './tab-bar.component.html',
   styleUrls: ['./tab-bar.component.scss']
 })
-export class TabBarComponent implements AfterContentInit, OnChanges {
+export class TabBarComponent implements AfterViewInit, AfterViewChecked, OnChanges {
 
   @ContentChildren(TabComponent) _tabs: QueryList<TabComponent>;
   @ViewChild('tabIndicator') _tabIndicator: ElementRef;
@@ -44,7 +45,7 @@ export class TabBarComponent implements AfterContentInit, OnChanges {
   @Input() leftScrollIndicatorIconClass: string = 'mdi mdi-chevron-left';
   @Input() rightScrollIndicatorIconClass: string = 'mdi mdi-chevron-right';
 
-  @Input() tabIndex: number;
+  @Input() tabIndex = 0;
   @Output() tabIndexChange = new EventEmitter<number>();
   @Output() beforeChangeTab = new EventEmitter<TabChangeEvent>();
 
@@ -124,11 +125,20 @@ export class TabBarComponent implements AfterContentInit, OnChanges {
     this.tabIndexChange.emit(this.tabIndex);
   }
 
-  ngAfterContentInit(): void {
-    this._contentInitialized = true;
-    this._updateTabs(this._tabs);
+  ngAfterViewInit(): void {
     this._tabs.changes.subscribe(tabs => setTimeout(() => this._updateTabs(tabs)));
     this._scrollContainer.nativeElement.addEventListener('scroll', () => this._setScrollIndicators());
+    this._updateTabIndicator();
+    this._updateScrollPosition();
+  }
+
+  ngAfterViewChecked(): void {
+    setTimeout(() => {
+      if (!this._contentInitialized) {
+        this._updateTabs(this._tabs);
+        this._contentInitialized = true;
+      }
+    }, 100);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -176,7 +186,12 @@ export class TabBarComponent implements AfterContentInit, OnChanges {
 
   setActiveTab() {
     if (isNaN(this.tabIndex)) {
-      this.setTabIndexAndEmit(0);
+      if (this._activeTab) {
+        this._activeTab.active = false;
+        this._activeTab = null;
+      }
+
+      return;
     }
 
     if (this._activeTab) {
@@ -189,21 +204,26 @@ export class TabBarComponent implements AfterContentInit, OnChanges {
 
     this._activeTab = this._tabsArray[this.tabIndex];
     this._activeTab.active = true;
-
-    setTimeout(() => {
-      this._updateTabIndicator();
-      this._updateScrollPosition();
-    }, 100);
+    this._updateTabIndicator();
+    this._updateScrollPosition();
   }
 
   private _updateTabIndicator() {
-    const tab = this._activeTab._elementRef.nativeElement;
+    if (!this._activeTab) {
+      this._tabIndicator.nativeElement.style.left = '0';
+      return;
+    }
 
+    const tab = this._activeTab._elementRef.nativeElement;
     this._tabIndicator.nativeElement.style.left = `${tab.offsetLeft}px`;
     this._tabIndicator.nativeElement.style.width = `${tab.offsetWidth}px`;
   }
 
   private _updateScrollPosition() {
+    if (!this._activeTab) {
+      return;
+    }
+
     const tabElement = this._activeTab._elementRef.nativeElement;
     const scrollElement = this._scrollContainer.nativeElement;
     const scrollLeft = this._scrollContainer.nativeElement.scrollLeft;

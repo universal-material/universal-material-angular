@@ -1,4 +1,13 @@
-import { ContentChild, Directive, ElementRef, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import {
+  AfterContentInit,
+  ContentChild,
+  Directive,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output
+} from '@angular/core';
 
 import { DropdownToggleDirective } from './dropdown-toggle.directive';
 import { DropdownMenuDirective } from './dropdown-menu.directive';
@@ -6,7 +15,7 @@ import { DropdownMenuDirective } from './dropdown-menu.directive';
 @Directive({
   selector: '[uDropdown]'
 })
-export class DropdownDirective implements OnInit {
+export class DropdownDirective implements AfterContentInit {
 
   private _justToggle = false;
 
@@ -38,7 +47,7 @@ export class DropdownDirective implements OnInit {
     }
   }
 
-  ngOnInit() {
+  ngAfterContentInit() {
 
     this._dropdownToggle.click.subscribe((e: Event) => {
       this._justToggle = true;

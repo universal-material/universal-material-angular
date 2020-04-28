@@ -1,4 +1,14 @@
-import { ContentChild, ElementRef, EventEmitter, HostBinding, Inject, Input, Optional, Output } from '@angular/core';
+import {
+  AfterContentInit,
+  ContentChild,
+  ElementRef,
+  EventEmitter,
+  HostBinding,
+  Inject,
+  Input,
+  Optional,
+  Output
+} from '@angular/core';
 
 import { DialogBodyDirective } from './dialog-body.directive';
 import { AnimationEvents } from '../util/animations/animation-events';
@@ -9,7 +19,9 @@ export const DefaultDialogConfig: DialogConfig = {
   closeOnEsc: true
 };
 
-export abstract class DialogBaseComponent {
+export abstract class DialogBaseComponent implements AfterContentInit {
+  private _contentInitialized = false;
+
   _dialogConfig: DialogConfig;
 
   @HostBinding('class.hide') _hiding = false;
@@ -21,7 +33,7 @@ export abstract class DialogBaseComponent {
 
   @HostBinding('tabindex') _tabIndex = -1;
   @HostBinding('class.u-dialog-scroll-top-divider') get scrollTopDivider() {
-    return this.dialogBody
+    return this._contentInitialized && this.dialogBody
       ? this.dialogBody._elementRef.nativeElement.scrollTop
       : false;
   }
@@ -69,5 +81,9 @@ export abstract class DialogBaseComponent {
     this.showChange.emit(false);
     this._hiding = true;
     this.addAnimationEndEvents();
+  }
+
+  ngAfterContentInit(): void {
+    setTimeout(() => this._contentInitialized = true, 100);
   }
 }
