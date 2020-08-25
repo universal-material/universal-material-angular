@@ -4,6 +4,15 @@
   <input uTextInput />
   <label uLabel>Name</label>
 </u-form-field>
+
+<u-form-field [invalid]="invalid">
+  <div class="u-text-input">
+    <span class="u-text-input-prefix">$</span>
+    <input uTextInput [setInputClass]="false" />
+  </div>
+  <label uLabel>Amount</label>
+</u-form-field>
+
 <u-form-field [invalid]="invalid">
   <textarea uTextInput></textarea>
   <label uLabel>Description</label>

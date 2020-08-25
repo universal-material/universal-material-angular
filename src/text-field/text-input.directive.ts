@@ -1,4 +1,4 @@
-import { Directive, ElementRef, forwardRef, Inject, Optional, Self } from '@angular/core';
+import {Directive, ElementRef, forwardRef, HostBinding, Inject, Input, Optional, Self} from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 import { TextInputBase } from '../shared/text-input-base';
@@ -9,10 +9,13 @@ import { FormFieldComponent } from '../form-field/form-field.component';
 })
 export class TextInputDirective extends TextInputBase {
 
+  @Input()
+  @HostBinding('class.u-text-input')
+  setInputClass = true;
+
   constructor(@Optional() @Self() readonly ngControl: NgControl,
               @Optional() @Inject(forwardRef(() => FormFieldComponent)) formField: FormFieldComponent,
               elementRef: ElementRef) {
     super(ngControl, formField, elementRef);
-    elementRef.nativeElement.classList.add('u-text-input');
   }
 }

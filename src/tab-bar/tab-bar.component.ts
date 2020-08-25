@@ -121,6 +121,10 @@ export class TabBarComponent implements AfterViewInit, OnChanges {
       this.setTabIndexAndEmit(newTabIndex);
     }
 
+    if (this.activeTabId) {
+      this._setTabIndexByTabId(this.activeTabId)
+    }
+
     this._setActiveTab();
   }
 
@@ -134,7 +138,11 @@ export class TabBarComponent implements AfterViewInit, OnChanges {
   }
 
   ngAfterViewInit(): void {
-    this._tabs.changes.subscribe(tabs => this._updateTabs(tabs.toArray()));
+
+    this._tabs.changes
+      .pipe(debounceTime(250))
+      .subscribe(tabs => this._updateTabs(tabs.toArray()));
+
     this._scrollContainer.nativeElement.addEventListener('scroll', () => this._setScrollIndicators());
     this._updateTabs(this._tabs.toArray())
     this._updateTabBarClass();
@@ -211,7 +219,7 @@ export class TabBarComponent implements AfterViewInit, OnChanges {
       return;
     }
 
-    if (isNaN(this.tabIndex)) {
+    if (this.tabIndex == null || isNaN(this.tabIndex)) {
       if (this._activeTab) {
         this._activeTab.active = false;
         this._activeTab = null;
