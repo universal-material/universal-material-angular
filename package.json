@@ -26,7 +26,7 @@
     "animated-scroll-to": "^2.0.5",
     "core-js": "^2.5.4",
     "dragdealer": "^0.10.0",
-    "highlight.js": "^9.15.6",
+    "highlight.js": "^10.1.2",
     "ngx-highlightjs": "^3.0.3",
     "rxjs": "^6.0.0",
     "zone.js": "~0.8.26"
