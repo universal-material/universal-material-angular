@@ -3,7 +3,7 @@
   <div class="u-dialog-header" *ngIf="_confirmDialogConfig.title">
     <div class="u-dialog-title">{{_confirmDialogConfig.title}}</div>
   </div>
-  <div class="u-dialog-body u-text-low-contrast" uDialogBody>{{message}}</div>
+  <div class="u-dialog-body u-text-low-contrast" uDialogBody [innerHTML]="safeMessage"></div>
   <div class="u-dialog-actions">
     <button type="button"
             class="u-dialog-action"

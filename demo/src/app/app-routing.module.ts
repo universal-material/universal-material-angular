@@ -16,6 +16,7 @@ import { ProgressDialogComponent } from './components/progress-dialog/progress-d
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { ExpansionPanelComponent } from './components/expansion-panel/expansion-panel.component';
 import { SliderComponent } from './components/slider/slider.component';
+import { DialogComponent } from "./components/dialog/dialog.component";
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     path: 'input',
     component: InputComponent
+  },
+  {
+    path: 'dialog',
+    component: DialogComponent
   },
   {
     path: 'progress-dialog',

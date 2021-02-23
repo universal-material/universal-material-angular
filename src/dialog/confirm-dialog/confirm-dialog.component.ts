@@ -1,8 +1,13 @@
-import { Component, ElementRef, Inject, Optional, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, Optional, SecurityContext, ViewChild } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 
 import { DialogComponent } from '../dialog.component';
-import { CONFIRM_DIALOG_DEFAULT_OPTIONS, ConfirmDialogConfig, DefaultConfirmDialogConfig } from './confirm-dialog-config.model';
+import {
+  CONFIRM_DIALOG_DEFAULT_OPTIONS,
+  ConfirmDialogConfig,
+  DefaultConfirmDialogConfig
+} from './confirm-dialog-config.model';
 import { DialogBodyDirective } from '../dialog-body.directive';
 
 @Component({
@@ -10,17 +15,23 @@ import { DialogBodyDirective } from '../dialog-body.directive';
   templateUrl: './confirm-dialog.component.html'
 })
 export class ConfirmDialogComponent extends DialogComponent {
+  safeMessage: SafeHtml;
 
-  message: string;
+  set message(value: string) {
+    this.safeMessage = this.sanitizer.sanitize(SecurityContext.HTML, value);
+  }
+
+  private _closed: boolean;
+  readonly _confirmDialogConfig: ConfirmDialogConfig;
 
   onCancel = new Subject();
   onConfirm = new Subject();
   confirmed: boolean;
-  readonly _confirmDialogConfig: ConfirmDialogConfig;
 
   @ViewChild(DialogBodyDirective) dialogBody: DialogBodyDirective;
 
   constructor(elementRef: ElementRef,
+              private readonly sanitizer: DomSanitizer,
               @Optional() confirmDialogConfig: ConfirmDialogConfig,
               @Optional() @Inject(CONFIRM_DIALOG_DEFAULT_OPTIONS) defaultOptions: ConfirmDialogConfig) {
     super(elementRef, null);
@@ -45,18 +56,25 @@ export class ConfirmDialogComponent extends DialogComponent {
 
   close() {
     super.close();
-    if (!this.confirmed) {
-      this.onCancel.next();
-    }
+    this._closed = true;
   }
 
   _cancelClick() {
+    if (this._closed) {
+      return;
+    }
+
     this.close();
+    this.onCancel.next();
   }
 
   _confirmClick() {
+    if (this._closed) {
+      return;
+    }
+
+    this.close();
     this.confirmed = true;
     this.onConfirm.next();
-    this.close();
   }
 }

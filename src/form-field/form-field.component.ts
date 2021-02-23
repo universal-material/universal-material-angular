@@ -16,12 +16,11 @@ export class FormFieldComponent {
   _appearance: FormFieldAppearance;
   _defaultAppearance: FormFieldAppearance;
   _input: InputBaseComponent;
+  _hasLabel: boolean;
 
   @HostBinding('style.margin-bottom') get removeMarginStyle() {
     return this.removeMargin ? '0' : '';
   }
-
-  @ContentChild(LabelDirective) _label: LabelDirective;
 
   @Input() invalid: boolean;
   @Input() removeMargin: boolean;
@@ -36,7 +35,7 @@ export class FormFieldComponent {
     this._appearance = value;
 
     if (!value || value === 'default') {
-      this._appearanceClass = this._defaultAppearance;
+      value = this._defaultAppearance;
     }
 
     if (value.indexOf('search') > -1) {

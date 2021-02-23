@@ -15,10 +15,6 @@ export class CollapsibleToolbarComponent extends ToolbarBehavior {
   }
   private _toolbarCenter: HTMLElement;
 
-  constructor(elementRef: ElementRef) {
-    super(elementRef);
-  }
-
   protected _setScrollWrapper() {
     if (!this.contentRef) {
       return;
@@ -32,19 +28,20 @@ export class CollapsibleToolbarComponent extends ToolbarBehavior {
     });
   }
 
-  protected _processBehavior = () => {
+  protected _processBehavior = (scrollTop: number) => {
+    scrollTop = scrollTop || 0;
     if (!this.contentRef) {
       return;
     }
 
-    if (this._scrollableWrapper.scrollTop === 0) {
+    if (scrollTop === 0) {
       this._toolbarCenter.style.opacity = '0';
       this.contentRef.nativeElement.style.opacity = '1';
       this.toolbarRef.nativeElement.style.border = 'none';
       return;
     }
 
-    if (this._scrollableWrapper.scrollTop <= this.contentRef.nativeElement.offsetHeight) {
+    if (scrollTop <= this.contentRef.nativeElement.offsetHeight) {
       this.toolbarRef.nativeElement.style.border = 'none';
     } else {
       this.toolbarRef.nativeElement.style.border = '';
@@ -52,13 +49,13 @@ export class CollapsibleToolbarComponent extends ToolbarBehavior {
 
     const scrollOffset = this.contentRef.nativeElement.offsetHeight * 0.8;
 
-    if (this._scrollableWrapper.scrollTop > scrollOffset) {
+    if (scrollTop > scrollOffset) {
       this._toolbarCenter.style.opacity = '1';
       this.contentRef.nativeElement.style.opacity = '0';
       return;
     }
 
     this._toolbarCenter.style.opacity = '0';
-    this.contentRef.nativeElement.style.opacity = (1 - this._scrollableWrapper.scrollTop / scrollOffset) + '';
+    this.contentRef.nativeElement.style.opacity = (1 - scrollTop / scrollOffset) + '';
   };
 }

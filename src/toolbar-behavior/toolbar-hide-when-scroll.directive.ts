@@ -19,31 +19,31 @@ export class ToolbarHideWhenScrollDirective extends ToolbarBehavior implements O
 
   @Input() fixedContent: HTMLElement;
   @Output() sticky = new EventEmitter<boolean>();
-  @Input('uToolbarHideWhenScroll') options: ToolbarHideWhenScrollOptions = DefaultOptions;
+  @Input('uToolbarHideWhenScroll') options: ToolbarHideWhenScrollOptions | '' = DefaultOptions;
   private _innerOptions = DefaultOptions;
 
   previousTranslate = 0;
   previousScrollTop = 0;
 
-  constructor(_toolbarElementRef: ElementRef) {
-    super(_toolbarElementRef);
-    this._elementRef.nativeElement.style.willChange = 'transform';
+  constructor(private readonly _toolbarElementRef: ElementRef) {
+    super();
+    this._toolbarElementRef.nativeElement.style.willChange = 'transform';
   }
 
   ngAfterContentInit(): void {
     super.ngAfterContentInit();
     if (this._innerOptions.autoElevate) {
-      if (this._elementRef.nativeElement.style.transition) {
-        this._elementRef.nativeElement.style.transition += ', box-shadow 450ms';
+      if (this._toolbarElementRef.nativeElement.style.transition) {
+        this._toolbarElementRef.nativeElement.style.transition += ', box-shadow 450ms';
       } else {
-        this._elementRef.nativeElement.style.transition = 'box-shadow 450ms';
+        this._toolbarElementRef.nativeElement.style.transition = 'box-shadow 450ms';
       }
     }
   }
 
-  protected _processBehavior = () => {
-    const newScrollTop = this._scrollableWrapper.scrollTop;
-    let toolbarHeight = this._elementRef.nativeElement.offsetHeight;
+  protected _processBehavior = (newScrollTop: number) => {
+    newScrollTop = newScrollTop || 0;
+    let toolbarHeight = this._toolbarElementRef.nativeElement.offsetHeight;
 
     if (this.fixedContent) {
       toolbarHeight -= this.fixedContent.offsetHeight;
@@ -56,7 +56,7 @@ export class ToolbarHideWhenScrollDirective extends ToolbarBehavior implements O
 
       this.sticky.emit(false);
       if (this._innerOptions.autoElevate) {
-        this._elementRef.nativeElement.classList.remove('u-toolbar-elevated');
+        this._toolbarElementRef.nativeElement.classList.remove('u-toolbar-elevated');
       }
       newTranslate = 0;
     } else if (newTranslate > toolbarHeight) {
@@ -74,21 +74,19 @@ export class ToolbarHideWhenScrollDirective extends ToolbarBehavior implements O
       this.sticky.emit(true);
 
       if (this._innerOptions.autoElevate) {
-        this._elementRef.nativeElement.classList.add('u-toolbar-elevated');
+        this._toolbarElementRef.nativeElement.classList.add('u-toolbar-elevated');
       }
 
     } else if (newTranslate === toolbarHeight) {
       this.sticky.emit(false);
 
       if (this._innerOptions.autoElevate) {
-        this._elementRef.nativeElement.classList.remove('u-toolbar-elevated');
+        this._toolbarElementRef.nativeElement.classList.remove('u-toolbar-elevated');
       }
     }
 
-
-
     this.previousTranslate = newTranslate;
-    this._elementRef.nativeElement.style.transform = 'translate3d(0, ' + -newTranslate + 'px, 0)';
+    this._toolbarElementRef.nativeElement.style.transform = 'translate3d(0, ' + -newTranslate + 'px, 0)';
   }
 
   ngOnChanges(changes: SimpleChanges) {

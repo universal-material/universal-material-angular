@@ -67,6 +67,8 @@ import { ExpansionPanelExampleComponent } from './components/expansion-panel/exp
 import { ExpansionPanelModule } from '@universal-material/angular/expansion-panel/expansion-panel.module';
 import { SliderComponent } from './components/slider/slider.component';
 import { SliderExampleComponent } from './components/slider/slider-example/slider-example.component';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { DialogExampleComponent } from "./components/dialog/dialog-example/dialog-example.component";
 
 
 /**
@@ -115,7 +117,9 @@ export function hljsLanguages() {
     ExpansionPanelComponent,
     ExpansionPanelExampleComponent,
     SliderComponent,
-    SliderExampleComponent
+    SliderExampleComponent,
+    DialogComponent,
+    DialogExampleComponent
   ],
   imports: [
     AppRoutingModule,

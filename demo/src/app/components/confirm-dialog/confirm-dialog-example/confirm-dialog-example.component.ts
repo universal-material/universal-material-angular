@@ -16,7 +16,7 @@ export class ConfirmDialogExampleComponent {
   }
 
   show() {
-    const confirmDialog = this.confirmDialog.open('This action cannot be undone', {
+    const confirmDialog = this.confirmDialog.open('This <strong>action</strong> cannot be undone', {
       title: 'Delete file?',
       confirmButton: {
         text: 'Delete',
