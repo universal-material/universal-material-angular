@@ -19,11 +19,7 @@ import {
   CircularProgressModule
 } from '@universal-material/angular';
 
-import { HighlightModule } from 'ngx-highlightjs';
-
-import xml from 'highlight.js/lib/languages/xml';
-import scss from 'highlight.js/lib/languages/scss';
-import typescript from 'highlight.js/lib/languages/typescript';
+import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs';
 
 import { AppComponent } from './app.component';
 import { FORM_FIELD_DEFAULT_APPEARANCE } from '@universal-material/angular/form-field/form-field.component';
@@ -70,19 +66,6 @@ import { SliderExampleComponent } from './components/slider/slider-example/slide
 import { DialogComponent } from './components/dialog/dialog.component';
 import { DialogExampleComponent } from "./components/dialog/dialog-example/dialog-example.component";
 
-
-/**
- * Import every language you wish to highlight here
- * NOTE: The name of each language must match the file name its imported from
- */
-export function hljsLanguages() {
-  return [
-    {name: 'typescript', func: typescript},
-    {name: 'scss', func: scss},
-    {name: 'xml', func: xml}
-  ];
-}
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -123,9 +106,7 @@ export function hljsLanguages() {
   ],
   imports: [
     AppRoutingModule,
-    HighlightModule.forRoot({
-      languages: hljsLanguages
-    }),
+    HighlightModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -164,6 +145,23 @@ export function hljsLanguages() {
     //     clearLabel: 'Clear date',
     //   }
     // }
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        // @ts-ignore
+        coreLibraryLoader: () => import('highlight.js/lib/core'),
+        // @ts-ignore
+        lineNumbersLoader: () => import('highlightjs-line-numbers.js'), // Optional, only if you want the line numbers
+        languages: {
+          // @ts-ignore
+          typescript: () => import('highlight.js/lib/languages/typescript'),
+          // @ts-ignore
+          scss: () => import('highlight.js/lib/languages/scss'),
+          // @ts-ignore
+          xml: () => import('highlight.js/lib/languages/xml')
+        }
+      }
+    }
   ],
   bootstrap: [AppComponent]
 })

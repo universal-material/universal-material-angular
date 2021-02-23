@@ -54,7 +54,7 @@ export class TypeaheadWindow implements OnInit {
   /**
    * Typeahead match results to be displayed
    */
-  @Input() results;
+  @Input() results: any[];
 
   /**
    * Search term used to get current results
@@ -113,7 +113,7 @@ export class TypeaheadWindow implements OnInit {
     this._activeChanged();
   }
 
-  select(item) { this.selectEvent.emit(item); }
+  select(item: any) { this.selectEvent.emit(item); }
 
   ngOnInit() { this.resetActive(); }
 

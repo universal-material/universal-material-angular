@@ -80,7 +80,7 @@ export class DatepickerInputComponent implements InputBaseComponent, ControlValu
     this._onTouched = fn;
   }
 
-  writeValue(value) {
+  writeValue(value: Date) {
     this.date = value;
   }
 

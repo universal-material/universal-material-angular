@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
-import htmlCode from './tabs-example/tabs-example.component.html';
+// @ts-ignore
+import htmlCode from '!raw-loader!./tabs-example/tabs-example.component.html';
+// @ts-ignore
 import cssCode from '!raw-loader!./tabs-example/tabs-example.component.scss';
 // @ts-ignore
 import tsCode from '!raw-loader!./tabs-example/tabs-example.component.ts';
@@ -10,15 +12,9 @@ import tsCode from '!raw-loader!./tabs-example/tabs-example.component.ts';
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.scss']
 })
-export class TabsComponent implements OnInit {
+export class TabsComponent {
 
   htmlCode = htmlCode;
   cssCode = cssCode;
   tsCode = tsCode;
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
 }

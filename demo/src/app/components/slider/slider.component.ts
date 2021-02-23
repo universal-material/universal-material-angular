@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 
-import htmlCode from './slider-example/slider-example.component.html';
+// @ts-ignore
+import htmlCode from '!raw-loader!./slider-example/slider-example.component.html';
+// @ts-ignore
 import cssCode from '!raw-loader!./slider-example/slider-example.component.scss';
 // @ts-ignore
 import tsCode from '!raw-loader!./slider-example/slider-example.component.ts';

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 
-import htmlCode from './simple-snackbar-example/simple-snackbar-example.component.html';
+// @ts-ignore
+import htmlCode from '!raw-loader!./simple-snackbar-example/simple-snackbar-example.component.html';
+// @ts-ignore
 import cssCode from '!raw-loader!./simple-snackbar-example/simple-snackbar-example.component.scss';
 // @ts-ignore
 import tsCode from '!raw-loader!./simple-snackbar-example/simple-snackbar-example.component.ts';

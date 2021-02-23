@@ -34,6 +34,6 @@ export function padNumber(value: number) {
   }
 }
 
-export function regExpEscape(text) {
+export function regExpEscape(text: string) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }

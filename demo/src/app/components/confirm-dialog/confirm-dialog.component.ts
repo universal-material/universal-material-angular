@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 
-import htmlCode from './confirm-dialog-example/confirm-dialog-example.component.html';
+// @ts-ignore
+import htmlCode from '!raw-loader!./confirm-dialog-example/confirm-dialog-example.component.html';
+// @ts-ignore
 import cssCode from '!raw-loader!./confirm-dialog-example/confirm-dialog-example.component.scss';
 // @ts-ignore
 import tsCode from '!raw-loader!./confirm-dialog-example/confirm-dialog-example.component.ts';

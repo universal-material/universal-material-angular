@@ -1,7 +1,7 @@
 // previous version:
 // https://github.com/angular-ui/bootstrap/blob/07c31d0731f7cb068a1932b8e01d2312b796b4ec/src/position/position.js
 export class Positioning {
-  private getAllStyles(element: HTMLElement) { return window.getComputedStyle(element); }
+  private getAllStyles(element: HTMLElement): {[b: string]: any} { return window.getComputedStyle(element); }
 
   private getStyle(element: HTMLElement, prop: string): string { return this.getAllStyles(element)[prop]; }
 

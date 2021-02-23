@@ -34,7 +34,7 @@ export class DatepickerComponent implements OnChanges {
   pickerState = DatepickerState.SelectDay;
 
   @Input() config: DatepickerConfig;
-  @Input() date;
+  @Input() date: Date | null;
   @Output() dateChange = new EventEmitter();
 
   constructor(@Inject(LOCALE_ID) private readonly _locale: string,
@@ -51,7 +51,7 @@ export class DatepickerComponent implements OnChanges {
   private _getOrderedWeekDayNames(): string[] {
     const orderedDayNames = [];
     const dayNames = getLocaleDayNames(this._locale, FormStyle.Standalone, TranslationWidth.Narrow);
-    let currentDay = this._innerConfig.firstDayOfWeek;
+    let currentDay: number = this._innerConfig.firstDayOfWeek!;
 
     do {
       orderedDayNames.push(dayNames[currentDay]);
@@ -74,7 +74,7 @@ export class DatepickerComponent implements OnChanges {
     this.yearGroups.length = 0;
 
     for (let g = 0; g < this._yearsGroupsCount; g++) {
-      const yearGroup = [];
+      const yearGroup: number[] = [];
 
       this.yearGroups.push(yearGroup);
       for (let y = 0; y < this._yearsPerGroup; y++) {
@@ -97,7 +97,7 @@ export class DatepickerComponent implements OnChanges {
     let m = 0;
 
     while (m < 12) {
-      const monthGroup = [];
+      const monthGroup: Date[] = [];
       this.monthGroups.push(monthGroup);
 
       for (let i = 0; i < this.monthsPerGroup; i++) {
@@ -117,7 +117,7 @@ export class DatepickerComponent implements OnChanges {
     this.pickerState = DatepickerState.SelectDay;
   }
 
-  private _setDate(date: Date) {
+  private _setDate(date: Date | null) {
     this.date = date;
 
     date = date || new Date();
@@ -139,12 +139,12 @@ export class DatepickerComponent implements OnChanges {
       return currentMonthInitialDate;
     }
 
-    if (currentMonthInitialDate.getDay() > this._innerConfig.firstDayOfWeek) {
+    if (currentMonthInitialDate.getDay() > this._innerConfig.firstDayOfWeek!) {
       currentMonthInitialDate
-        .setDate(currentMonthInitialDate.getDate() - (currentMonthInitialDate.getDay() - this._innerConfig.firstDayOfWeek));
+        .setDate(currentMonthInitialDate.getDate() - (currentMonthInitialDate.getDay() - this._innerConfig.firstDayOfWeek!));
     } else {
       currentMonthInitialDate
-        .setDate(currentMonthInitialDate.getDate() - (WeekDay.Saturday - (this._innerConfig.firstDayOfWeek - currentMonthInitialDate.getDay() - 1)));
+        .setDate(currentMonthInitialDate.getDate() - (WeekDay.Saturday - (this._innerConfig.firstDayOfWeek! - currentMonthInitialDate.getDay() - 1)));
     }
 
     return currentMonthInitialDate;

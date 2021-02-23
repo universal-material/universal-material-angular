@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 
-import htmlCode from './progress-spinner-example/progress-spinner-example.component.html';
+// @ts-ignore
+import htmlCode from '!raw-loader!./progress-spinner-example/progress-spinner-example.component.html';
+// @ts-ignore
 import cssCode from '!raw-loader!./progress-spinner-example/progress-spinner-example.component.scss';
 // @ts-ignore
 import tsCode from '!raw-loader!./progress-spinner-example/progress-spinner-example.component.ts';

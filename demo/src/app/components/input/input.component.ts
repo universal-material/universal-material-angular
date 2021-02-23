@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 
-import htmlCode from './text-field-example/text-field-example.component.html';
+// @ts-ignore
+import htmlCode from '!raw-loader!./text-field-example/text-field-example.component.html';
+// @ts-ignore
 import cssCode from '!raw-loader!./text-field-example/text-field-example.component.scss';
 // @ts-ignore
 import tsCode from '!raw-loader!./text-field-example/text-field-example.component.ts';

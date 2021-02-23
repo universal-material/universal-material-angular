@@ -26,12 +26,6 @@ import {Live} from '../util/accessibility/live';
 import {TypeaheadConfig} from './typeahead-config';
 import {map, switchMap, tap} from 'rxjs/operators';
 
-const NGB_TYPEAHEAD_VALUE_ACCESSOR = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => Typeahead),
-  multi: true
-};
-
 /**
  * Payload of the selectItem event.
  */
@@ -70,16 +64,22 @@ let nextWindowId = 0;
     '[attr.aria-owns]': 'isPopupOpen() ? popupId : null',
     '[attr.aria-expanded]': 'isPopupOpen()'
   },
-  providers: [NGB_TYPEAHEAD_VALUE_ACCESSOR]
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => Typeahead),
+      multi: true
+    }
+  ]
 })
 export class Typeahead implements ControlValueAccessor,
     OnInit, OnDestroy {
   private _popupService: PopupService<TypeaheadWindow>;
-  private _subscription: Subscription;
+  private _subscription: Subscription | null;
   private _inputValueBackup: string;
   private _valueChanges: Observable<string>;
   private _resubscribeTypeahead: BehaviorSubject<any>;
-  private _windowRef: ComponentRef<TypeaheadWindow>;
+  private _windowRef!: ComponentRef<TypeaheadWindow> | null;
   private _zoneSubscription: any;
 
   /**
@@ -146,7 +146,7 @@ export class Typeahead implements ControlValueAccessor,
    */
   @Output() selectItem = new EventEmitter<TypeaheadSelectItemEvent>();
 
-  activeDescendant: string;
+  activeDescendant: string | undefined;
   popupId = `u-typeahead-${nextWindowId++}`;
 
   private _onTouched = () => {};
@@ -206,13 +206,13 @@ export class Typeahead implements ControlValueAccessor,
 
   registerOnTouched(fn: () => any): void { this._onTouched = fn; }
 
-  writeValue(value) { this._writeInputValue(this._formatItemForInput(value)); }
+  writeValue(value: any) { this._writeInputValue(this._formatItemForInput(value)); }
 
   setDisabledState(isDisabled: boolean): void {
     this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
   }
 
-  onDocumentClick(event) {
+  onDocumentClick(event: Event) {
     if (event.target !== this._elementRef.nativeElement) {
       this.dismissPopup();
     }
@@ -243,7 +243,7 @@ export class Typeahead implements ControlValueAccessor,
       return;
     }
 
-    if (Key[toString(event.which)]) {
+    if (Key[toString(event.which) as any]) {
       switch (event.which) {
         case Key.ArrowDown:
           event.preventDefault();
@@ -283,7 +283,7 @@ export class Typeahead implements ControlValueAccessor,
       this._windowRef.instance.activeChangeEvent.subscribe((activeId: string) => this.activeDescendant = activeId);
 
       if (this.container === 'body') {
-        window.document.querySelector(this.container).appendChild(this._windowRef.location.nativeElement);
+        window.document.querySelector(this.container)!.appendChild(this._windowRef.location.nativeElement);
       }
     }
   }
@@ -311,16 +311,16 @@ export class Typeahead implements ControlValueAccessor,
   }
 
   private _showHint() {
-    if (this.showHint && this._windowRef.instance.hasActive() && this._inputValueBackup != null) {
+    if (this.showHint && this._windowRef!.instance.hasActive() && this._inputValueBackup != null) {
       const userInputLowerCase = this._inputValueBackup.toLowerCase();
-      const formattedVal = this._formatItemForInput(this._windowRef.instance.getActive());
+      const formattedVal = this._formatItemForInput(this._windowRef!.instance.getActive());
 
       if (userInputLowerCase === formattedVal.substr(0, this._inputValueBackup.length).toLowerCase()) {
         this._writeInputValue(this._inputValueBackup + formattedVal.substr(this._inputValueBackup.length));
         this._elementRef.nativeElement['setSelectionRange'].apply(
             this._elementRef.nativeElement, [this._inputValueBackup.length, formattedVal.length]);
       } else {
-        this.writeValue(this._windowRef.instance.getActive());
+        this.writeValue(this._windowRef!.instance.getActive());
       }
     }
   }

@@ -1,8 +1,0 @@
-{
-  "$schema": "../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../dist/@universal-material/angular",
-  "lib": {
-    "entryFile": "index.ts"
-  },
-  "whitelistedNonPeerDependencies": ["@universal-material/core", "animated-scroll-to", "dragdealer"]
-}

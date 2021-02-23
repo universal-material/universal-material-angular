@@ -16,10 +16,10 @@ export class ButtonComponent extends RippleDirective implements OnChanges {
   private _color: string;
   private _style: string;
 
-  @Input('color') color: string;
+  @Input('color') color: string | null;
 
   // tslint:disable-next-line:no-input-rename
-  @Input('u-btn') style: string;
+  @Input('u-btn') style: string | null;
 
   constructor(elementRef: ElementRef<HTMLElement>,
               @Inject(DOCUMENT) document: any) {

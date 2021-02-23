@@ -13,7 +13,7 @@ export class ContentRef {
 }
 
 export class PopupService<T> {
-  private _windowRef: ComponentRef<T>;
+  private _windowRef!: ComponentRef<T>;
   private _contentRef: ContentRef;
 
   constructor(

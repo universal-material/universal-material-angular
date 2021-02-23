@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 
-import htmlCode from './select-example/select-example.component.html';
+// @ts-ignore
+import htmlCode from '!raw-loader!./select-example/select-example.component.html';
+// @ts-ignore
 import cssCode from '!raw-loader!./select-example/select-example.component.scss';
 // @ts-ignore
 import tsCode from '!raw-loader!./select-example/select-example.component.ts';

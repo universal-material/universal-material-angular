@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
+interface State {
+  name: string;
+}
+
 @Component({
   selector: 'app-select-example',
   templateUrl: './select-example.component.html',
@@ -75,6 +79,6 @@ export class SelectExampleComponent {
     ]);
   }
 
-  stateFormatter = (state) => state.name;
-  stateComparer = (stateA, stateB) => (stateA && stateA.name) === (stateB && stateB.name);
+  stateFormatter = (state: State) => state.name;
+  stateComparer = (stateA: State, stateB: State) => (stateA && stateA.name) === (stateB && stateB.name);
 }

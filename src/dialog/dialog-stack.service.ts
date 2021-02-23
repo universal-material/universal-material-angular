@@ -10,7 +10,7 @@ export class DialogStackService {
   private static _dialogStack: DialogComponent[] = [];
 
   constructor(@Inject(DOCUMENT) private readonly _document: any) {
-    this._document.body.addEventListener('keydown', e => {
+    this._document.body.addEventListener('keydown', (e: KeyboardEvent) => {
       if (e.keyCode === Key.Escape) {
         this.closeTopMostDialog();
       }

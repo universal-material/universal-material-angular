@@ -1,5 +1,7 @@
-import {NgModule} from '@angular/core';
-import {FloatingActionBehaviorDirective} from './floating-action-behavior.directive';
+import { NgModule } from '@angular/core';
+import { FloatingActionBehaviorDirective } from './floating-action-behavior.directive';
+
+export { FloatingActionBehaviorDirective }
 
 @NgModule({
   declarations: [FloatingActionBehaviorDirective],

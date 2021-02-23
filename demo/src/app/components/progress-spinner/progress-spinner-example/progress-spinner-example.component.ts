@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./progress-spinner-example.component.scss']
 })
 export class ProgressSpinnerExampleComponent {
-
+  percentage: number = 50;
 }

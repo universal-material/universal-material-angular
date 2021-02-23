@@ -41,14 +41,14 @@ export class RippleDirective implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (document.defaultView.getComputedStyle(this._elementRef.nativeElement).position !== 'absolute' &&
-      document.defaultView.getComputedStyle(this._elementRef.nativeElement).position !== 'fixed' &&
+    if (document.defaultView!.getComputedStyle(this._elementRef.nativeElement).position !== 'absolute' &&
+      document.defaultView!.getComputedStyle(this._elementRef.nativeElement).position !== 'fixed' &&
       (!this.rippleConfig || !this.rippleConfig.dontChangePositioning)) {
       this._elementRef.nativeElement.style.position = 'relative';
     }
   }
 
-  createRipple(releaseEventName: string, releaseCallback: Function, pageX: number, pageY: number) {
+  createRipple(releaseEventName: string, releaseCallback: Function | null, pageX: number, pageY: number) {
     if (this.disabled ||
       this._elementRef.nativeElement.hasAttribute('disabled') ||
       this._elementRef.nativeElement.classList.contains('disabled')) {

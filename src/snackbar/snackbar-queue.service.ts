@@ -8,7 +8,7 @@ import { SnackbarComponent } from './snackbar.component';
 })
 export class SnackbarQueueService {
   private static _queue: ComponentRef<SnackbarComponent>[] = [];
-  private static _showingSnackbar: ComponentRef<SnackbarComponent> = null;
+  private static _showingSnackbar: ComponentRef<SnackbarComponent> | null = null;
 
   constructor(private readonly _appRef: ApplicationRef) {
 
@@ -41,7 +41,12 @@ export class SnackbarQueueService {
     }
 
     const snackbarComponentRef = SnackbarQueueService._queue.pop();
-    const snackbar = snackbarComponentRef.instance;
+
+    if (!snackbarComponentRef) {
+      return;
+    }
+
+    const snackbar = snackbarComponentRef!.instance;
     SnackbarQueueService._showingSnackbar = snackbarComponentRef;
 
     (snackbar.afterOpen as Subject<void>).next();
@@ -63,7 +68,7 @@ export class SnackbarQueueService {
     }
 
     document
-      .querySelector('body')
+      .querySelector('body')!
       .appendChild(snackbarComponentRef.location.nativeElement);
   }
 }

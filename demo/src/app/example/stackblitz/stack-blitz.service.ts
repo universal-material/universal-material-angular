@@ -3,7 +3,8 @@ import { Project } from './project.model';
 
 import StackBlitzSDK from '@stackblitz/sdk';
 
-import indexTemplate from './index.html';
+// @ts-ignore
+import indexTemplate from '!raw-loader!./index.html';
 // @ts-ignore
 import appModuleTsTemplate from '!raw-loader!./app/app.module.ts';
 // @ts-ignore
@@ -21,7 +22,7 @@ import { replaceAll } from '../replace-all';
 export class StackBlitzService {
 
   createProject(project: Project) {
-    const files = {
+    const files: {[path: string]: string} = {
       'angular.json': JSON.stringify(angularJsonTemplate),
       'src/main.ts': mainTemplate,
       'src/styles.scss': ' ',
@@ -56,7 +57,8 @@ export class StackBlitzService {
       files: files,
       dependencies: {
         '@universal-material/core': '*',
-        '@universal-material/angular': '*'
+        '@universal-material/angular': '*',
+        'core-js': '2'
       }
     });
   }

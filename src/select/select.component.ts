@@ -159,7 +159,7 @@ export class SelectComponent implements AfterContentInit, InputBaseComponent, Co
     this._onTouched = fn;
   }
 
-  writeValue(value, tryToFindOption: boolean = true) {
+  writeValue(value: any, tryToFindOption: boolean = true) {
 
     this.selectedValue = value;
     if (!tryToFindOption) {

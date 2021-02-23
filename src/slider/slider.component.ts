@@ -27,7 +27,7 @@ export class SliderComponent implements OnInit, ControlValueAccessor {
   private _onTouched = () => {}
   private _onChange = (_: any) => {}
 
-  @ViewChild('input') inputRef: ElementRef<HTMLInputElement>;
+  @ViewChild('input', {static: true}) inputRef: ElementRef<HTMLInputElement>;
 
   constructor(private readonly elementRef: ElementRef<HTMLElement>) {
     this.elementRef.nativeElement.setAttribute('role', 'slider');

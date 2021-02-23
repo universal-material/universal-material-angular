@@ -11,6 +11,7 @@ import {
   QueryList,
   SimpleChanges
 } from '@angular/core';
+// @ts-ignore
 import * as Dragdealer from 'dragdealer';
 
 import {ViewPagerSlideComponent} from './view-pager-slide.component';
@@ -29,7 +30,7 @@ export class ViewPagerComponent implements AfterViewInit, AfterContentInit, OnDe
 
   @ContentChildren(ViewPagerSlideComponent) _slides: QueryList<ViewPagerSlideComponent>;
 
-  private dragdealer;
+  private dragdealer: Dragdealer;
   slideCount: number;
   dragDealerDelta: number;
 
@@ -51,7 +52,7 @@ export class ViewPagerComponent implements AfterViewInit, AfterContentInit, OnDe
       speed: speed,
       loose: true,
       requestAnimationFrame: true,
-      callback: (x) => {
+      callback: (x: number) => {
         this.selectedIndex = x / this.dragDealerDelta;
         console.log(this.selectedIndex);
         this.selectedIndexChange.emit(this.selectedIndex);

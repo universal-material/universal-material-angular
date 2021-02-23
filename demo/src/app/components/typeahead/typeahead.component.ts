@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 
-import htmlCode from './typeahead-example/typeahead-example.component.html';
+// @ts-ignore
+import htmlCode from '!raw-loader!./typeahead-example/typeahead-example.component.html';
+// @ts-ignore
 import cssCode from '!raw-loader!./typeahead-example/typeahead-example.component.scss';
 // @ts-ignore
 import tsCode from '!raw-loader!./typeahead-example/typeahead-example.component.ts';

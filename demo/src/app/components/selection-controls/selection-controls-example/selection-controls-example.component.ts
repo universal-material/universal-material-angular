@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 })
 export class SelectionControlsExampleComponent {
 
-  stateFormatter = state => state.name;
+  stateFormatter = (state: {name: string}) => state.name;
 }

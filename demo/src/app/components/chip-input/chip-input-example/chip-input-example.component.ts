@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class ChipInputExampleComponent {
 
-  items = [];
+  items: any[] = [];
 
   removeItem(index: number) {
     this.items.splice(index, 1);

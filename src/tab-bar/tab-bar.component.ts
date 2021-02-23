@@ -52,14 +52,14 @@ export class TabBarComponent implements AfterViewInit, OnChanges {
   @Input() rightScrollIndicatorIconClass: string = 'mdi mdi-chevron-right';
 
   @Input() activeTabId: any;
-  @Input() tabIndex = 0;
-  @Output() tabIndexChange = new EventEmitter<number>();
+  @Input() tabIndex: number | null = 0;
+  @Output() tabIndexChange = new EventEmitter<number | null>();
   @Output() beforeChangeTab = new EventEmitter<BeforeTabChangeEvent>();
   @Output() afterChangeTab = new EventEmitter<TabChangeEvent>();
 
   private _tabsArray: TabComponent[];
   private _tabsClickSubscriptions: Subscription[] = [];
-  private _activeTab: TabComponent;
+  private _activeTab: TabComponent | null;
   private _contentInitialized = false;
   private _windowResize$ = new Subject();
   private _scrollContainerScrollLeft = 0;
@@ -101,7 +101,7 @@ export class TabBarComponent implements AfterViewInit, OnChanges {
         }));
     });
 
-    const lastActiveTabIndex = this._tabsArray.indexOf(this._activeTab);
+    const lastActiveTabIndex = this._tabsArray.indexOf(this._activeTab!);
     let newTabIndex = null;
 
     if (lastActiveTabIndex > -1 && this.tabIndex !== lastActiveTabIndex) {
@@ -113,7 +113,7 @@ export class TabBarComponent implements AfterViewInit, OnChanges {
       this._activeTab = null;
     }
 
-    if (this.tabIndex > this._tabsArray.length - 1) {
+    if (this.tabIndex! > this._tabsArray.length - 1) {
       newTabIndex = this._tabsArray.length - 1;
     }
 
@@ -132,7 +132,7 @@ export class TabBarComponent implements AfterViewInit, OnChanges {
     this._setScrollLeft(this._scrollContainer.nativeElement.scrollLeft + value);
   }
 
-  setTabIndexAndEmit(tabIndex: number) {
+  setTabIndexAndEmit(tabIndex: number | null) {
     this.tabIndex = tabIndex;
     this.tabIndexChange.emit(this.tabIndex);
   }
@@ -173,7 +173,7 @@ export class TabBarComponent implements AfterViewInit, OnChanges {
   }
 
   private _setTabIndexByExpression(expression: (tab: TabComponent) => boolean) {
-    let tabIndex = null;
+    let tabIndex: number | null = null;
 
     const tab = this._tabs.find((tab, index) => {
       if (expression(tab)) {
@@ -185,7 +185,7 @@ export class TabBarComponent implements AfterViewInit, OnChanges {
     });
 
     const tabChangeEvent = {
-      tabIndex,
+      tabIndex: tabIndex!,
       tabId: tab && tab.tabId,
     };
 

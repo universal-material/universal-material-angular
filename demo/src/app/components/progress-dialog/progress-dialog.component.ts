@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 
-import htmlCode from './progress-dialog-example/progress-dialog-example.component.html';
+// @ts-ignore
+import htmlCode from '!raw-loader!./progress-dialog-example/progress-dialog-example.component.html';
+// @ts-ignore
 import cssCode from '!raw-loader!./progress-dialog-example/progress-dialog-example.component.scss';
 // @ts-ignore
 import tsCode from '!raw-loader!./progress-dialog-example/progress-dialog-example.component.ts';

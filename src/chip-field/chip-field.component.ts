@@ -6,7 +6,7 @@ import {
   EventEmitter,
   forwardRef, HostBinding,
   Inject,
-  Input,
+  Input, IterableDiffer,
   IterableDiffers, OnInit,
   Optional,
   Output
@@ -54,7 +54,7 @@ export class ChipFieldComponent implements InputBaseComponent, ControlValueAcces
     return this.chipInput.empty && (!this.items || !this.items.length);
   }
 
-  differ;
+  differ: IterableDiffer<any>;
 
   constructor(elementRef: ElementRef,
               private readonly differs: IterableDiffers,

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 
-import htmlCode from './buttons-example/buttons-example.component.html';
+// @ts-ignore
+import htmlCode from '!raw-loader!./buttons-example/buttons-example.component.html';
+// @ts-ignore
 import cssCode from '!raw-loader!./buttons-example/buttons-example.component.scss';
 // @ts-ignore
 import tsCode from '!raw-loader!./buttons-example/buttons-example.component.ts';

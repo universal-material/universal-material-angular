@@ -32,7 +32,7 @@ export class DropdownDirective implements AfterContentInit {
       return;
     }
 
-    if ((this.autoClose || this.autoClose === 'outside') && this._dropdownMenu.show) {
+    if ((this.autoClose === 'outside' || this.autoClose) && this._dropdownMenu.show) {
       this._dropdownMenu.show = false;
     }
   }
@@ -49,7 +49,7 @@ export class DropdownDirective implements AfterContentInit {
 
   ngAfterContentInit() {
 
-    this._dropdownToggle.click.subscribe((e: Event) => {
+    this._dropdownToggle.click.subscribe(() => {
       this._justToggle = true;
 
       if (!this._dropdownMenu.show) {

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 
-import htmlCode from './dialog-example/dialog-example.component.html';
+// @ts-ignore
+import htmlCode from '!raw-loader!./dialog-example/dialog-example.component.html';
+// @ts-ignore
 import cssCode from '!raw-loader!./dialog-example/dialog-example.component.scss';
 // @ts-ignore
 import tsCode from '!raw-loader!./dialog-example/dialog-example.component.ts';

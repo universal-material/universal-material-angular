@@ -22,9 +22,9 @@
     </u-tab-bar>
     <div class="u-divider"></div>
     <div class="u-card-content" highlightChildren [ngSwitch]="tabIndex">
-      <pre *ngSwitchCase="0"><code [textContent]="htmlCode"></code></pre>
-      <pre *ngSwitchCase="1"><code [textContent]="tsCode"></code></pre>
-      <pre *ngSwitchCase="2"><code [textContent]="cssCode"></code></pre>
+      <pre *ngSwitchCase="0"><code [highlight]="htmlCode"></code></pre>
+      <pre *ngSwitchCase="1"><code [highlight]="tsCode"></code></pre>
+      <pre *ngSwitchCase="2"><code [highlight]="cssCode"></code></pre>
     </div>
     <div class="u-divider"></div>
   </div>

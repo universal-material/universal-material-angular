@@ -8,5 +8,5 @@ export interface SnackbarRef {
   afterDismiss: Observable<void>;
   onAction: Observable<void>;
 
-  dismiss();
+  dismiss(): void;
 }
