@@ -29,6 +29,8 @@ export abstract class DatepickerBaseComponent {
 
   @Input() config: DatepickerConfig;
   @Input() datepickerTitle: string = 'Select date';
+  @Input() navigateBackClass: string = 'u-chevron-left';
+  @Input() navigateForwardClass: string = 'u-chevron-right';
   @Input() date: Date | null;
   @Output() dateChange = new EventEmitter();
   formattedDate: string;

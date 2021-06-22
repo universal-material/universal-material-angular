@@ -11,10 +11,10 @@
         </button>
         <div class="u-btn-set ml-auto">
           <button type="button" u-btn="borderless" (click)="datepicker.showPreviousMonth()">
-            <i class="u-btn-icon u-chevron-left"></i>
+            <i class="u-btn-icon" [ngClass]="datepicker.navigateBackClass"></i>
           </button>
           <button type="button" u-btn="borderless" (click)="datepicker.showNextMonth()">
-            <i class="u-btn-icon u-chevron-right"></i>
+            <i class="u-btn-icon" [ngClass]="datepicker.navigateForwardClass"></i>
           </button>
         </div>
       </div>
@@ -40,10 +40,10 @@
         </button>
         <div class="u-btn-set ml-auto">
           <button type="button" u-btn="borderless" (click)="datepicker.setYearGroups(datepicker.baseYear - datepicker.totalVisibleYears)">
-            <i class="u-btn-icon u-chevron-left"></i>
+            <i class="u-btn-icon" [ngClass]="datepicker.navigateBackClass"></i>
           </button>
           <button type="button" u-btn="borderless" (click)="datepicker.setYearGroups(datepicker.baseYear + datepicker.totalVisibleYears)">
-            <i class="u-btn-icon u-chevron-right"></i>
+            <i class="u-btn-icon" [ngClass]="datepicker.navigateForwardClass"></i>
           </button>
         </div>
       </div>
