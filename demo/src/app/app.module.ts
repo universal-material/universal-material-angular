@@ -14,7 +14,6 @@ import {
   TextFieldModule,
   ToolbarBehaviorModule,
   TypeaheadModule,
-  ViewPagerModule,
   SliderModule,
   CircularProgressModule
 } from '@universal-material/angular';
@@ -115,7 +114,6 @@ import { DialogExampleComponent } from "./components/dialog/dialog-example/dialo
     SelectModule,
     TextFieldModule,
     TypeaheadModule,
-    ViewPagerModule,
     DialogModule,
     RippleModule,
     ToolbarBehaviorModule,

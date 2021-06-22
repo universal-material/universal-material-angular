@@ -7,7 +7,6 @@ import { DialogModule } from './dialog/dialog.module';
 import { DropdownModule } from './dropdown/dropdown.module';
 import { TypeaheadModule, TypeaheadSelectItemEvent } from './typeahead/typeahead.module';
 import { SelectModule } from './select/select.module';
-import { ViewPagerModule } from './view-pager/view-pager.module';
 import { ToolbarBehaviorModule } from './toolbar-behavior/toolbar-behavior.module';
 import { FloatingActionBehaviorModule } from './floating-action-behavior/floating-action-behavior.module';
 import { ButtonModule } from './button/button.module';
@@ -32,7 +31,6 @@ const UniversalMaterialModules = [
   FormFieldModule,
   TextFieldModule,
   TypeaheadModule,
-  ViewPagerModule,
   ToolbarBehaviorModule,
   FloatingActionBehaviorModule,
   ButtonModule,
@@ -99,12 +97,6 @@ export {
   SelectComponent,
   OptionComponent
 } from './select/select.module';
-
-export {
-  ViewPagerModule,
-  ViewPagerComponent,
-  ViewPagerSlideComponent
-} from './view-pager/view-pager.module';
 
 export {
   DatepickerModule,

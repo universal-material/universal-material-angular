@@ -26,7 +26,7 @@ export interface ResultTemplateContext {
       <u-highlight [result]="formatter(result)" [term]="term"></u-highlight>
     </ng-template>
     <ng-template ngFor [ngForOf]="results" let-result let-idx="index">
-      <button class="u-dropdown-item" role="option"
+      <button uRipple class="u-dropdown-item" role="option"
         [id]="id + '-' + idx"
         [class.active]="idx === activeIdx"
         (mouseenter)="markActive(idx)"

@@ -1,4 +1,35 @@
-@import '~highlight.js/styles/github.css';
+$u-secondary-color: #ff4081;
+$u-primary-color: #3f51b5;
+
+@import "~highlight.js/styles/github.css";
+@import "~@universal-material/core/scss/universal-material";
+
+.deep-purple-amber {
+  $u-theme-colors: (
+    primary: #673ab7,
+    secondary: #ffd740
+  ) !global;
+
+  @include u-create-theme;
+}
+
+.pink-blue-grey {
+  $u-theme-colors: (
+    primary: #e91e63,
+    secondary: #607d8b
+  ) !global;
+
+  @include u-create-theme;
+}
+
+.purple-green {
+  $u-theme-colors: (
+    primary: #9c27b0,
+    secondary: #69f0ae
+  ) !global;
+
+  @include u-create-theme;
+}
 
 .hljs {
   background: transparent;
@@ -9,3 +40,4 @@
   height: 300px;
   background: #f0f0f0;
 }
+

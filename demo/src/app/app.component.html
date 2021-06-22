@@ -16,7 +16,18 @@
       <div class="u-toolbar-center">
         <div class="u-toolbar-title">Universal Material Angular</div>
       </div>
-      <div class="u-toolbar-end"></div>
+      <div class="u-toolbar-end">
+        <div class="u-toolbar-actions">
+          <div uDropdown>
+            <button u-btn="borderless" uDropdownToggle>
+              <i class="u-btn-icon mdi mdi-format-paint"></i>
+            </button>
+            <div class="u-dropdown-menu" uDropdownMenu direction="down-left">
+              <div *ngFor="let theme of themes" uRipple class="u-dropdown-item" (click)="setTheme(theme)">{{theme.name}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

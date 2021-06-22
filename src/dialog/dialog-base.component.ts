@@ -1,13 +1,15 @@
 import {
   AfterContentInit,
   ContentChild,
+  Directive,
   ElementRef,
   EventEmitter,
   HostBinding,
   Inject,
   Input,
   Optional,
-  Output, ViewChild
+  Output,
+  ViewChild
 } from '@angular/core';
 
 import { DialogBodyDirective } from "./dialog-body.directive";
@@ -19,6 +21,7 @@ export const DefaultDialogConfig: DialogConfig = {
   closeOnEsc: true
 };
 
+@Directive()
 export class DialogBaseComponent implements AfterContentInit {
   private _contentInitialized = false;
 

@@ -5,7 +5,7 @@ import { SelectComponent } from './select.component';
 @Component({
   selector: 'u-option',
   template: `
-    <div class="u-dropdown-item">
+    <div uRipple class="u-dropdown-item">
       <ng-content></ng-content>
     </div>`
 })
