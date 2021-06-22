@@ -28,6 +28,7 @@ export abstract class DatepickerBaseComponent {
   baseYear: number;
 
   @Input() config: DatepickerConfig;
+  @Input() datepickerTitle: string = 'Select date';
   @Input() date: Date | null;
   @Output() dateChange = new EventEmitter();
   formattedDate: string;

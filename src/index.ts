@@ -103,9 +103,7 @@ export {
   DatepickerComponent,
   DatepickerInputComponent,
   DatepickerConfig,
-  DatepickerInputConfig,
   DATEPICKER_DEFAULT_OPTIONS,
-  DATEPICKER_INPUT_DEFAULT_OPTIONS
 } from './datepicker/datepicker.module';
 
 export {

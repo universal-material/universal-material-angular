@@ -6,7 +6,6 @@ import { FormFieldComponent } from '../../form-field/form-field.component';
 import { Direction } from '../../util/direction';
 import { DropdownMenuDirective } from '../../dropdown/dropdown-menu.directive';
 
-import { DATEPICKER_INPUT_DEFAULT_OPTIONS, DatepickerInputConfig } from './datepicker-input-config.model';
 import { DatepickerBaseComponent } from '../datepicker-base.component';
 import { DATEPICKER_DEFAULT_OPTIONS, DatepickerConfig } from '../datepicker-config.model';
 import { DatepickerAdapter } from '../datepicker-adapter';
@@ -34,6 +33,7 @@ export class DatepickerInputComponent extends DatepickerBaseComponent implements
   @Input() placeholder: string;
   @Input() direction: Direction = 'auto';
   @Input() tabIndex: number;
+  @Input() inputFormatter: (value: Date) => string;
   // @Input() config: DatepickerInputConfig;
 
   @ViewChild(DropdownMenuDirective) _dropdownMenu: DropdownMenuDirective;
@@ -75,7 +75,6 @@ export class DatepickerInputComponent extends DatepickerBaseComponent implements
       return;
     }
 
-    // this.writeValue(date);
     this._onChange(date);
 
     if (this.autoClose && this._dropdownMenu) {

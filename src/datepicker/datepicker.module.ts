@@ -10,7 +10,6 @@ import { DatepickerInputComponent } from './datepicker-input/datepicker-input.co
 import { DatepickerContentComponent } from './datepicker-content/datepicker-content.component';
 
 export { DATEPICKER_DEFAULT_OPTIONS, DatepickerConfig } from './datepicker-config.model';
-export { DATEPICKER_INPUT_DEFAULT_OPTIONS, DatepickerInputConfig } from './datepicker-input/datepicker-input-config.model';
 export { DatepickerComponent, DatepickerInputComponent }
 
 @NgModule({
