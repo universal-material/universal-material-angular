@@ -1,13 +1,13 @@
 <ng-container *ngIf="datepicker">
   <div class="u-datepicker-header">
     <div class="u-datepicker-header-title">Select date</div>
-    <div class="u-datepicker-header-date">{{datepicker.date | date}}</div>
+    <div class="u-datepicker-header-date">{{datepicker.formattedDate}}</div>
   </div>
   <div class="u-datepicker-body">
     <ng-container *ngIf="pickerState === DatepickerState.SelectDay">
       <div class="u-datepicker-navigation">
         <button type="button" u-btn="flat" (click)="pickerState = DatepickerState.SelectYear">
-          {{datepicker.currentMonth | date: 'MMM yyyy'}}
+          {{datepicker.currentMonth.nameWithYear}}
         </button>
         <div class="u-btn-set ml-auto">
           <button type="button" u-btn="borderless" (click)="datepicker.showPreviousMonth()">
@@ -36,7 +36,7 @@
     <ng-container *ngIf="pickerState === DatepickerState.SelectYear">
       <div class="u-datepicker-navigation">
         <button type="button" u-btn="flat" (click)="pickerState = DatepickerState.SelectDay">
-          {{datepicker.currentMonth | date: 'yyyy'}}
+          {{datepicker.currentMonth.formattedYear}}
         </button>
         <div class="u-btn-set ml-auto">
           <button type="button" u-btn="borderless" (click)="datepicker.setYearGroups(datepicker.baseYear - datepicker.totalVisibleYears)">
@@ -50,9 +50,9 @@
       <div class="u-datepicker-content">
         <div class="u-datepicker-year-group" *ngFor="let yearGroup of datepicker.yearGroups">
           <div uRipple class="u-datepicker-year-month-button"
-               [class.active]="year === datepicker.currentMonth.getUTCFullYear()"
+               [class.active]="year === datepicker.currentMonth.utcYear"
                *ngFor="let year of yearGroup"
-               (click)="datepicker.setYear(year)">
+               (click)="setYear(year)">
             {{year}}
           </div>
         </div>
@@ -61,16 +61,16 @@
     <ng-container *ngIf="pickerState === DatepickerState.SelectMonth">
       <div class="u-datepicker-navigation">
         <button type="button" u-btn="flat" (click)="pickerState = DatepickerState.SelectDay">
-          {{datepicker.currentMonth | date: 'yyyy'}}
+          {{datepicker.currentMonth.formattedYear}}
         </button>
       </div>
       <div class="u-datepicker-content">
         <div class="u-datepicker-month-group" *ngFor="let monthGroup of datepicker.monthGroups">
           <div uRipple class="u-datepicker-year-month-button"
-               [class.active]="month.getUTCMonth() === datepicker.currentMonth.getUTCMonth()"
+               [class.active]="month.utcMonth === datepicker.currentMonth.utcMonth"
                *ngFor="let month of monthGroup"
-               (click)="datepicker.setMonth(month)">
-            {{month | date: 'MMM' | uppercase}}
+               (click)="setMonth(month)">
+            {{month.name | uppercase}}
           </div>
         </div>
       </div>

@@ -1,21 +1,12 @@
-import {
-  Component, Directive,
-  ElementRef,
-  EventEmitter,
-  Inject,
-  Input,
-  LOCALE_ID,
-  OnChanges,
-  Optional,
-  Output,
-  SimpleChanges
-} from '@angular/core';
-import { FormStyle, getLocaleDayNames, getLocaleFirstDayOfWeek, TranslationWidth, WeekDay } from '@angular/common';
+import { Directive, EventEmitter, Inject, Input, LOCALE_ID, Optional, Output, SimpleChanges } from '@angular/core';
+import { getLocaleFirstDayOfWeek, WeekDay } from '@angular/common';
 
-import { DatepickerState } from './datepicker-state.model';
 import { Week } from './week.model';
 import { DayOfWeek } from './day-of-week.model';
 import { DATEPICKER_DEFAULT_OPTIONS, DatepickerConfig, DefaultDatepickerConfig } from './datepicker-config.model';
+import { DatepickerAdapter } from './datepicker-adapter';
+import { DefaultDatepickerAdapter } from './default-datepicker-adapter';
+import { Month } from './month.model';
 
 @Directive()
 export abstract class DatepickerBaseComponent {
@@ -31,48 +22,28 @@ export abstract class DatepickerBaseComponent {
   private readonly monthsPerGroup = 4;
 
   weeks: Week[] = [];
-  currentMonth: Date;
+  currentMonth: Month;
   yearGroups: number[][] = [];
-  monthGroups: Date[][] = [];
+  monthGroups: Month[][] = [];
   baseYear: number;
-
-  DatepickerState = DatepickerState;
-  pickerState = DatepickerState.SelectDay;
 
   @Input() config: DatepickerConfig;
   @Input() date: Date | null;
   @Output() dateChange = new EventEmitter();
+  formattedDate: string;
 
   constructor(@Inject(LOCALE_ID) private readonly _locale: string,
-              @Optional() @Inject(DATEPICKER_DEFAULT_OPTIONS) private readonly _defaultConfig: DatepickerConfig) {
+              @Optional() @Inject(DATEPICKER_DEFAULT_OPTIONS) private readonly _defaultConfig: DatepickerConfig,
+              @Optional() @Inject(DatepickerAdapter) private readonly datepickerAdapter: DatepickerAdapter,
+              defaultDatepickerAdapter: DefaultDatepickerAdapter) {
     this._setInnerConfig();
+    this.datepickerAdapter = this.datepickerAdapter || defaultDatepickerAdapter;
 
-    this.weekDayNames = this._getOrderedWeekDayNames();
+    this.weekDayNames = this.datepickerAdapter.getWeekDaysNames(this._innerConfig.firstDayOfWeek);
 
     this._setDate(null);
-    this.setYearGroups(this.currentMonth.getUTCFullYear() - 2);
+    this.setYearGroups(this.currentMonth.utcYear - 2);
     this._setMonthGroups();
-  }
-
-  private _getOrderedWeekDayNames(): string[] {
-    const orderedDayNames = [];
-    const dayNames = getLocaleDayNames(this._locale, FormStyle.Standalone, TranslationWidth.Narrow);
-    let currentDay: number = this._innerConfig.firstDayOfWeek!;
-
-    do {
-      orderedDayNames.push(dayNames[currentDay]);
-
-      currentDay = this._getNextWeekDay(currentDay);
-    }
-    while (currentDay !== this._innerConfig.firstDayOfWeek);
-
-    return orderedDayNames;
-  }
-
-  private _getNextWeekDay(weekDay: WeekDay) {
-    return weekDay === WeekDay.Saturday
-      ? WeekDay.Sunday
-      : ++weekDay;
   }
 
   setYearGroups(baseYear: number) {
@@ -103,39 +74,49 @@ export abstract class DatepickerBaseComponent {
     let m = 0;
 
     while (m < 12) {
-      const monthGroup: Date[] = [];
+      const monthGroup: Month[] = [];
       this.monthGroups.push(monthGroup);
 
       for (let i = 0; i < this.monthsPerGroup; i++) {
-        monthGroup.push(new Date(this.baseYear, m));
+        monthGroup.push(this.getMonth(new Date(this.baseYear, m)));
         m++;
       }
     }
   }
 
   setYear(year: number) {
-    this._setCurrentMonth(new Date(year, this.currentMonth.getUTCMonth()));
-    this.pickerState = DatepickerState.SelectMonth;
+    this._setCurrentMonth(new Date(year, this.currentMonth.utcMonth));
   }
 
-  setMonth(month: Date) {
-    this._setCurrentMonth(new Date(this.currentMonth.getUTCFullYear(), month.getUTCMonth()));
-    this.pickerState = DatepickerState.SelectDay;
+  setMonth(month: Month) {
+    this._setCurrentMonth(new Date(this.currentMonth.utcYear, month.utcMonth));
   }
 
   protected _setDate(date: Date | null) {
     this.date = date;
+    this.formattedDate = this.datepickerAdapter.formatDate(date);
 
     date = date || new Date();
     this._setCurrentMonth(new Date(date.getUTCFullYear(), date.getUTCMonth()));
   }
 
+  private getMonth(date: Date): Month {
+    return {
+      date: date,
+      utcYear: date.getUTCFullYear(),
+      utcMonth: date.getUTCMonth(),
+      name: this.datepickerAdapter.getMonthName(date),
+      nameWithYear: this.datepickerAdapter.getMonthWithYear(date),
+      formattedYear: this.datepickerAdapter.getYear(date),
+    };
+  }
+
   private _addToCurrentMonth(value: number) {
-    this._setCurrentMonth(new Date(this.currentMonth.getUTCFullYear(), this.currentMonth.getUTCMonth() + value));
+    this._setCurrentMonth(new Date(this.currentMonth.utcYear, this.currentMonth.utcMonth + value));
   }
 
   private _getCurrentMonthInitialDate(): Date {
-    return new Date(this.currentMonth.getUTCFullYear(), this.currentMonth.getUTCMonth());
+    return new Date(this.currentMonth.utcYear, this.currentMonth.utcMonth);
   }
 
   private _getInitialDateForCurrentMonth(): Date {
@@ -157,7 +138,8 @@ export abstract class DatepickerBaseComponent {
   }
 
   private _setCurrentMonth(date: Date) {
-    this.currentMonth = date;
+    this.currentMonth = this.getMonth(date);
+
     this.weeks.length = 0;
     const processDate = new Date(this._getInitialDateForCurrentMonth());
 
@@ -170,11 +152,11 @@ export abstract class DatepickerBaseComponent {
       this.weeks.push(currentWeek);
 
       for (let i = 0; i < this._totalDaysOfWeek; i++) {
-        currentWeek.days.push({date: new Date(processDate), outsideMonth: processDate.getMonth() !== this.currentMonth.getMonth()});
+        currentWeek.days.push({date: new Date(processDate), outsideMonth: processDate.getMonth() !== this.currentMonth.utcMonth});
 
         processDate.setDate(processDate.getDate() + 1);
       }
-    } while (processDate.getUTCMonth() === this.currentMonth.getUTCMonth());
+    } while (processDate.getUTCMonth() === this.currentMonth.utcMonth);
   }
 
   showNextMonth() {

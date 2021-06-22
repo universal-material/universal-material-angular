@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { ButtonModule } from '../button/button.module';
 import { RippleModule } from '../ripple/ripple.module';
@@ -21,7 +21,8 @@ export { DatepickerComponent, DatepickerInputComponent }
     RippleModule
   ],
   declarations: [DatepickerComponent, DatepickerInputComponent, DatepickerContentComponent],
-  exports: [DatepickerComponent, DatepickerInputComponent]
+  exports: [DatepickerComponent, DatepickerInputComponent],
+  providers: [DatePipe]
 })
 export class DatepickerModule {
 }

@@ -2,6 +2,7 @@ import { Component, ElementRef } from '@angular/core';
 
 import { DatepickerState } from '../datepicker-state.model';
 import { DatepickerBaseComponent } from '../datepicker-base.component';
+import { Month } from '../month.model';
 
 @Component({
   selector: 'u-datepicker-content',
@@ -23,11 +24,13 @@ export class DatepickerContentComponent {
       && dateA.getDate() === dateB.getDate();
   }
 
-  isEqualToSelectedDate(date: Date) {
-    return this.datepicker.date && this._datesAreEqual(this.datepicker.date, date);
+  setYear(year: number) {
+    this.datepicker.setYear(year);
+    this.pickerState = DatepickerState.SelectMonth;
   }
 
-  isEqualToTodayDate(date: Date) {
-    return this._datesAreEqual(new Date(), date);
+  setMonth(month: Month) {
+    this.datepicker.setMonth(month);
+    this.pickerState = DatepickerState.SelectDay;
   }
 }
