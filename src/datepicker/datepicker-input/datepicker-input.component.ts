@@ -1,4 +1,4 @@
-import { Component, forwardRef, Inject, Input, OnChanges, Optional, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, forwardRef, Inject, Input, LOCALE_ID, Optional, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { InputBaseComponent } from '../../shared/input-base.component';
@@ -6,11 +6,9 @@ import { FormFieldComponent } from '../../form-field/form-field.component';
 import { Direction } from '../../util/direction';
 import { DropdownMenuDirective } from '../../dropdown/dropdown-menu.directive';
 
-import {
-  DATEPICKER_INPUT_DEFAULT_OPTIONS,
-  DatepickerInputConfig,
-  DefaultDatepickerInputConfig
-} from './datepicker-input-config.model';
+import { DATEPICKER_INPUT_DEFAULT_OPTIONS, DatepickerInputConfig } from './datepicker-input-config.model';
+import { DatepickerBaseComponent } from '../datepicker-base.component';
+import { DATEPICKER_DEFAULT_OPTIONS, DatepickerConfig } from '../datepicker-config.model';
 
 const DatepickerInputValueAcessor = {
   provide: NG_VALUE_ACCESSOR,
@@ -22,21 +20,25 @@ const DatepickerInputValueAcessor = {
   selector: 'u-datepicker-input',
   templateUrl: './datepicker-input.component.html',
   styleUrls: ['./datepicker-input.component.scss'],
-  providers: [DatepickerInputValueAcessor]
+  providers: [
+    DatepickerInputValueAcessor,
+    {provide: DatepickerBaseComponent, useExisting: DatepickerInputComponent}
+  ],
+  encapsulation: ViewEncapsulation.None
 })
-export class DatepickerInputComponent implements InputBaseComponent, ControlValueAccessor, OnChanges {
+export class DatepickerInputComponent extends DatepickerBaseComponent implements InputBaseComponent, ControlValueAccessor {
 
   @Input() autoClose: boolean | 'outside' = 'outside';
   @Input() placeholder: string;
-  @Input() direction: Direction = 'down';
+  @Input() direction: Direction = 'auto';
   @Input() tabIndex: number;
-  @Input() config: DatepickerInputConfig;
+  // @Input() config: DatepickerInputConfig;
 
   @ViewChild(DropdownMenuDirective) _dropdownMenu: DropdownMenuDirective;
 
   date: Date;
   _disabled: boolean;
-  _innerConfig: DatepickerInputConfig;
+  // _innerConfig: DatepickerInputConfig;
 
   get focused(): boolean {
     return this._dropdownMenu && this._dropdownMenu.show;
@@ -50,20 +52,27 @@ export class DatepickerInputComponent implements InputBaseComponent, ControlValu
     return this._disabled;
   }
 
-  constructor(@Optional() @Inject(forwardRef(() => FormFieldComponent)) formField: FormFieldComponent,
-              @Optional() @Inject(DATEPICKER_INPUT_DEFAULT_OPTIONS) private readonly _userDefaultConfig: DatepickerInputConfig) {
+  constructor(@Inject(LOCALE_ID) _locale: string,
+              @Optional() @Inject(DATEPICKER_DEFAULT_OPTIONS) _defaultConfig: DatepickerConfig,
+              @Optional() @Inject(forwardRef(() => FormFieldComponent)) formField: FormFieldComponent) {
+    super(_locale, _defaultConfig);
+
     if (formField) {
       formField._input = this;
     }
-
-    this._innerConfig = {...DefaultDatepickerInputConfig, ..._userDefaultConfig};
   }
 
   private _onTouched = () => {};
   private _onChange = (_: any) => {};
 
 
-  _setDate(date: Date) {
+  _setDate(date: Date): void {
+    super._setDate(date);
+
+    if (!this._onChange) {
+      return;
+    }
+
     this.writeValue(date);
     this._onChange(date);
 
@@ -86,11 +95,5 @@ export class DatepickerInputComponent implements InputBaseComponent, ControlValu
 
   setDisabledState(isDisabled: boolean): void {
     this._disabled = isDisabled;
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.config) {
-      this._innerConfig = {...DefaultDatepickerInputConfig, ...this._userDefaultConfig, ...this.config};
-    }
   }
 }
