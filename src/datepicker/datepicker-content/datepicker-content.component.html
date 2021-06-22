@@ -25,10 +25,11 @@
         <div class="u-datepicker-week" *ngFor="let week of datepicker.weeks; trackBy: datepicker.trackByWeek">
           <button type="button" uRipple class="u-datepicker-day"
                   *ngFor="let day of week.days; trackBy: datepicker.trackByDay"
+                  [class.disabled]="day.disabled"
                   [class.active]="datepicker.isEqualToSelectedDate(day.date)"
                   [class.u-datepicker-current-day]="datepicker.isEqualToTodayDate(day.date)"
                   [class.u-datepicker-day-outside-month]="day.outsideMonth"
-                  (click)="datepicker.selectDate(day.date)">{{day.date.getDate()}}</button>
+                  (click)="!day.disabled && datepicker.selectDate(day.date)">{{day.date.getDate()}}</button>
         </div>
       </div>
 
@@ -50,11 +51,10 @@
       <div class="u-datepicker-content">
         <div class="u-datepicker-year-group" *ngFor="let yearGroup of datepicker.yearGroups">
           <div uRipple class="u-datepicker-year-month-button"
-               [class.active]="year === datepicker.currentMonth.utcYear"
                *ngFor="let year of yearGroup"
-               (click)="setYear(year)">
-            {{year}}
-          </div>
+               [class.disabled]="year.disabled"
+               [class.active]="year.year === datepicker.currentMonth.utcYear"
+               (click)="!year.disabled && setYear(year.year)">{{year.year}}</div>
         </div>
       </div>
     </ng-container>
@@ -67,11 +67,10 @@
       <div class="u-datepicker-content">
         <div class="u-datepicker-month-group" *ngFor="let monthGroup of datepicker.monthGroups">
           <div uRipple class="u-datepicker-year-month-button"
-               [class.active]="month.utcMonth === datepicker.currentMonth.utcMonth"
                *ngFor="let month of monthGroup"
-               (click)="setMonth(month)">
-            {{month.name | uppercase}}
-          </div>
+               [class.disabled]="month.disabled"
+               [class.active]="month.utcMonth === datepicker.currentMonth.utcMonth"
+               (click)="!month.disabled && setMonth(month)">{{month.name | uppercase}}</div>
         </div>
       </div>
     </ng-container>

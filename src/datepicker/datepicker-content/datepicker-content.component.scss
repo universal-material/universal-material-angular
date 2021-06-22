@@ -1,3 +1,12 @@
 .u-datepicker-clear {
   margin-top: 8px;
 }
+
+.u-datepicker-year-month-button.disabled,
+.u-datepicker-day.disabled {
+  opacity: .2;
+
+  &::before {
+    display: none;
+  }
+}

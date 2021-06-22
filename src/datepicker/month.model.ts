@@ -5,4 +5,5 @@ export interface Month {
   utcMonth: number;
   utcYear: number;
   date: Date;
+  disabled: boolean;
 }

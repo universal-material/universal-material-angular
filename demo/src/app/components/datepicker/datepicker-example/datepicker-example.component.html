@@ -2,7 +2,24 @@
   <div class="u-text-field-trailing-icon">
     <span class="mdi mdi-calendar"></span>
   </div>
-  <u-datepicker-input placeholder="Choose a date" [(ngModel)]="date" [inputFormatter]="inputFormatter" navigateBackClass="mdi mdi-chevron-left"></u-datepicker-input>
-  <label uLabel>Birthday</label>
+  <u-datepicker-input placeholder="Choose a date" [(ngModel)]="date"></u-datepicker-input>
+  <label uLabel>Simple</label>
 </u-form-field>
+
+<u-form-field>
+  <div class="u-text-field-trailing-icon">
+    <span class="mdi mdi-calendar"></span>
+  </div>
+  <u-datepicker-input placeholder="Choose a date" [(ngModel)]="date" [inputFormatter]="inputFormatter"></u-datepicker-input>
+  <label uLabel>Input formatter</label>
+</u-form-field>
+
+<u-form-field>
+  <div class="u-text-field-trailing-icon">
+    <span class="mdi mdi-calendar"></span>
+  </div>
+  <u-datepicker-input placeholder="Choose a date" [(ngModel)]="date" [min]="minDate" [max]="maxDate"></u-datepicker-input>
+  <label uLabel>Min and max dates</label>
+</u-form-field>
+
 <u-datepicker [(date)]="date"></u-datepicker>

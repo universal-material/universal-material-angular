@@ -52,6 +52,5 @@ export class AppComponent implements OnDestroy {
 
   setTheme(theme: {name: string, dark: boolean, className: string}): void {
     document.body.className = `u-android ${theme.className} ${theme.dark ? 'u-dark-mode' : ''}`;
-    console.log(document.body.className);
   }
 }

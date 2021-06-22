@@ -7,6 +7,7 @@ import { DATEPICKER_DEFAULT_OPTIONS, DatepickerConfig, DefaultDatepickerConfig }
 import { DatepickerAdapter } from './datepicker-adapter';
 import { DefaultDatepickerAdapter } from './default-datepicker-adapter';
 import { Month } from './month.model';
+import { Year } from './year.model';
 
 @Directive()
 export abstract class DatepickerBaseComponent {
@@ -23,7 +24,7 @@ export abstract class DatepickerBaseComponent {
 
   weeks: Week[] = [];
   currentMonth: Month;
-  yearGroups: number[][] = [];
+  yearGroups: Year[][] = [];
   monthGroups: Month[][] = [];
   baseYear: number;
 
@@ -31,6 +32,41 @@ export abstract class DatepickerBaseComponent {
   @Input() datepickerTitle: string = 'Select date';
   @Input() navigateBackClass: string = 'u-chevron-left';
   @Input() navigateForwardClass: string = 'u-chevron-right';
+
+  private _minYear: number;
+  private _minMonth: number;
+  private _maxYear: number;
+  private _maxMonth: number;
+
+  _min: Date;
+  _max: Date;
+
+  @Input()
+  get min(): Date {
+    return this._min;
+  }
+  set min(value: Date) {
+    this._min = value;
+    this._minYear = value && value.getUTCFullYear();
+    this._minMonth = value && value.getUTCMonth();
+    this._setYearsDisabled();
+    this._setMonthsDisabled();
+    this._setDaysDisabled();
+  }
+
+  @Input()
+  get max(): Date {
+    return this._max;
+  }
+  set max(value: Date) {
+    this._max = value;
+    this._maxYear = value && value.getUTCFullYear();
+    this._maxMonth = value && value.getUTCMonth();
+    this._setYearsDisabled();
+    this._setMonthsDisabled();
+    this._setDaysDisabled();
+  }
+
   @Input() date: Date | null;
   @Output() dateChange = new EventEmitter();
   formattedDate: string;
@@ -54,11 +90,14 @@ export abstract class DatepickerBaseComponent {
     this.yearGroups.length = 0;
 
     for (let g = 0; g < this._yearsGroupsCount; g++) {
-      const yearGroup: number[] = [];
+      const yearGroup: Year[] = [];
 
       this.yearGroups.push(yearGroup);
       for (let y = 0; y < this._yearsPerGroup; y++) {
-        yearGroup.push(baseYear);
+        yearGroup.push({
+          year: baseYear,
+          disabled: this._isYearDisabled(baseYear)
+        });
         baseYear++;
       }
     }
@@ -104,14 +143,19 @@ export abstract class DatepickerBaseComponent {
   }
 
   private getMonth(date: Date): Month {
-    return {
+    const month = {
       date: date,
       utcYear: date.getUTCFullYear(),
       utcMonth: date.getUTCMonth(),
       name: this.datepickerAdapter.getMonthName(date),
       nameWithYear: this.datepickerAdapter.getMonthWithYear(date),
       formattedYear: this.datepickerAdapter.getYear(date),
+      disabled: false
     };
+
+    month.disabled = this._isMonthDisabled(month);
+
+    return month;
   }
 
   private _addToCurrentMonth(value: number) {
@@ -155,11 +199,18 @@ export abstract class DatepickerBaseComponent {
       this.weeks.push(currentWeek);
 
       for (let i = 0; i < this._totalDaysOfWeek; i++) {
-        currentWeek.days.push({date: new Date(processDate), outsideMonth: processDate.getMonth() !== this.currentMonth.utcMonth});
+        const dayDate = new Date(processDate);
+        currentWeek.days.push({
+          date: dayDate,
+          outsideMonth: processDate.getMonth() !== this.currentMonth.utcMonth,
+          disabled: this._isDayDisabled(dayDate)
+        });
 
         processDate.setDate(processDate.getDate() + 1);
       }
     } while (processDate.getUTCMonth() === this.currentMonth.utcMonth);
+
+    this._setMonthsDisabled();
   }
 
   showNextMonth() {
@@ -170,7 +221,46 @@ export abstract class DatepickerBaseComponent {
     this._addToCurrentMonth(-1);
   }
 
-  selectDate(date: Date) {
+  private _isDayDisabled(date: Date): boolean {
+    return date < this.min || date > this.max;
+  }
+
+  private _setDaysDisabled(): void {
+    for (const week of this.weeks) {
+      for (const day of week.days) {
+        day.disabled = this._isDayDisabled(day.date);
+      }
+    }
+  }
+
+  private _isMonthDisabled(month: Month): boolean {
+    return this.currentMonth
+      && (this._isYearDisabled(this.currentMonth.utcYear)
+        || (this.currentMonth.utcYear === this._minYear && month.utcMonth < this._minMonth)
+        || (this.currentMonth.utcYear === this._maxYear && month.utcMonth > this._maxMonth));
+  }
+
+  private _setMonthsDisabled(): void {
+    for (const monthGroup of this.monthGroups) {
+      for (const month of monthGroup) {
+        month.disabled = this._isMonthDisabled(month);
+      }
+    }
+  }
+
+  private _isYearDisabled(year: number): boolean {
+    return year < this._minYear || year > this._maxYear;
+  }
+
+  private _setYearsDisabled(): void {
+    for (const yearGroup of this.yearGroups) {
+      for (const year of yearGroup) {
+        year.disabled = this._isYearDisabled(year.year);
+      }
+    }
+  }
+
+  selectDate(date: Date): void {
     this._setDate(date);
     this.dateChange.emit(date);
   }
