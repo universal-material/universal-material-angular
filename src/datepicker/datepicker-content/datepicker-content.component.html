@@ -1,5 +1,5 @@
 <ng-container *ngIf="datepicker">
-  <div class="u-datepicker-header">
+  <div class="u-datepicker-header" *ngIf="!datepicker.hideHeader">
     <div class="u-datepicker-header-title">{{datepicker.datepickerTitle}}</div>
     <div class="u-datepicker-header-date">{{datepicker.formattedDate}}</div>
   </div>
@@ -29,7 +29,9 @@
                   [class.active]="datepicker.isEqualToSelectedDate(day.date)"
                   [class.u-datepicker-current-day]="datepicker.isEqualToTodayDate(day.date)"
                   [class.u-datepicker-day-outside-month]="day.outsideMonth"
-                  (click)="!day.disabled && datepicker.selectDate(day.date)">{{day.date.getDate()}}</button>
+                  (click)="!day.disabled && datepicker.selectDate(day.date)">
+            <ng-container *ngTemplateOutlet="datepicker.dayTemplate || defaultDayTemplate; context: {$implicit: day.date}"></ng-container>
+          </button>
         </div>
       </div>
 
@@ -75,8 +77,10 @@
       </div>
     </ng-container>
     <div class="u-btn-set u-datepicker-clear justify-content-end w-100">
-      <button *ngIf="!datepicker._innerConfig.hideClear" type="button" u-btn="flat" color="primary"
-              (click)="datepicker.selectDate(null)">{{datepicker._innerConfig.clearLabel}}</button>
+      <button *ngIf="!datepicker.hideClear" type="button" u-btn="flat" color="primary"
+              (click)="datepicker.selectDate(null)">{{datepicker.clearLabel}}</button>
     </div>
   </div>
 </ng-container>
+
+<ng-template #defaultDayTemplate let-date>{{date.getDate()}}</ng-template>

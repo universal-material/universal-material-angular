@@ -22,4 +22,6 @@
   <label uLabel>Min and max dates</label>
 </u-form-field>
 
-<u-datepicker [(date)]="date"></u-datepicker>
+<ng-template #customDay let-date>{{date.getDate().toString().padStart(2, '0')}}</ng-template>
+
+<u-datepicker [(date)]="date" [hideClear]="true" [dayTemplate]="customDay"></u-datepicker>

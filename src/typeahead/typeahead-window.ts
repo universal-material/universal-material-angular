@@ -1,18 +1,18 @@
-import {Component, Input, Output, EventEmitter, TemplateRef, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewEncapsulation} from '@angular/core';
 
 import {toString} from '../util/util';
 
 /**
- * Context for the typeahead result template in case you want to override the default one
+ * The context for the typeahead result template in case you want to override the default one.
  */
 export interface ResultTemplateContext {
   /**
-   * Your typeahead result data model
+   * Your typeahead result item.
    */
   result: any;
 
   /**
-   * Search term from the input used to get current result
+   * Search term from the `<input>` used to get current result.
    */
   term: string;
 }
@@ -20,13 +20,19 @@ export interface ResultTemplateContext {
 @Component({
   selector: 'u-typeahead-window',
   exportAs: 'TypeaheadWindow',
-  host: {'class': 'u-dropdown-menu show', 'role': 'listbox', '[id]': 'id'},
+  encapsulation: ViewEncapsulation.None,
+  host: {
+    '(mousedown)': '$event.preventDefault()',
+    '[class]': '"u-dropdown-menu show" + (popupClass ? " " + popupClass : "")',
+    'role': 'listbox',
+    '[id]': 'id'
+  },
   template: `
     <ng-template #rt let-result="result" let-term="term" let-formatter="formatter">
       <u-highlight [result]="formatter(result)" [term]="term"></u-highlight>
     </ng-template>
     <ng-template ngFor [ngForOf]="results" let-result let-idx="index">
-      <button uRipple class="u-dropdown-item" role="option"
+      <button type="button" uRipple class="u-dropdown-item" role="option"
         [id]="id + '-' + idx"
         [class.active]="idx === activeIdx"
         (mouseenter)="markActive(idx)"
@@ -54,7 +60,7 @@ export class TypeaheadWindow implements OnInit {
   /**
    * Typeahead match results to be displayed
    */
-  @Input() results: any[];
+  @Input() results: readonly any[];
 
   /**
    * Search term used to get current results
@@ -71,6 +77,13 @@ export class TypeaheadWindow implements OnInit {
    * A template to override a matching result default display
    */
   @Input() resultTemplate: TemplateRef<ResultTemplateContext>;
+
+  /**
+   * A custom class to append to the typeahead window
+   *
+   * @since 9.1.0
+   */
+  @Input() popupClass: string;
 
   /**
    * Event raised when user selects a particular result row

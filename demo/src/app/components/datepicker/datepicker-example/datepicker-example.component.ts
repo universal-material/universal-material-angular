@@ -19,5 +19,4 @@ export class DatepickerExampleComponent {
   }
 
   inputFormatter = (date: Date) => this.datePipe.transform(date, 'shortDate');
-
 }

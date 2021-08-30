@@ -1,4 +1,14 @@
-import { Directive, EventEmitter, Inject, Input, LOCALE_ID, Optional, Output, SimpleChanges } from '@angular/core';
+import {
+  Directive,
+  EventEmitter,
+  Inject,
+  Input,
+  LOCALE_ID,
+  Optional,
+  Output,
+  SimpleChanges,
+  TemplateRef
+} from '@angular/core';
 import { getLocaleFirstDayOfWeek, WeekDay } from '@angular/common';
 
 import { Week } from './week.model';
@@ -15,28 +25,32 @@ export abstract class DatepickerBaseComponent {
   private readonly _yearsGroupsCount = 6;
   private readonly _yearsPerGroup = 4;
 
-  _innerConfig: DatepickerConfig;
-
   readonly weekDayNames: string[];
   readonly totalVisibleYears = this._yearsGroupsCount * this._yearsPerGroup;
 
   private readonly monthsPerGroup = 4;
+
+  private _minYear: number;
+  private _minMonth: number;
+  private _maxYear: number;
+  private _maxMonth: number;
 
   weeks: Week[] = [];
   currentMonth: Month;
   yearGroups: Year[][] = [];
   monthGroups: Month[][] = [];
   baseYear: number;
+  firstDayOfWeek: number;
 
-  @Input() config: DatepickerConfig;
+  @Input() dayTemplate: TemplateRef<DayOfWeek>;
   @Input() datepickerTitle: string = 'Select date';
   @Input() navigateBackClass: string = 'u-chevron-left';
   @Input() navigateForwardClass: string = 'u-chevron-right';
+  @Input() hideHeader: boolean = false;
+  @Input() hideClear: boolean = false;
+  @Input() clearLabel: string;
 
-  private _minYear: number;
-  private _minMonth: number;
-  private _maxYear: number;
-  private _maxMonth: number;
+  @Output() currentMonthChange = new EventEmitter<Month>();
 
   _min: Date;
   _max: Date;
@@ -78,7 +92,7 @@ export abstract class DatepickerBaseComponent {
     this._setInnerConfig();
     this.datepickerAdapter = this.datepickerAdapter || defaultDatepickerAdapter;
 
-    this.weekDayNames = this.datepickerAdapter.getWeekDaysNames(this._innerConfig.firstDayOfWeek);
+    this.weekDayNames = this.datepickerAdapter.getWeekDaysNames(this.firstDayOfWeek);
 
     this._setDate(null);
     this.setYearGroups(this.currentMonth.utcYear - 2);
@@ -104,12 +118,15 @@ export abstract class DatepickerBaseComponent {
   }
 
   private _setInnerConfig() {
-    this._innerConfig = {
+    const config = {
       ...DefaultDatepickerConfig,
       firstDayOfWeek: getLocaleFirstDayOfWeek(this._locale),
-      ...this._defaultConfig,
-      ...this.config
+      ...this._defaultConfig
     };
+
+    this.clearLabel = config.clearLabel;
+    this.hideClear = config.hideClear;
+    this.firstDayOfWeek = config.firstDayOfWeek;
   }
 
   private _setMonthGroups() {
@@ -169,23 +186,31 @@ export abstract class DatepickerBaseComponent {
   private _getInitialDateForCurrentMonth(): Date {
     const currentMonthInitialDate = this._getCurrentMonthInitialDate();
 
-    if (currentMonthInitialDate.getDay() === this._innerConfig.firstDayOfWeek) {
+    if (currentMonthInitialDate.getDay() === this.firstDayOfWeek) {
       return currentMonthInitialDate;
     }
 
-    if (currentMonthInitialDate.getDay() > this._innerConfig.firstDayOfWeek!) {
+    if (currentMonthInitialDate.getDay() > this.firstDayOfWeek!) {
       currentMonthInitialDate
-        .setDate(currentMonthInitialDate.getDate() - (currentMonthInitialDate.getDay() - this._innerConfig.firstDayOfWeek!));
+        .setDate(currentMonthInitialDate.getDate() - (currentMonthInitialDate.getDay() - this.firstDayOfWeek!));
     } else {
       currentMonthInitialDate
-        .setDate(currentMonthInitialDate.getDate() - (WeekDay.Saturday - (this._innerConfig.firstDayOfWeek! - currentMonthInitialDate.getDay() - 1)));
+        .setDate(currentMonthInitialDate.getDate() - (WeekDay.Saturday - (this.firstDayOfWeek! - currentMonthInitialDate.getDay() - 1)));
     }
 
     return currentMonthInitialDate;
   }
 
   private _setCurrentMonth(date: Date) {
-    this.currentMonth = this.getMonth(date);
+    const previousMonth = this.currentMonth;
+    const newMonth = this.getMonth(date);
+
+    if (previousMonth && previousMonth.date.getTime() === newMonth.date.getTime()) {
+      return;
+    }
+
+    this.currentMonth = newMonth;
+    this.currentMonthChange.emit(this.currentMonth);
 
     this.weeks.length = 0;
     const processDate = new Date(this._getInitialDateForCurrentMonth());
@@ -290,10 +315,6 @@ export abstract class DatepickerBaseComponent {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.date && changes.date.currentValue && changes.date.currentValue !== changes.date.previousValue) {
       this._setDate(changes.date.currentValue);
-    }
-
-    if (changes.config) {
-      this._innerConfig = {...DefaultDatepickerConfig, ...this._defaultConfig, ...this.config};
     }
   }
 }

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { Component, ViewChild } from '@angular/core';
+import { Observable, Subject, OperatorFunction, merge } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, filter } from 'rxjs/operators';
+import { Typeahead } from '@universal-material/angular';
 
 const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
   'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
@@ -17,11 +18,20 @@ const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'C
   styleUrls: ['./typeahead-example.component.scss']
 })
 export class TypeaheadExampleComponent {
+  model: any;
 
-  search = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(term => states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 5))
-    )
+  @ViewChild('instance', {static: true}) instance: Typeahead;
+  focus$ = new Subject<string>();
+  click$ = new Subject<string>();
+
+  search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) => {
+    const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
+    const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.instance.isPopupOpen()));
+    const inputFocus$ = this.focus$;
+
+    return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
+      map(term => (term === '' ? states
+        : states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
+    );
+  }
 }

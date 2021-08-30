@@ -1,13 +1,13 @@
 {
   "name": "@universal-material/angular",
-  "version": "0.53.0",
+  "version": "0.56.1",
   "author": "https://github.com/universal-material/universal-material-angular/graphs/contributors",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/universal-material/universal-material-angular.git"
   },
   "license": "MIT",
-  "homepage": "https://github.com/universal-material/universal-material-angular#readme",
+  "homepage": "https://universal-material.github.io/angular",
   "dependencies": {
     "@universal-material/core": "~0.109.1",
     "animated-scroll-to": "^2.0.5"

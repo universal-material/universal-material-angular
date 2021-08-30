@@ -102,8 +102,11 @@ export {
   DatepickerModule,
   DatepickerComponent,
   DatepickerInputComponent,
+  DatepickerAdapter,
+  DefaultDatepickerAdapter,
   DatepickerConfig,
   DATEPICKER_DEFAULT_OPTIONS,
+  Month
 } from './datepicker/datepicker.module';
 
 export {
