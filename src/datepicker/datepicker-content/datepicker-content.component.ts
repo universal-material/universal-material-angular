@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 
 import { DatepickerState } from '../datepicker-state.model';
 import { DatepickerBaseComponent } from '../datepicker-base.component';
@@ -12,6 +12,7 @@ import { Month } from '../month.model';
 export class DatepickerContentComponent {
   DatepickerState = DatepickerState;
   pickerState = DatepickerState.SelectDay;
+  @Input() disabled = false;
 
   constructor(elementRef: ElementRef,
               readonly datepicker: DatepickerBaseComponent) {

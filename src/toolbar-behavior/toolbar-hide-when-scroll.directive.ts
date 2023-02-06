@@ -3,8 +3,8 @@ import { Directive, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleCh
 import { ToolbarBehavior } from './toolbar-behavior';
 
 export interface ToolbarHideWhenScrollOptions {
-  autoElevate: boolean,
-  offset: number;
+  autoElevate?: boolean,
+  offset?: number;
 }
 
 const DefaultOptions: ToolbarHideWhenScrollOptions = {
@@ -17,7 +17,7 @@ const DefaultOptions: ToolbarHideWhenScrollOptions = {
 })
 export class ToolbarHideWhenScrollDirective extends ToolbarBehavior implements OnChanges {
 
-  @Input() fixedContent: HTMLElement;
+  @Input() fixedContent: HTMLElement | null = null;
   @Output() sticky = new EventEmitter<boolean>();
   @Input('uToolbarHideWhenScroll') options: ToolbarHideWhenScrollOptions | '' = DefaultOptions;
   private _innerOptions = DefaultOptions;
@@ -30,7 +30,7 @@ export class ToolbarHideWhenScrollDirective extends ToolbarBehavior implements O
     this._toolbarElementRef.nativeElement.style.willChange = 'transform';
   }
 
-  ngAfterContentInit(): void {
+  override ngAfterContentInit(): void {
     super.ngAfterContentInit();
     if (this._innerOptions.autoElevate) {
       if (this._toolbarElementRef.nativeElement.style.transition) {
@@ -41,7 +41,7 @@ export class ToolbarHideWhenScrollDirective extends ToolbarBehavior implements O
     }
   }
 
-  protected _processBehavior = (newScrollTop: number) => {
+  protected _processBehavior = (newScrollTop: number | null) => {
     newScrollTop = newScrollTop || 0;
     let toolbarHeight = this._toolbarElementRef.nativeElement.offsetHeight;
 
@@ -52,7 +52,7 @@ export class ToolbarHideWhenScrollDirective extends ToolbarBehavior implements O
     let newTranslate = this.previousTranslate + (newScrollTop - this.previousScrollTop);
     this.previousScrollTop = newScrollTop;
 
-    if (newScrollTop <= this._innerOptions.offset) {
+    if (newScrollTop <= this._innerOptions.offset!) {
 
       this.sticky.emit(false);
       if (this._innerOptions.autoElevate) {
@@ -89,8 +89,8 @@ export class ToolbarHideWhenScrollDirective extends ToolbarBehavior implements O
     this._toolbarElementRef.nativeElement.style.transform = 'translate3d(0, ' + -newTranslate + 'px, 0)';
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.options) {
+  override ngOnChanges(changes: SimpleChanges) {
+    if (changes['options']) {
       this._innerOptions = {...DefaultOptions, ...this.options};
     }
   }

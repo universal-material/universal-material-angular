@@ -50,7 +50,7 @@ export class TypeaheadWindow implements OnInit {
    *  The id for the typeahead window. The id should be unique and the same
    *  as the associated typeahead's id.
    */
-  @Input() id: string;
+  @Input() id: string | null = null;
 
   /**
    * Flag indicating if the first row should be active initially
@@ -60,12 +60,12 @@ export class TypeaheadWindow implements OnInit {
   /**
    * Typeahead match results to be displayed
    */
-  @Input() results: readonly any[];
+  @Input() results!: readonly any[];
 
   /**
    * Search term used to get current results
    */
-  @Input() term: string;
+  @Input() term!: string;
 
   /**
    * A function used to format a given result before display. This function should return a formatted string without any
@@ -76,14 +76,14 @@ export class TypeaheadWindow implements OnInit {
   /**
    * A template to override a matching result default display
    */
-  @Input() resultTemplate: TemplateRef<ResultTemplateContext>;
+  @Input() resultTemplate!: TemplateRef<ResultTemplateContext>;
 
   /**
    * A custom class to append to the typeahead window
    *
    * @since 9.1.0
    */
-  @Input() popupClass: string;
+  @Input() popupClass: string | null = null;
 
   /**
    * Event raised when user selects a particular result row

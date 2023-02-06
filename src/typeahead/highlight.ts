@@ -14,7 +14,7 @@ import {regExpEscape, toString} from '../util/util';
   styleUrls: ['./highlight.scss']
 })
 export class Highlight implements OnChanges {
-  parts: string[];
+  parts!: string[];
 
   /**
    * The CSS class of the span elements wrapping the term inside the result
@@ -24,12 +24,12 @@ export class Highlight implements OnChanges {
   /**
    * The result text to display. If the term is found inside this text, it's highlighted
    */
-  @Input() result: string;
+  @Input() result?: string | null;
 
   /**
    * The searched term
    */
-  @Input() term: string;
+  @Input() term!: string | readonly string[];
 
   ngOnChanges(changes: SimpleChanges) {
     const resultStr = toString(this.result);

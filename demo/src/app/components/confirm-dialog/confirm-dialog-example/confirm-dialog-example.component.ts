@@ -9,7 +9,7 @@ import { ConfirmDialogService } from '@universal-material/angular';
 })
 export class ConfirmDialogExampleComponent {
 
-  confirmed: boolean;
+  confirmed = false;
 
   constructor(private readonly confirmDialog: ConfirmDialogService) {
 
@@ -20,8 +20,8 @@ export class ConfirmDialogExampleComponent {
       title: 'Delete file?',
       confirmButton: {
         text: 'Delete',
-        appearance: 'raised',
-        color: 'danger'
+        appearance: 'filled',
+        color: 'error'
       }
     });
 

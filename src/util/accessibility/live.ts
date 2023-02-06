@@ -40,12 +40,12 @@ export class Live implements OnDestroy {
   ngOnDestroy() {
     const element = getLiveElement(this._document);
     if (element) {
-      element.parentElement.removeChild(element);
+      element.parentElement!.removeChild(element);
     }
   }
 
   say(message: string) {
-    const element = getLiveElement(this._document, true);
+    const element = getLiveElement(this._document, true)!;
     const delay = this._delay;
 
     element.textContent = '';

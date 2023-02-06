@@ -5,7 +5,7 @@ import { Component, ElementRef, HostBinding, Input, OnInit } from '@angular/core
   templateUrl: './collapse.component.html',
   styleUrls: ['./collapse.component.scss']
 })
-export class CollapseComponent implements OnInit {
+export class CollapseComponent {
 
   @Input() show = false;
 
@@ -18,8 +18,4 @@ export class CollapseComponent implements OnInit {
   constructor(private readonly _elementRef: ElementRef) {
 
   }
-
-  ngOnInit() {
-  }
-
 }

@@ -1,29 +1,53 @@
 <button type="button" (click)="invalid = !invalid">Toggle invalid</button>
 
-<u-form-field [invalid]="invalid">
-  <input uTextInput />
+<u-form-field [invalid]="invalid" supportingText="Supporting text">
   <label uLabel>Name</label>
+  <input uTextInput />
+</u-form-field>
+
+<u-form-field [invalid]="invalid" supportingText="Supporting text" errorText="Some error">
+  <label uLabel>Name</label>
+  <input uTextInput />
+</u-form-field>
+
+<u-form-field [invalid]="invalid" errorText="Some error">
+  <label uLabel>Name</label>
+  <input uTextInput />
+  <div uSupportingText>Supporting text</div>
+</u-form-field>
+
+<u-form-field [invalid]="invalid" supportingText="Supporting text">
+  <label uLabel>Name</label>
+  <input uTextInput />
+  <div uErrorText>Some error</div>
 </u-form-field>
 
 <u-form-field [invalid]="invalid">
-  <div class="u-text-input">
-    <span class="u-text-input-prefix">$</span>
-    <input uTextInput [setInputClass]="false" />
-  </div>
+  <label uLabel>Name</label>
+  <input uTextInput />
+  <div uSupportingText>Supporting text</div>
+  <div uErrorText>Some error</div>
+</u-form-field>
+
+<u-form-field [invalid]="invalid">
   <label uLabel>Amount</label>
+  <div class="u-text-input">
+    <input uTextInput />
+  </div>
+  <div uSupportingText>Supporting text</div>
 </u-form-field>
 
-<u-form-field [invalid]="invalid">
-  <textarea uTextInput></textarea>
+<u-form-field [invalid]="invalid" supportingText="Supporting text" errorText="Some error">
   <label uLabel>Description</label>
+  <textarea uTextInput></textarea>
 </u-form-field>
 
 <div class="u-divider mb-4"></div>
 
-<u-form-field appearance="outline" [invalid]="invalid">
-  <input uTextInput />
+<u-form-field appearance="outlined" [invalid]="invalid">
   <label uLabel>Name</label>
-  <div uErrorMessage>Teste</div>
+  <input uTextInput />
+  <div uSupportingText *ngIf="invalid">Teste</div>
 </u-form-field>
 
 <div class="u-divider mb-4"></div>
@@ -33,25 +57,25 @@
     <i class="mdi mdi-calendar"></i>
   </div>
   <div class="u-text-field-trailing-icon">
-    <button u-btn="borderless">
+    <button u-btn="icon">
       <i class="u-btn-icon mdi mdi-calendar"></i>
     </button>
   </div>
 
   <input uTextInput placeholder="Search" />
-  <div uErrorMessage>Teste</div>
+  <div uSupportingText *ngIf="invalid">Teste</div>
 </u-form-field>
 
-<u-form-field appearance="search-elevated" [invalid]="invalid">
-  <div class="u-text-field-leading-icon">
-    <i class="mdi mdi-calendar"></i>
-  </div>
-  <div class="u-text-field-trailing-icon">
-    <button u-btn="borderless">
-      <i class="u-btn-icon mdi mdi-calendar"></i>
-    </button>
-  </div>
+<!--<u-form-field appearance="search-elevated" [invalid]="invalid">-->
+<!--  <div class="u-text-field-leading-icon">-->
+<!--    <i class="mdi mdi-calendar"></i>-->
+<!--  </div>-->
+<!--  <div class="u-text-field-trailing-icon">-->
+<!--    <button u-btn="icon">-->
+<!--      <i class="u-btn-icon mdi mdi-calendar"></i>-->
+<!--    </button>-->
+<!--  </div>-->
 
-  <input uTextInput placeholder="Search" />
-  <div uErrorMessage>Teste</div>
-</u-form-field>
+<!--  <input uTextInput placeholder="Search" />-->
+<!--  <div uSupportingText *ngIf="invalid">Teste</div>-->
+<!--</u-form-field>-->

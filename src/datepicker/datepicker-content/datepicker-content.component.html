@@ -6,14 +6,14 @@
   <div class="u-datepicker-body">
     <ng-container *ngIf="pickerState === DatepickerState.SelectDay">
       <div class="u-datepicker-navigation">
-        <button type="button" u-btn="flat" (click)="pickerState = DatepickerState.SelectYear">
+        <button type="button" u-btn="text" (click)="pickerState = DatepickerState.SelectYear" [disabled]="disabled">
           {{datepicker.currentMonth.nameWithYear}}
         </button>
         <div class="u-btn-set ml-auto">
-          <button type="button" u-btn="borderless" (click)="datepicker.showPreviousMonth()">
+          <button type="button" u-btn="icon" (click)="datepicker.showPreviousMonth()" [disabled]="disabled">
             <i class="u-btn-icon" [ngClass]="datepicker.navigateBackClass"></i>
           </button>
-          <button type="button" u-btn="borderless" (click)="datepicker.showNextMonth()">
+          <button type="button" u-btn="icon" (click)="datepicker.showNextMonth()" [disabled]="disabled">
             <i class="u-btn-icon" [ngClass]="datepicker.navigateForwardClass"></i>
           </button>
         </div>
@@ -23,7 +23,10 @@
           <span class="u-datepicker-weekday" *ngFor="let dayName of datepicker.weekDayNames">{{dayName}}</span>
         </div>
         <div class="u-datepicker-week" *ngFor="let week of datepicker.weeks; trackBy: datepicker.trackByWeek">
-          <button type="button" uRipple class="u-datepicker-day"
+          <button type="button"
+                  uRipple
+                  class="u-datepicker-day"
+                  [disabled]="disabled"
                   *ngFor="let day of week.days; trackBy: datepicker.trackByDay"
                   [class.disabled]="day.disabled"
                   [class.active]="datepicker.isEqualToSelectedDate(day.date)"
@@ -38,14 +41,26 @@
     </ng-container>
     <ng-container *ngIf="pickerState === DatepickerState.SelectYear">
       <div class="u-datepicker-navigation">
-        <button type="button" u-btn="flat" (click)="pickerState = DatepickerState.SelectDay">
+        <button
+          type="button"
+          u-btn="text"
+          (click)="pickerState = DatepickerState.SelectDay"
+          [disabled]="disabled">
           {{datepicker.currentMonth.formattedYear}}
         </button>
         <div class="u-btn-set ml-auto">
-          <button type="button" u-btn="borderless" (click)="datepicker.setYearGroups(datepicker.baseYear - datepicker.totalVisibleYears)">
+          <button
+            type="button"
+            u-btn="icon"
+            (click)="datepicker.setYearGroups(datepicker.baseYear - datepicker.totalVisibleYears)"
+            [disabled]="disabled">
             <i class="u-btn-icon" [ngClass]="datepicker.navigateBackClass"></i>
           </button>
-          <button type="button" u-btn="borderless" (click)="datepicker.setYearGroups(datepicker.baseYear + datepicker.totalVisibleYears)">
+          <button
+            type="button"
+            u-btn="icon"
+            (click)="datepicker.setYearGroups(datepicker.baseYear + datepicker.totalVisibleYears)"
+            [disabled]="disabled">
             <i class="u-btn-icon" [ngClass]="datepicker.navigateForwardClass"></i>
           </button>
         </div>
@@ -62,7 +77,11 @@
     </ng-container>
     <ng-container *ngIf="pickerState === DatepickerState.SelectMonth">
       <div class="u-datepicker-navigation">
-        <button type="button" u-btn="flat" (click)="pickerState = DatepickerState.SelectDay">
+        <button
+          type="button"
+          u-btn="text"
+          (click)="pickerState = DatepickerState.SelectDay"
+          [disabled]="disabled">
           {{datepicker.currentMonth.formattedYear}}
         </button>
       </div>
@@ -77,8 +96,13 @@
       </div>
     </ng-container>
     <div class="u-btn-set u-datepicker-clear justify-content-end w-100">
-      <button *ngIf="!datepicker.hideClear" type="button" u-btn="flat" color="primary"
-              (click)="datepicker.selectDate(null)">{{datepicker.clearLabel}}</button>
+      <button
+        *ngIf="!datepicker.hideClear"
+        type="button"
+        u-btn="text"
+        color="primary"
+        (click)="datepicker.selectDate(null)"
+        [disabled]="disabled">{{datepicker.clearLabel}}</button>
     </div>
   </div>
 </ng-container>

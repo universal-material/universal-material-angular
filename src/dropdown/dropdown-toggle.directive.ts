@@ -6,9 +6,9 @@ import { Subject } from 'rxjs';
 })
 export class DropdownToggleDirective {
 
-  click = new Subject<Event>();
+  click = new Subject<void>();
 
-  @HostListener('click', ['$event']) _click = (e: Event) => {
-    this.click.next(e);
+  @HostListener('click') _click = () => {
+    this.click.next();
   }
 }

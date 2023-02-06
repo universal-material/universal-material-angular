@@ -1,5 +1,14 @@
 // previous version:
 // https://github.com/angular-ui/bootstrap/blob/07c31d0731f7cb068a1932b8e01d2312b796b4ec/src/position/position.js
+interface Rect {
+  width: number,
+  height: number,
+  top: number,
+  bottom: number,
+  left: number,
+  right: number
+}
+
 export class Positioning {
   private getAllStyles(element: HTMLElement): {[b: string]: any} { return window.getComputedStyle(element); }
 
@@ -19,9 +28,9 @@ export class Positioning {
     return offsetParentEl || document.documentElement;
   }
 
-  position(element: HTMLElement, round = true): ClientRect {
-    let elPosition: ClientRect;
-    let parentOffset: ClientRect = {width: 0, height: 0, top: 0, bottom: 0, left: 0, right: 0};
+  position(element: HTMLElement, round = true): Rect {
+    let elPosition: Rect;
+    let parentOffset = {width: 0, height: 0, top: 0, bottom: 0, left: 0, right: 0};
 
     if (this.getStyle(element, 'position') === 'fixed') {
       elPosition = element.getBoundingClientRect();
@@ -53,14 +62,14 @@ export class Positioning {
     return elPosition;
   }
 
-  offset(element: HTMLElement, round = true): ClientRect {
+  offset(element: HTMLElement, round = true): Rect {
     const elBcr = element.getBoundingClientRect();
     const viewportOffset = {
       top: window.pageYOffset - document.documentElement.clientTop,
       left: window.pageXOffset - document.documentElement.clientLeft
     };
 
-    let elOffset = {
+    let elOffset: Rect = {
       height: elBcr.height || element.offsetHeight,
       width: elBcr.width || element.offsetWidth,
       top: elBcr.top + viewportOffset.top,
@@ -81,15 +90,14 @@ export class Positioning {
     return elOffset;
   }
 
-  positionElements(hostElement: HTMLElement, targetElement: HTMLElement, placement: string, appendToBody?: boolean):
-      ClientRect {
+  positionElements(hostElement: HTMLElement, targetElement: HTMLElement, placement: string, appendToBody?: boolean): Rect {
     const hostElPosition = appendToBody ? this.offset(hostElement, false) : this.position(hostElement, false);
     const targetElStyles = this.getAllStyles(targetElement);
     const targetElBCR = targetElement.getBoundingClientRect();
     const placementPrimary = placement.split('-')[0] || 'top';
     const placementSecondary = placement.split('-')[1] || 'center';
 
-    let targetElPosition: ClientRect = {
+    let targetElPosition: Rect = {
       'height': targetElBCR.height || targetElement.offsetHeight,
       'width': targetElBCR.width || targetElement.offsetWidth,
       'top': 0,
@@ -101,14 +109,14 @@ export class Positioning {
     switch (placementPrimary) {
       case 'top':
         targetElPosition.top =
-            hostElPosition.top - (targetElement.offsetHeight + parseFloat(targetElStyles.marginBottom));
+            hostElPosition.top - (targetElement.offsetHeight + parseFloat(targetElStyles['marginBottom']));
         break;
       case 'bottom':
         targetElPosition.top = hostElPosition.top + hostElPosition.height;
         break;
       case 'left':
         targetElPosition.left =
-            hostElPosition.left - (targetElement.offsetWidth + parseFloat(targetElStyles.marginRight));
+            hostElPosition.left - (targetElement.offsetWidth + parseFloat(targetElStyles['marginRight']));
         break;
       case 'right':
         targetElPosition.left = hostElPosition.left + hostElPosition.width;
@@ -269,7 +277,7 @@ export function positionElements(
 
   // coordinates where to position
   let topVal = 0, leftVal = 0;
-  let appliedPlacement: Placement;
+  let appliedPlacement!: Placement;
   // get available placements
   let availablePlacements = positionService.getAvailablePlacements(hostElement, targetElement);
   // iterate over all the passed placements

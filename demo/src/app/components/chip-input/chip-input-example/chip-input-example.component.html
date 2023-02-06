@@ -2,11 +2,12 @@
   <div class="u-text-field-leading-icon">
     <i class="mdi mdi-account"></i>
   </div>
+  <label uLabel>Names</label>
   <u-chip-field [(items)]="items">
-    <div class="u-chip" *ngFor="let item of items, let i = index"><span class="u-chip-label">{{item}}</span>
-      <button class="u-chip-remove" uRipple="uRipple" (click)="removeItem(i)"><i class="mdi mdi-close-circle"></i></button>
+    <div class="u-chip" *ngFor="let item of items, let i = index">
+      <span class="u-chip-label">{{item}}</span>
+      <div class="u-chip-icon u-chip-trailing-icon u-chip-icon-action" uRipple="uRipple" (click)="removeItem(i)"><i class="mdi mdi-close-circle"></i></div>
     </div>
     <input uChipInput />
   </u-chip-field>
-  <label uLabel>Names</label>
 </u-form-field>

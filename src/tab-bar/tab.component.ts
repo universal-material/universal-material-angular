@@ -43,7 +43,7 @@ export class TabComponent extends RippleDirective {
 
   _clicked = new Subject<void>();
 
-  constructor(public readonly _elementRef: ElementRef<HTMLElement>,
+  constructor(public override readonly _elementRef: ElementRef<HTMLElement>,
               private readonly _changeDetectorRef: ChangeDetectorRef,
               @Inject(DOCUMENT) _document: any) {
     super(_elementRef, _document);

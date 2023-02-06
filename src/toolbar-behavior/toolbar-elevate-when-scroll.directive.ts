@@ -12,7 +12,7 @@ const DefaultOptions: ToolbarElevateWhenScrollOptions = { offset: 0 };
   selector: '[uToolbarElevateWhenScroll]'
 })
 export class ToolbarElevateWhenScrollDirective extends ToolbarBehavior implements OnChanges {
-  @Input('uToolbarElevateWhenScroll') options: ToolbarElevateWhenScrollOptions | '';
+  @Input('uToolbarElevateWhenScroll') options: ToolbarElevateWhenScrollOptions | '' = '';
   private _innerOptions: ToolbarElevateWhenScrollOptions = DefaultOptions;
 
   constructor(private readonly _toolbarElementRef: ElementRef) {
@@ -20,16 +20,17 @@ export class ToolbarElevateWhenScrollDirective extends ToolbarBehavior implement
     this._toolbarElementRef.nativeElement.style.transition = 'box-shadow 450ms';
   }
 
-  protected _processBehavior = (scrollTop: number) => {
+  protected _processBehavior = (scrollTop: number | null) => {
     if (scrollTop && scrollTop > this._innerOptions.offset) {
       this._toolbarElementRef.nativeElement.classList.add('u-toolbar-elevated');
-    } else {
-      this._toolbarElementRef.nativeElement.classList.remove('u-toolbar-elevated');
+      return;
     }
+
+    this._toolbarElementRef.nativeElement.classList.remove('u-toolbar-elevated');
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.options) {
+  override ngOnChanges(changes: SimpleChanges) {
+    if (changes['options']) {
       this._innerOptions = {...DefaultOptions, ...this.options};
     }
   }

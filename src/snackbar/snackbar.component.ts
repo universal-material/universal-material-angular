@@ -14,12 +14,12 @@ export class SnackbarComponent implements SnackbarRef {
 
   @HostBinding('class.dismiss') dismissed = false;
 
-  message: string;
-  _config: SnackbarConfig;
+  message!: string;
+  _config!: SnackbarConfig;
 
-  afterOpen: Observable<void> = new Subject();
-  afterDismiss: Observable<void> = new Subject();
-  onAction: Observable<void> = new Subject();
+  afterOpen: Observable<void> = new Subject<void>();
+  afterDismiss: Observable<void> = new Subject<void>();
+  onAction: Observable<void> = new Subject<void>();
 
   constructor(private readonly _elementRef: ElementRef) {
     _elementRef.nativeElement.classList.add('u-snackbar');

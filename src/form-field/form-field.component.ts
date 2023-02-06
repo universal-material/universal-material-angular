@@ -1,4 +1,15 @@
-import { Component, ContentChild, ElementRef, HostBinding, Inject, InjectionToken, Input, Optional, ViewChild } from '@angular/core';
+import {
+  Component,
+  ContentChild,
+  ElementRef,
+  HostBinding,
+  HostListener,
+  Inject,
+  InjectionToken,
+  Input,
+  Optional,
+  ViewChild
+} from '@angular/core';
 import { LabelDirective } from './label.directive';
 import { InputBaseComponent } from '../shared/input-base.component';
 import { FormFieldAppearance } from './form-field-appearance';
@@ -12,20 +23,24 @@ export const FORM_FIELD_DEFAULT_APPEARANCE = new InjectionToken('FORM_FIELD_DEFA
 })
 export class FormFieldComponent {
 
-  _appearanceClass: string;
-  _appearance: FormFieldAppearance;
+  _appearanceClass!: string;
+  _appearance!: FormFieldAppearance;
   _defaultAppearance: FormFieldAppearance;
-  _input: InputBaseComponent;
-  _hasLabel: boolean;
+  _input!: InputBaseComponent;
+  _hasLabel = false;
 
-  @HostBinding('style.margin-bottom') get removeMarginStyle() {
+  @HostBinding('class.u-form-field-selection')
+  selectionField = false;
+
+  @HostBinding('style.margin-bottom')
+  get removeMarginStyle() {
     return this.removeMargin ? '0' : '';
   }
 
-  @Input() invalid: boolean;
-  @Input() removeMargin: boolean;
-  @Input() helperText: string;
-  @Input() errorMessage: string;
+  @Input() invalid = false;
+  @Input() removeMargin = false;
+  @Input() supportingText: string | null = null;
+  @Input() errorText: string | null = null;
 
   @Input()
   get appearance(): FormFieldAppearance {
@@ -39,9 +54,7 @@ export class FormFieldComponent {
     }
 
     if (value.indexOf('search') > -1) {
-      this._appearanceClass = value === 'search-elevated'
-        ? 'u-search-field u-search-field-elevated'
-        : 'u-search-field';
+      this._appearanceClass = 'u-text-field-box u-search-field';
       return;
     }
 
@@ -53,5 +66,16 @@ export class FormFieldComponent {
     this._defaultAppearance = defaultAppearance || 'box';
     this.appearance = this._defaultAppearance;
     _elementRef.nativeElement.classList.add('u-form-field');
+  }
+
+  // @HostListener('click')
+  click(): void {
+    this._input?.focus();
+  }
+
+  @HostListener('mousedown', ['$event'])
+  mouseDown(e: MouseEvent): void {
+    e.preventDefault();
+    console.log('mouse down')
   }
 }

@@ -9,7 +9,7 @@ export class ProgressDialogService {
 
   }
 
-  open(message: string): ProgressDialogComponent {
+  open(message: string | null = null): ProgressDialogComponent {
     const progressDialog = this._dialogService.open(ProgressDialogComponent);
     progressDialog.message = message;
     progressDialog.show = true;

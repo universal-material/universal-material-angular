@@ -20,7 +20,7 @@ const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'C
 export class TypeaheadExampleComponent {
   model: any;
 
-  @ViewChild('instance', {static: true}) instance: Typeahead;
+  @ViewChild('instance', {static: true}) instance!: Typeahead;
   focus$ = new Subject<string>();
   click$ = new Subject<string>();
 

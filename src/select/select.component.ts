@@ -2,12 +2,14 @@ import {
   AfterContentInit,
   Component,
   ContentChildren,
+  ElementRef,
   EventEmitter,
   forwardRef,
   Inject,
-  Input, OnChanges, OnInit,
+  Input,
   Optional,
-  Output, QueryList, SimpleChanges,
+  Output,
+  QueryList,
   ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -18,6 +20,8 @@ import { DropdownMenuDirective } from '../dropdown/dropdown-menu.directive';
 import { InputBaseComponent } from '../shared/input-base.component';
 import { FormFieldComponent } from '../form-field/form-field.component';
 import { OptionComponent } from './option.component';
+import { DropdownToggleDirective } from '../dropdown/dropdown-toggle.directive';
+import { DropdownDirective } from '../dropdown/dropdown.directive';
 
 const SelectValueAcessor = {
   provide: NG_VALUE_ACCESSOR,
@@ -45,20 +49,19 @@ export interface SelectItemEvent {
 })
 export class SelectComponent implements AfterContentInit, InputBaseComponent, ControlValueAccessor {
 
-  private _emptyOverride: boolean;
-  _disabled: boolean;
+  private _emptyOverride: boolean | null = null;
+  _disabled = false;
 
   @Input() autoClose: boolean | 'outside' = true;
-  @Input() placeholder: string;
-  @Input() tabIndex: number;
-  @Input() valueComparer: (valueA: any, valueB: any) => boolean;
+  @Input() placeholder: string | null = null;
+  @Input() tabIndex: number | null = null;
+  @Input() valueComparer: ((valueA: any, valueB: any) => boolean) | null = null;
 
-  @ViewChild(DropdownMenuDirective) _dropdownMenu: DropdownMenuDirective;
-  @ContentChildren(OptionComponent) _options: QueryList<OptionComponent>;
+  @ViewChild('toggle') toggle!: ElementRef<HTMLButtonElement>;
+  @ViewChild(DropdownDirective) _dropdown!: DropdownDirective;
+  @ContentChildren(OptionComponent) _options!: QueryList<OptionComponent>;
 
-  get focused(): boolean {
-    return this._dropdownMenu && this._dropdownMenu.show;
-  }
+  focused = false;
 
   @Input()
   set empty(value: boolean) {
@@ -67,7 +70,7 @@ export class SelectComponent implements AfterContentInit, InputBaseComponent, Co
 
   get empty(): boolean {
 
-    if (this._emptyOverride !== undefined) {
+    if (this._emptyOverride !== null) {
       return this._emptyOverride;
     }
 
@@ -86,15 +89,19 @@ export class SelectComponent implements AfterContentInit, InputBaseComponent, Co
    * A function to format a given result before display. This function should return a formatted string without any
    * HTML markup
    */
-  @Input() selectionFormatter: (value: any) => string;
+  @Input() selectionFormatter: ((value: any) => string) | null = null;
 
   @Input() direction: Direction = 'auto';
 
-  selectedOption: OptionComponent;
+  selectedOption: OptionComponent | null = null;
   selectedValue: any;
   @Output() selectItem = new EventEmitter<SelectItemEvent>();
 
-  constructor(@Optional() @Inject(forwardRef(() => FormFieldComponent)) formField: FormFieldComponent) {
+  constructor(elementRef: ElementRef<HTMLElement>,
+              @Optional() @Inject(forwardRef(() => FormFieldComponent)) formField: FormFieldComponent) {
+    elementRef.nativeElement.classList.add('u-text-input');
+    formField.selectionField = true;
+
     if (formField) {
       formField._input = this;
     }
@@ -123,10 +130,10 @@ export class SelectComponent implements AfterContentInit, InputBaseComponent, Co
           return true;
         }
 
-        return this.valueComparer && this.valueComparer(o.value, this.selectedValue);
+        return !!(this.valueComparer && this.valueComparer(o.value, this.selectedValue));
       });
 
-    this.selectedOption = option;
+    this.selectedOption = option ?? null;
   }
 
   ngAfterContentInit(): void {
@@ -134,6 +141,11 @@ export class SelectComponent implements AfterContentInit, InputBaseComponent, Co
     this._options.changes.subscribe(options => this._setSelectComponentInOptions(options));
 
     this._setSelectedOption();
+  }
+
+  focus(): void {
+    this._dropdown.toggle();
+    this.toggle.nativeElement.focus();
   }
 
   _setOption(option: OptionComponent) {
@@ -171,5 +183,17 @@ export class SelectComponent implements AfterContentInit, InputBaseComponent, Co
 
   setDisabledState(isDisabled: boolean): void {
     this._disabled = isDisabled;
+  }
+
+  _focusChanged(focused: boolean) {
+    if (focused === this.focused) {
+      return;
+    }
+
+    this.focused = focused;
+
+    if (!focused) {
+      this._dropdown.close();
+    }
   }
 }

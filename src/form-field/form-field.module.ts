@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 
 import { FormFieldComponent } from './form-field.component';
 import { LabelDirective } from './label.directive';
+import { RippleModule } from '../ripple/ripple.module';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    RippleModule
   ],
   declarations: [
     FormFieldComponent,

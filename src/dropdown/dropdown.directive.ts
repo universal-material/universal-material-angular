@@ -20,11 +20,11 @@ export class DropdownDirective implements AfterContentInit {
   private _justToggle = false;
 
   @Input() autoClose: boolean | 'outside' = true;
-  @Input() open: boolean;
+  @Input() open = false;
   @Output() openChange = new EventEmitter<boolean>();
 
-  @ContentChild(DropdownToggleDirective) _dropdownToggle: DropdownToggleDirective;
-  @ContentChild(DropdownMenuDirective) _dropdownMenu: DropdownMenuDirective;
+  @ContentChild(DropdownToggleDirective) _dropdownToggle: DropdownToggleDirective | null = null;
+  @ContentChild(DropdownMenuDirective) _dropdownMenu!: DropdownMenuDirective;
 
   @HostListener('window:click') _windowClick() {
     if (this._justToggle) {
@@ -49,23 +49,30 @@ export class DropdownDirective implements AfterContentInit {
 
   ngAfterContentInit() {
 
-    this._dropdownToggle.click.subscribe(() => {
-      this._justToggle = true;
+    this._dropdownToggle?.click.subscribe(() => this.toggle());
 
-      if (!this._dropdownMenu.show) {
-        if (this._dropdownMenu.direction && this._dropdownMenu.direction.indexOf('auto') === 0) {
-          this._dropdownMenu.setDirectionClass(`${this.openDropdownUpOrDown()}${this._dropdownMenu.direction.substring(4)}`);
-        }
-      }
-
-      this._dropdownMenu.show = !this._dropdownMenu.show;
-    });
-    this._dropdownMenu.click.subscribe((e: Event) => {
+    this._dropdownMenu.click.subscribe(() => {
 
       if (this.autoClose && this.autoClose !== 'outside' && this._dropdownMenu.show) {
         this._dropdownMenu.show = false;
       }
     });
+  }
+
+  toggle(): void {
+    this._justToggle = true;
+
+    if (!this._dropdownMenu.show) {
+      if (this._dropdownMenu.direction && this._dropdownMenu.direction.indexOf('auto') === 0) {
+        this._dropdownMenu.setDirectionClass(`${this.openDropdownUpOrDown()}${this._dropdownMenu.direction.substring(4)}`);
+      }
+    }
+
+    this._dropdownMenu.show = !this._dropdownMenu.show;
+  }
+
+  close() {
+    this._dropdownMenu.show = false;
   }
 
   openDropdownUpOrDown(): string {

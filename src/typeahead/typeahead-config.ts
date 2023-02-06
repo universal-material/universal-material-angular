@@ -8,7 +8,7 @@ import {PlacementArray} from '../util/positioning';
  */
 @Injectable({providedIn: 'root'})
 export class TypeaheadConfig {
-  container: string;
+  container!: string;
   editable = true;
   focusFirst = true;
   showHint = false;

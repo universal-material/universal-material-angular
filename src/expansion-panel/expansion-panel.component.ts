@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
 })
 export class ExpansionPanelComponent {
 
-  private _expanded: boolean;
+  private _expanded = false;
 
   @HostBinding('class.disabled') @Input() disabled = false;
   @Input() hideToggle = false;

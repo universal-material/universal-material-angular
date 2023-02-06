@@ -1,9 +1,10 @@
-import { ElementRef, HostBinding, HostListener, Inject, Input, Optional } from '@angular/core';
+import { Directive, ElementRef, HostBinding, HostListener, Input } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 import { FormFieldComponent } from '../form-field/form-field.component';
 import { coerceBooleanProperty } from '../coercion/boolean.coercion';
 
+@Directive()
 export abstract class TextInputBase {
   focused = false;
 
@@ -15,7 +16,7 @@ export abstract class TextInputBase {
     return this._disabled;
   }
   set disabled(value: boolean) {
-    this._disabled = coerceBooleanProperty(value);
+    this._disabled = (value as any === '') || value;
 
     // Browsers may not fire the blur event if the input is disabled too quickly.
     // Reset from here to ensure that the element doesn't become stuck.
@@ -23,7 +24,9 @@ export abstract class TextInputBase {
       this.focused = false;
     }
   }
+
   protected _disabled = false;
+  static ngAcceptInputType_disabled: boolean | '';
 
   /** Whether the element is readonly. */
   @Input()
@@ -41,8 +44,8 @@ export abstract class TextInputBase {
     return this.disabled ? true : null;
   }
 
-  protected constructor(readonly ngControl: NgControl,
-              formField: FormFieldComponent,
+  protected constructor(readonly ngControl: NgControl | null,
+              formField: FormFieldComponent | null,
               protected readonly _elementRef: ElementRef) {
 
     if (formField) {
@@ -50,10 +53,21 @@ export abstract class TextInputBase {
     }
   }
 
-  /** Callback for the cases where the focused state of the input changes. */
-  _focusChanged(isFocused: boolean) {
-    if (isFocused !== this.focused && (!this.readonly || !isFocused)) {
-      this.focused = isFocused;
+  focus(): void {
+    if (document.activeElement !== this._elementRef.nativeElement) {
+      this._elementRef.nativeElement.focus();
     }
+  }
+
+  /** Callback for the cases where the focused state of the input changes. */
+  _focusChanged(focused: boolean) {
+    if (focused !== this.focused && (!this.readonly || !focused)) {
+      this.focused = focused;
+    }
+  }
+
+  @HostListener('mousedown', ['$event'])
+  mouseDown(e: MouseEvent): void {
+    e.stopPropagation();
   }
 }

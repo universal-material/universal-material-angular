@@ -1,6 +1,14 @@
 <div class="u-dropdown" uDropdown [autoClose]="autoClose">
 
-  <button class="u-text-input u-dropdown-toggle" uDropdownToggle uRipple type="button" [disabled]="_disabled" [tabIndex]="tabIndex">
+  <button
+    #toggle
+    class="u-dropdown-toggle"
+    type="button"
+    [disabled]="_disabled"
+    [tabIndex]="tabIndex"
+    (click)="focus()"
+    (focus)="_focusChanged(true)"
+    (blur)="_focusChanged(false)">
     <div #content>
       <ng-content select="[selection]"></ng-content>
     </div>

@@ -12,19 +12,23 @@ export class DefaultDatepickerAdapter extends DatepickerAdapter {
     super();
   }
 
-  formatDate(date: Date): string {
+  formatDate(date: Date | null): string {
+    // @ts-ignore
     return this.datePipe.transform(date, 'mediumDate', null, this._locale);
   }
 
-  getMonthName(date: Date): string {
+  getMonthName(date: Date | null): string {
+    // @ts-ignore
     return this.datePipe.transform(date, 'MMM', null, this._locale);
   }
 
-  getMonthWithYear(date: Date): string {
+  getMonthWithYear(date: Date | null): string {
+    // @ts-ignore
     return this.datePipe.transform(date, 'MMM yyyy', null, this._locale);
   }
 
-  getYear(date: Date): string {
+  getYear(date: Date | null): string {
+    // @ts-ignore
     return this.datePipe.transform(date, 'yyyy', null, this._locale);
   }
 

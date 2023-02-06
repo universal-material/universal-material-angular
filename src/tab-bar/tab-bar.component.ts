@@ -41,13 +41,12 @@ export interface BeforeTabChangeEvent extends TabChangeEvent, PreventableEvent {
 })
 export class TabBarComponent implements AfterViewInit, OnChanges {
 
-  @ContentChildren(TabComponent) _tabs: QueryList<TabComponent>;
-  @ViewChild('tabIndicator') _tabIndicator: ElementRef;
-  @ViewChild('scrollContainer') _scrollContainer: ElementRef<HTMLElement>;
+  @ContentChildren(TabComponent) _tabs!: QueryList<TabComponent>;
+  @ViewChild('tabIndicator') _tabIndicator!: ElementRef;
+  @ViewChild('scrollContainer') _scrollContainer!: ElementRef<HTMLElement>;
   @HostBinding('style.height') hostHeight: string;
 
-  private _tabBarClass: string;
-  @Input() tabBarClass: string;
+  private _tabBarClass!: string;
   @Input() leftScrollIndicatorIconClass: string = 'mdi mdi-chevron-left';
   @Input() rightScrollIndicatorIconClass: string = 'mdi mdi-chevron-right';
 
@@ -57,15 +56,15 @@ export class TabBarComponent implements AfterViewInit, OnChanges {
   @Output() beforeChangeTab = new EventEmitter<BeforeTabChangeEvent>();
   @Output() afterChangeTab = new EventEmitter<TabChangeEvent>();
 
-  private _tabsArray: TabComponent[];
+  private _tabsArray!: TabComponent[];
   private _tabsClickSubscriptions: Subscription[] = [];
-  private _activeTab: TabComponent | null;
+  private _activeTab: TabComponent | null = null;
   private _contentInitialized = false;
-  private _windowResize$ = new Subject();
+  private _windowResize$ = new Subject<void>();
   private _scrollContainerScrollLeft = 0;
 
-  _innerTabBarClass: string;
-  scrollContainerHeight: string;
+  _innerTabBarClass!: string;
+  scrollContainerHeight!: string;
   _showLeftScrollIndicator = false;
   _showRightScrollIndicator = false;
 
@@ -82,8 +81,7 @@ export class TabBarComponent implements AfterViewInit, OnChanges {
         this._updateTabIndicator();
       });
 
-    this.tabBarClass = _elementRef.nativeElement.getAttribute('tabBarClass');
-    this.setHostAndContainerHeight();
+    this.hostHeight = this.getTabBarHeight();
   }
 
   private _updateTabs(tabs: TabComponent[]) {
@@ -145,7 +143,6 @@ export class TabBarComponent implements AfterViewInit, OnChanges {
 
     this._scrollContainer.nativeElement.addEventListener('scroll', () => this._setScrollIndicators());
     this._updateTabs(this._tabs.toArray())
-    this._updateTabBarClass();
     this._updateTabIndicator();
     this._updateScrollPosition();
     this._changeDetectorRef.detectChanges();
@@ -158,17 +155,13 @@ export class TabBarComponent implements AfterViewInit, OnChanges {
       return;
     }
 
-    if (changes.tabIndex) {
+    if (changes['tabIndex']) {
       this._setActiveTab();
     }
 
-    if (changes.activeTabId) {
+    if (changes['activeTabId']) {
       this._setTabIndexByTabId(this.activeTabId);
       this._setActiveTab();
-    }
-
-    if (changes.color) {
-      this._updateTabBarClass();
     }
   }
 
@@ -285,21 +278,6 @@ export class TabBarComponent implements AfterViewInit, OnChanges {
   private _setScrollLeft(scrollLeft: number) {
     this._scrollContainerScrollLeft = scrollLeft;
     smoothScrollLeft(this._scrollContainer.nativeElement, scrollLeft);
-  }
-
-  private _updateTabBarClass() {
-
-    if (this.tabBarClass === this._tabBarClass) {
-      return;
-    }
-
-    this._tabBarClass = this.tabBarClass;
-    this._innerTabBarClass = `u-tab-bar ${this._tabBarClass}`;
-    this._changeDetectorRef.detectChanges();
-  }
-
-  setHostAndContainerHeight() {
-    this.hostHeight = this.getTabBarHeight();
   }
 
   getTabBarHeight() {

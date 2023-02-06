@@ -10,12 +10,12 @@ const autoDirection = 'auto';
 })
 export class DropdownMenuDirective implements OnChanges {
 
-  click = new Subject();
+  click = new Subject<void>();
 
-  private _innerDirection: Direction;
+  private _innerDirection: Direction | null = null;
 
-  @HostBinding('class.show') show: boolean;
-  @Input() direction: Direction;
+  @HostBinding('class.show') show = false;
+  @Input() direction: Direction | null = null;
 
   @HostListener('click', ['$event']) _click = (e: Event) => {
     e.stopPropagation();
@@ -27,13 +27,18 @@ export class DropdownMenuDirective implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.direction) {
-      if (changes.direction.currentValue && changes.direction.currentValue.indexOf(autoDirection) !== 0) {
-        this.setDirectionClass(changes.direction.currentValue);
-      } else {
-        this.setDirectionClass('');
-      }
+    if (!changes['direction']) {
+      return;
     }
+
+    const directionChange = changes['direction'];
+
+    if (directionChange.currentValue && directionChange.currentValue.indexOf(autoDirection) !== 0) {
+      this.setDirectionClass(directionChange.currentValue);
+      return;
+    }
+
+    this.setDirectionClass('');
   }
 
   setDirectionClass(direction: string) {

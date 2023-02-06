@@ -2,7 +2,7 @@ import { InjectionToken } from '@angular/core';
 
 export const DIALOG_DEFAULT_OPTIONS = new InjectionToken('DIALOG_DEFAULT_OPTIONS');
 
-export class DialogConfig {
+export interface DialogConfig {
   closeOnBackdropClick?: boolean;
   closeOnEsc?: boolean;
 }

@@ -3,8 +3,7 @@ import { Component, ElementRef, HostBinding, HostListener, Inject, Input, OnChan
 import { DOCUMENT } from '@angular/common';
 import { RippleDirective } from '../ripple/ripple.directive';
 
-const defaultStyle = 'solid';
-const defaultColor = 'default';
+const defaultStyle = 'filled';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -13,13 +12,13 @@ const defaultColor = 'default';
 })
 export class ButtonComponent extends RippleDirective implements OnChanges {
 
-  private _color: string;
-  private _style: string;
+  private _color!: string;
+  private _style!: string;
 
   @Input('color') color: string | null;
 
   // tslint:disable-next-line:no-input-rename
-  @Input('u-btn') style: string | null;
+  @Input('u-btn') style!: 'elevated' | 'filled-tonal' | 'filled' | 'text' | 'outlined' | string | null;
 
   constructor(elementRef: ElementRef<HTMLElement>,
               @Inject(DOCUMENT) document: any) {
@@ -29,26 +28,24 @@ export class ButtonComponent extends RippleDirective implements OnChanges {
     this.style = elementRef.nativeElement.getAttribute('u-btn');
 
     this._updateStyleClass();
-    this._updateColorClass();
   }
 
-  private _updateColorClass() {
-    const newColor = this.color || defaultColor;
-
-    if (newColor !== this._color) {
-      this._elementRef.nativeElement.classList.remove(`u-btn-${this._color}`);
-      this._elementRef.nativeElement.classList.add(`u-btn-${newColor}`);
-
-      this._color = newColor;
+  private _updateColorClass(previousColor: string, newColor: string) {
+    if (newColor === previousColor) {
+      return;
     }
+
+    this._elementRef.nativeElement.classList.remove(`u-btn-${previousColor}`);
+    this._elementRef.nativeElement.classList.add(`u-btn-${newColor}`);
+    this._color = newColor;
   }
 
   private _updateStyleClass() {
     const newStyle = this.style || defaultStyle;
 
     if (newStyle !== this._style) {
-      this._elementRef.nativeElement.classList.remove(`u-btn-${this._style}`);
-      this._elementRef.nativeElement.classList.add(`u-btn-${newStyle}`);
+      this._elementRef.nativeElement.classList.remove(`u-${this._style}-btn`);
+      this._elementRef.nativeElement.classList.add(`u-${newStyle}-btn`);
 
       this._style = newStyle;
     }
@@ -56,12 +53,12 @@ export class ButtonComponent extends RippleDirective implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    if (changes.style) {
+    if (changes['style']) {
       this._updateStyleClass();
     }
 
-    if (changes.color) {
-      this._updateColorClass();
+    if (changes['color']) {
+      this._updateColorClass(changes['color'].previousValue, changes['color'].currentValue);
     }
   }
 }
@@ -78,7 +75,7 @@ export class LinkButtonComponent extends ButtonComponent {
     return this.disabled;
   }
 
-  @Input() disabled: boolean;
+  @Input() override disabled = false;
 
   @HostListener('click', ['$event']) clicked($event: Event) {
     if (this.disabled) {

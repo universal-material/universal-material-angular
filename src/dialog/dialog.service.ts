@@ -31,7 +31,7 @@ export class DialogService {
     this._dialogStackService.add(dialogComponentRef.instance);
 
     document
-      .querySelector('body')
+      .querySelector('body')!
       .appendChild(dialogComponentRef.location.nativeElement);
 
     return dialogComponentRef.instance;

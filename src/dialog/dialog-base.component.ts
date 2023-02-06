@@ -28,7 +28,7 @@ export class DialogBaseComponent implements AfterContentInit {
   _dialogConfig: DialogConfig;
 
   @HostBinding('class.hide') _hiding = false;
-  @HostBinding('class.show') @Input() show: boolean;
+  @HostBinding('class.show') @Input() show = false;
   @Output() showChange = new EventEmitter<boolean>();
   @Output() afterClose = new EventEmitter();
   @Output() closedFromBackdrop = new EventEmitter();
@@ -43,15 +43,15 @@ export class DialogBaseComponent implements AfterContentInit {
     this.setDialogBody(dialogBody);
   }
 
-  dialogBody: DialogBodyDirective;
+  dialogBody: DialogBodyDirective | null = null;
 
   @HostBinding('tabindex') _tabIndex = -1;
 
-  @HostBinding('class.u-dialog-scroll-top-divider') scrollTopDivider: boolean;
-  @HostBinding('class.u-dialog-scroll-bottom-divider') scrollBottomDivider: boolean;
+  @HostBinding('class.u-dialog-scroll-top-divider') scrollTopDivider = false;
+  @HostBinding('class.u-dialog-scroll-bottom-divider') scrollBottomDivider = false;
 
   constructor(protected readonly _elementRef: ElementRef,
-              @Optional() @Inject(DIALOG_DEFAULT_OPTIONS) defaultOptions?: DialogConfig) {
+              @Optional() @Inject(DIALOG_DEFAULT_OPTIONS) defaultOptions?: DialogConfig | undefined) {
     this._dialogConfig = {...DefaultDialogConfig, ...defaultOptions};
     _elementRef.nativeElement.classList.add('u-dialog');
   }

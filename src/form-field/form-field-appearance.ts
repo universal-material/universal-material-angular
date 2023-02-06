@@ -1,1 +1,1 @@
-export type FormFieldAppearance = 'default' | 'floating-label' | 'box' | 'outline' | 'search' | 'search-elevated';
+export type FormFieldAppearance = 'default' | 'box' | 'outlined' | 'search';

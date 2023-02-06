@@ -9,7 +9,8 @@ import { RippleConfig } from './ripple-config.model';
 export class RippleDirective implements AfterViewInit {
 
   @Input() rippleConfig: RippleConfig = {};
-  disabled = false;
+  @Input('rippleDisabled') disabled = false;
+
   isTouching = false;
 
   constructor(protected readonly _elementRef: ElementRef<HTMLElement>,
@@ -26,23 +27,35 @@ export class RippleDirective implements AfterViewInit {
   }
 
   @HostListener('mousedown', ['$event']) _mousedown = (e: MouseEvent) => {
+    if (this.disabled ||
+      this._elementRef.nativeElement.hasAttribute('disabled') ||
+      this._elementRef.nativeElement.classList.contains('disabled')) {
+      return;
+    }
+
     if (!this.isTouching) {
       this.createRipple('mouseup', null, e.clientX, e.clientY);
     }
   }
 
   @HostListener('touchstart', ['$event']) _touchstart = (e: TouchEvent) => {
+    if (this.disabled ||
+      this._elementRef.nativeElement.hasAttribute('disabled') ||
+      this._elementRef.nativeElement.classList.contains('disabled')) {
+      return;
+    }
+
     this.isTouching = true;
     this.createRipple('touchend', () => {
-      setTimeout(() => {
-        this.isTouching = false;
-      }, 100);
+      setTimeout(() => this.isTouching = false, 100);
     }, e.touches[0].clientX, e.touches[0].clientY);
   }
 
   ngAfterViewInit(): void {
-    if (document.defaultView!.getComputedStyle(this._elementRef.nativeElement).position !== 'absolute' &&
-      document.defaultView!.getComputedStyle(this._elementRef.nativeElement).position !== 'fixed' &&
+    const {position} = document.defaultView!.getComputedStyle(this._elementRef.nativeElement);
+
+    if (position !== 'absolute' &&
+      position !== 'fixed' &&
       (!this.rippleConfig || !this.rippleConfig.dontChangePositioning)) {
       this._elementRef.nativeElement.style.position = 'relative';
     }
@@ -87,23 +100,29 @@ export class RippleDirective implements AfterViewInit {
     }
 
     release = () => {
+
+      if (ripple.classList.contains('dismiss')) {
+        return;
+      }
+
       ripple.classList.add('dismiss');
+
+      ripple.addEventListener('transitionend', () => {
+        this._elementRef.nativeElement.removeChild(rippleWrapper);
+        this._elementRef.nativeElement.removeEventListener('touchend', release);
+        this._elementRef.nativeElement.removeEventListener('mouseleave', release);
+        this._elementRef.nativeElement.removeEventListener('mouseup', release);
+      });
 
       if (releaseCallback) {
         releaseCallback();
+        releaseCallback = null;
       }
     };
 
-    this._elementRef.nativeElement.addEventListener('dragover', release);
+    this._elementRef.nativeElement.addEventListener('touchend', release);
     this._elementRef.nativeElement.addEventListener('mouseleave', release);
-
-    ripple.addEventListener('transitionend', () => {
-      if (ripple.classList.contains('dismiss')) {
-        this._elementRef.nativeElement.removeChild(rippleWrapper);
-        this._elementRef.nativeElement.removeEventListener('dragover', release);
-        this._elementRef.nativeElement.removeEventListener('mouseleave', release);
-      }
-    });
+    this._elementRef.nativeElement.addEventListener('mouseup', release);
 
     requestAnimationFrame(() => {
       const clientRect = this._elementRef.nativeElement.getBoundingClientRect();

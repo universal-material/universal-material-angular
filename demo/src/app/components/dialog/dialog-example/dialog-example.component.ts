@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 })
 export class DialogExampleComponent {
 
-  show: boolean;
+  show: boolean = false;
 }

@@ -1,4 +1,4 @@
-import { Component, forwardRef, Inject, Input, LOCALE_ID, Optional, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, forwardRef, Inject, Input, LOCALE_ID, Optional, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { InputBaseComponent } from '../../shared/input-base.component';
@@ -10,6 +10,7 @@ import { DatepickerBaseComponent } from '../datepicker-base.component';
 import { DATEPICKER_DEFAULT_OPTIONS, DatepickerConfig } from '../datepicker-config.model';
 import { DatepickerAdapter } from '../datepicker-adapter';
 import { DefaultDatepickerAdapter } from '../default-datepicker-adapter';
+import { DropdownDirective } from '../../dropdown/dropdown.directive';
 
 const DatepickerInputValueAcessor = {
   provide: NG_VALUE_ACCESSOR,
@@ -30,20 +31,24 @@ const DatepickerInputValueAcessor = {
 export class DatepickerInputComponent extends DatepickerBaseComponent implements InputBaseComponent, ControlValueAccessor {
 
   @Input() autoClose: boolean | 'outside' = 'outside';
-  @Input() placeholder: string;
+  @Input() placeholder: string | null = null;
   @Input() direction: Direction = 'auto';
-  @Input() tabIndex: number;
-  @Input() inputFormatter: (value: Date) => string;
+  @Input() tabIndex: number | null = null;
+  @Input() inputFormatter: ((value: Date) => string | null) | null = null;
   // @Input() config: DatepickerInputConfig;
 
-  @ViewChild(DropdownMenuDirective) _dropdownMenu: DropdownMenuDirective;
+  @ViewChild('toggle') toggle!: ElementRef<HTMLButtonElement>;
 
-  date: Date;
-  _disabled: boolean;
+  @ViewChild(DropdownDirective) _dropdown!: DropdownDirective;
+  @ViewChild(DropdownMenuDirective) _dropdownMenu!: DropdownMenuDirective;
 
-  get focused(): boolean {
-    return this._dropdownMenu && this._dropdownMenu.show;
-  }
+  override date: Date | null = null;
+  _disabled = false;
+
+  focused = false;
+  // get focused(): boolean {
+  //   return this._dropdownMenu && this._dropdownMenu.show;
+  // }
 
   get empty(): boolean {
     return !this.date;
@@ -53,12 +58,16 @@ export class DatepickerInputComponent extends DatepickerBaseComponent implements
     return this._disabled;
   }
 
-  constructor(@Inject(LOCALE_ID) _locale: string,
+  constructor(elementRef: ElementRef<HTMLElement>,
+              @Inject(LOCALE_ID) _locale: string,
               @Optional() @Inject(DatepickerAdapter) datepickerAdapter: DatepickerAdapter,
               @Optional() @Inject(DATEPICKER_DEFAULT_OPTIONS) _defaultConfig: DatepickerConfig,
               defaultDatepickerAdapter: DefaultDatepickerAdapter,
               @Optional() @Inject(forwardRef(() => FormFieldComponent)) formField: FormFieldComponent) {
     super(_locale, _defaultConfig, datepickerAdapter, defaultDatepickerAdapter);
+
+    elementRef.nativeElement.classList.add('u-text-input');
+    formField.selectionField = true;
 
     if (formField) {
       formField._input = this;
@@ -68,7 +77,7 @@ export class DatepickerInputComponent extends DatepickerBaseComponent implements
   private _onTouched = () => {};
   private _onChange = (_: any) => {};
 
-  _setDate(date: Date): void {
+  override _setDate(date: Date): void {
     super._setDate(date);
 
     if (!this._onChange) {
@@ -80,6 +89,11 @@ export class DatepickerInputComponent extends DatepickerBaseComponent implements
     if (this.autoClose && this._dropdownMenu) {
       this._dropdownMenu.show = false;
     }
+  }
+
+  focus(): void {
+    this._dropdown.toggle();
+    this.toggle.nativeElement.focus();
   }
 
   registerOnChange(fn: (value: any) => any): void {
@@ -96,5 +110,17 @@ export class DatepickerInputComponent extends DatepickerBaseComponent implements
 
   setDisabledState(isDisabled: boolean): void {
     this._disabled = isDisabled;
+  }
+
+  _focusChanged(focused: boolean) {
+    if (focused === this.focused) {
+      return;
+    }
+
+    this.focused = focused;
+
+    if (!focused) {
+      this._dropdown.close();
+    }
   }
 }

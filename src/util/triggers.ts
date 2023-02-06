@@ -20,6 +20,7 @@ export function parseTriggers(triggers: string, aliases = DEFAULT_ALIASES): Trig
   }
 
   const parsedTriggers = trimmedTriggers.split(/\s+/).map(trigger => trigger.split(':')).map((triggerPair) => {
+    // @ts-ignore
     let alias = aliases[triggerPair[0]] || triggerPair;
     return new Trigger(alias[0], alias[1]);
   });
@@ -39,9 +40,9 @@ export function parseTriggers(triggers: string, aliases = DEFAULT_ALIASES): Trig
 
 const noopFn = () => {};
 
-export function listenToTriggers(renderer: any, nativeElement: any, triggers: string, openFn, closeFn, toggleFn) {
+export function listenToTriggers(renderer: any, nativeElement: any, triggers: string, openFn: any, closeFn: any, toggleFn: any) {
   const parsedTriggers = parseTriggers(triggers);
-  const listeners = [];
+  const listeners: any[] = [];
 
   if (parsedTriggers.length === 1 && parsedTriggers[0].isManual()) {
     return noopFn;

@@ -1,11 +1,19 @@
 <div class="u-dropdown" uDropdown [autoClose]="autoClose">
-  <button class="u-text-input u-dropdown-toggle" uRipple uDropdownToggle type="button" [disabled]="_disabled" [tabIndex]="tabIndex">
+  <button
+    #toggle
+    class="u-text-input u-dropdown-toggle"
+    type="button"
+    [disabled]="_disabled"
+    [attr.tabindex]="tabIndex"
+    (click)="focus()"
+    (focus)="_focusChanged(true)"
+    (blur)="_focusChanged(false)">
     <div class="u-text-input-value" *ngIf="date; else inputPlaceholder">{{inputFormatter ? inputFormatter(date) : formattedDate}}</div>
     <ng-template #inputPlaceholder>
       <div class="u-text-input-placeholder">{{placeholder}}</div>
     </ng-template>
   </button>
   <div class="u-dropdown-menu" uDropdownMenu [direction]="direction">
-    <u-datepicker-content></u-datepicker-content>
+    <u-datepicker-content [disabled]="!focused"></u-datepicker-content>
   </div>
 </div>

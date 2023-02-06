@@ -2,6 +2,7 @@
   <div class="u-text-field-trailing-icon">
     <span class="u-dropdown-toggle-icon"></span>
   </div>
+  <label uLabel>Country</label>
   <u-select
     name="state"
     [selectionFormatter]="stateFormatter"
@@ -12,12 +13,12 @@
     <u-option>None</u-option>
     <u-option *ngFor="let state of states$ | async" [value]="state">{{state.name}}</u-option>
   </u-select>
-  <label uLabel>Country</label>
 </u-form-field>
 <u-form-field>
   <div class="u-text-field-trailing-icon">
     <span class="u-dropdown-toggle-icon"></span>
   </div>
+  <label uLabel>Country</label>
   <u-select
     name="state"
     required
@@ -31,12 +32,12 @@
       {{selectedState?.name}}
     </div>
   </u-select>
-  <label uLabel>Country</label>
 </u-form-field>
 <u-form-field>
   <div class="u-text-field-trailing-icon">
     <span class="u-dropdown-toggle-icon"></span>
   </div>
+  <label uLabel>Country</label>
   <u-select
     name="state"
     [selectionFormatter]="stateFormatter"
@@ -47,12 +48,12 @@
     <u-option>None</u-option>
     <u-option *ngFor="let state of states$ | async" [value]="state">{{state.name}}</u-option>
   </u-select>
-  <label uLabel>Country</label>
 </u-form-field>
 <u-form-field>
   <div class="u-text-field-trailing-icon">
     <span class="u-dropdown-toggle-icon"></span>
   </div>
+  <label uLabel>Country</label>
   <u-select
     name="state"
     required
@@ -63,5 +64,4 @@
     <u-option>None</u-option>
     <u-option *ngFor="let state of states$ | async" [displayValue]="state.name" [value]="state">{{state.name}}</u-option>
   </u-select>
-  <label uLabel>Country</label>
 </u-form-field>

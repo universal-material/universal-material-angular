@@ -11,8 +11,8 @@ import { SelectComponent } from './select.component';
 })
 export class OptionComponent {
   @Input() value: any;
-  @Input() displayValue: string;
-  _selectComponent: SelectComponent;
+  @Input() displayValue: string | null = null;
+  _selectComponent!: SelectComponent;
 
   @HostListener('click') _click = () => {
     this._selectComponent._setOption(this);

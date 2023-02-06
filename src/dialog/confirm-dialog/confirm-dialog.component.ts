@@ -15,26 +15,26 @@ import { DialogBodyDirective } from '../dialog-body.directive';
   templateUrl: './confirm-dialog.component.html'
 })
 export class ConfirmDialogComponent extends DialogComponent {
-  safeMessage: SafeHtml;
+  safeMessage: string | null = null;
 
   set message(value: string) {
     this.safeMessage = this.sanitizer.sanitize(SecurityContext.HTML, value);
   }
 
-  private _closed: boolean;
+  private _closed = false;
   readonly _confirmDialogConfig: ConfirmDialogConfig;
 
-  onCancel = new Subject();
-  onConfirm = new Subject();
-  confirmed: boolean;
+  onCancel = new Subject<void>();
+  onConfirm = new Subject<void>();
+  confirmed = false;
 
-  @ViewChild(DialogBodyDirective) dialogBody: DialogBodyDirective;
+  @ViewChild(DialogBodyDirective) override dialogBody!: DialogBodyDirective;
 
   constructor(elementRef: ElementRef,
               private readonly sanitizer: DomSanitizer,
               @Optional() confirmDialogConfig: ConfirmDialogConfig,
               @Optional() @Inject(CONFIRM_DIALOG_DEFAULT_OPTIONS) defaultOptions: ConfirmDialogConfig) {
-    super(elementRef, null);
+    super(elementRef);
     this._confirmDialogConfig = DefaultConfirmDialogConfig;
     this._confirmDialogConfig = this._assignConfig(this._confirmDialogConfig, defaultOptions);
     this._confirmDialogConfig = this._assignConfig(this._confirmDialogConfig, confirmDialogConfig);
@@ -54,7 +54,7 @@ export class ConfirmDialogComponent extends DialogComponent {
     return {...baseConfig, ...partialConfig};
   }
 
-  close() {
+  override close() {
     super.close();
     this._closed = true;
   }

@@ -9,15 +9,15 @@ import { StackBlitzService } from './stackblitz/stack-blitz.service';
 })
 export class ExampleComponent {
 
-  @Input() title: string;
+  @Input() title!: string;
 
-  @Input() dashName: string;
-  @Input() htmlCode: string;
-  @Input() tsCode: string;
-  @Input() cssCode: string;
+  @Input() dashName!: string;
+  @Input() htmlCode!: string;
+  @Input() tsCode!: string;
+  @Input() cssCode!: string;
 
-  tabIndex: number = 0;
-  showCode: boolean;
+  tabIndex: number | null = 0;
+  showCode = false;
 
   constructor(private readonly _stackBlitzService: StackBlitzService) {
 

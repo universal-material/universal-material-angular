@@ -6,7 +6,7 @@ import { DialogComponent } from '../dialog.component';
   templateUrl: './progress-dialog.component.html'
 })
 export class ProgressDialogComponent extends DialogComponent {
-  message: string;
+  message: string | null = null;
 
   constructor(_elementRef: ElementRef) {
     super (_elementRef, {

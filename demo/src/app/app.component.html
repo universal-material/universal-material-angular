@@ -1,14 +1,16 @@
 <div class="u-drawer u-drawer-lg-permanent" [class.open]="showMenu">
   <aside class="u-drawer-content u-navigation-drawer">
-    <app-navigation></app-navigation>
+    <div class="u-drawer-scrollable-container">
+      <app-navigation></app-navigation>
+    </div>
   </aside>
   <div class="u-drawer-backdrop" (click)="showMenu = false"></div>
 
-  <div class="u-toolbar u-toolbar-fixed u-toolbar-primary" uToolbarElevateWhenScroll>
+  <div class="u-toolbar u-toolbar-fixed" uToolbarElevateWhenScroll [scrollContainer]="dummy">
     <div class="u-toolbar-row">
       <div class="u-toolbar-start d-lg-none">
         <div class="u-toolbar-actions">
-          <button type="button" u-btn="borderless" (click)="showMenu = !showMenu">
+          <button type="button" u-btn="icon" (click)="showMenu = !showMenu">
             <i class="u-btn-icon mdi mdi-menu"></i>
           </button>
         </div>
@@ -19,7 +21,7 @@
       <div class="u-toolbar-end">
         <div class="u-toolbar-actions">
           <div uDropdown>
-            <button u-btn="borderless" uDropdownToggle>
+            <button u-btn="icon" uDropdownToggle>
               <i class="u-btn-icon mdi mdi-format-paint"></i>
             </button>
             <div class="u-dropdown-menu" uDropdownMenu direction="down-left">
@@ -32,6 +34,7 @@
   </div>
 
   <div class="u-container content">
+    <div #dummy></div>
     <router-outlet></router-outlet>
   </div>
 </div>

@@ -8,8 +8,8 @@ import { TextInputBase } from '../shared/text-input-base';
 })
 export class ChipInputDirective extends TextInputBase {
 
-  enterKeyDown = new Subject();
-  backspaceKeyDown = new Subject();
+  enterKeyDown = new Subject<void>();
+  backspaceKeyDown = new Subject<void>();
 
   @HostListener('keydown.enter') keypressEnter = () => {
     this.enterKeyDown.next();

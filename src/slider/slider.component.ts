@@ -16,18 +16,21 @@ const SliderValueAcessor = {
 export class SliderComponent implements OnInit, ControlValueAccessor {
 
   @Input() step = 1;
-  @Input() showTrack: boolean;
-  @HostBinding('attr.aria-minvalue') @Input() min: number;
-  @HostBinding('attr.aria-maxvalue') @Input() max: number;
-  @HostBinding('attr.aria-label') @Input() label: string;
-  @HostBinding('attr.aria-disabled') _disabled: boolean;
-  @HostBinding('attr.aria-valuenow') _value: number;
-  _trackWidth: string;
+  @Input() showTrack = false;
+  @HostBinding('attr.aria-minvalue') @Input() min!: number;
+  @HostBinding('attr.aria-maxvalue') @Input() max!: number;
+  @HostBinding('attr.aria-disabled') _disabled = false;
+  @HostBinding('attr.aria-valuenow') _value!: number;
+  _trackWidth!: string;
 
   private _onTouched = () => {}
   private _onChange = (_: any) => {}
 
-  @ViewChild('input', {static: true}) inputRef: ElementRef<HTMLInputElement>;
+  @ViewChild('input', {static: true}) inputRef!: ElementRef<HTMLInputElement>;
+
+  static ngAcceptInputType_min: number | string;
+  static ngAcceptInputType_max: number | string;
+  static ngAcceptInputType_step: number | string;
 
   constructor(private readonly elementRef: ElementRef<HTMLElement>) {
     this.elementRef.nativeElement.setAttribute('role', 'slider');

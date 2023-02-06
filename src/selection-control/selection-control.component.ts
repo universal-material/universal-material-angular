@@ -8,8 +8,8 @@ import { SelectionControlAppearance } from './selection-control-appearance';
 })
 export class SelectionControlComponent {
 
-  @Input() appearance: string;
-  @Input() label: string;
+  @Input() appearance: string | null = null;
+  @Input() label: string | null = null;
 
   SelectionControlAppearance = SelectionControlAppearance;
 }

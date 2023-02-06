@@ -78,7 +78,7 @@ export class Typeahead implements ControlValueAccessor,
   OnInit, OnChanges, OnDestroy {
   private _popupService: PopupService<TypeaheadWindow>;
   private _subscription: Subscription | null = null;
-  private _closed$ = new Subject();
+  private _closed$ = new Subject<void>();
   private _inputValueBackup: string | null = null;
   private _valueChanges: Observable<string>;
   private _resubscribeTypeahead: BehaviorSubject<any>;
@@ -117,7 +117,7 @@ export class Typeahead implements ControlValueAccessor,
    * It is called when the user selects something in the popup or the model value changes, so the input needs to
    * be updated.
    */
-  @Input() inputFormatter: (item: any) => string;
+  @Input() inputFormatter: ((item: any) => string) | null = null;
 
   /**
    * The function that converts a stream of text values from the `<input>` element to the stream of the array of items
@@ -139,7 +139,7 @@ export class Typeahead implements ControlValueAccessor,
    *
    * Alternatively for more complex markup in the popup you should use `resultTemplate`.
    */
-  @Input() resultFormatter: (item: any) => string;
+  @Input() resultFormatter: ((item: any) => string) | null = null;
 
   /**
    * The template to override the way resulting items are displayed in the popup.
@@ -148,7 +148,7 @@ export class Typeahead implements ControlValueAccessor,
    *
    * Also see the [template for results demo](#/components/typeahead/examples#template) for more details.
    */
-  @Input() resultTemplate: TemplateRef<ResultTemplateContext>;
+  @Input() resultTemplate: TemplateRef<ResultTemplateContext> | null = null;
 
   /**
    * If `true`, will show the hint in the `<input>` when an item in the result list matches.
@@ -179,7 +179,7 @@ export class Typeahead implements ControlValueAccessor,
    *
    * @since 9.1.0
    */
-  @Input() popupClass: string;
+  @Input() popupClass: string | null = null;
 
   /**
    * An event emitted right before an item is selected from the result list.

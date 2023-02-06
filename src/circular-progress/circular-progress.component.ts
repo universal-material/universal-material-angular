@@ -5,7 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './circular-progress.component.html',
   styleUrls: ['./circular-progress.component.scss']
 })
-export class CircularProgressComponent implements OnInit {
+export class CircularProgressComponent {
 
   _basePercentage = 255;
   _innerPercentage = 0;
@@ -13,10 +13,4 @@ export class CircularProgressComponent implements OnInit {
   set percentage(value: number) {
     this._innerPercentage = this._basePercentage - (Math.floor(this._basePercentage * value) / 100);
   }
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
 }

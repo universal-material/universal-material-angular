@@ -1,23 +1,36 @@
-<div class="u-text-field-container">
-  <div class="u-text-field"
-       [ngClass]="_appearanceClass"
-       [class.u-text-field-no-label]="!_hasLabel"
-       [class.invalid]="invalid"
-       [class.disabled]="_input?.disabled"
-       [class.focus]="_input?.focused"
-       [class.empty]="_input?.empty">
-    <ng-content></ng-content>
-  </div>
-  <div [class.d-none]="!helperText && !helperTextContent.children.length && !errorMessage && !errorMessageContent.children.length"
-       [class.hide-helper-text]="!invalid && !helperText && !helperTextContent.children.length"
-       class="u-text-field-helper-text">
-    <div class="u-text-field-helper-text-default" #helperTextContent>
-      <span *ngIf="helperText">{{helperText}}</span>
-      <ng-content select="[uHelperText]"></ng-content>
-    </div>
-    <div class="u-text-field-helper-text-invalid" #errorMessageContent>
-      <span *ngIf="errorMessage">{{errorMessage}}</span>
-      <ng-content select="[uErrorMessage]"></ng-content>
-    </div>
-  </div>
+<div class="u-text-field"
+     tabindex="-1"
+     [ngClass]="_appearanceClass"
+     [class.u-text-field-hidden-label]="!_hasLabel"
+     [class.invalid]="invalid"
+     [class.disabled]="_input?.disabled"
+     [class.focus]="_input?.focused"
+     [class.empty]="_input?.empty">
+  <div
+    uRipple
+    [rippleDisabled]="!selectionField"
+    class="u-text-field-state"
+    (click)="click()"></div>
+  <ng-content></ng-content>
+
 </div>
+
+<ng-container *ngIf="invalid && (errorText || errorTextContainer.children.length); else supportingTextTemplate">
+  <div class="u-text-field-supporting-text">{{errorText}}</div>
+</ng-container>
+<div class="u-text-field-supporting-text"
+     [class.d-none]="!invalid || !errorTextContainer.children.length"
+     #errorTextContainer>
+  <ng-content select="[uErrorText]"></ng-content>
+</div>
+
+<ng-template #supportingTextTemplate>
+  <div
+    *ngIf="supportingText"
+    class="u-text-field-supporting-text">{{supportingText}}</div>
+  <div class="u-text-field-supporting-text"
+       [class.d-none]="!supportingTextContainer.children.length"
+       #supportingTextContainer>
+    <ng-content select="[uSupportingText]"></ng-content>
+  </div>
+</ng-template>

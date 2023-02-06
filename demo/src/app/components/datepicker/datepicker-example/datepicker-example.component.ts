@@ -8,7 +8,7 @@ import { DatePipe } from '@angular/common';
   providers: [DatePipe]
 })
 export class DatepickerExampleComponent {
-  date: Date;
+  date!: Date;
   readonly minDate: Date;
   readonly maxDate: Date;
 

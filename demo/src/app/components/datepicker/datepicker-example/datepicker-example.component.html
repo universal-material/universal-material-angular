@@ -2,25 +2,51 @@
   <div class="u-text-field-trailing-icon">
     <span class="mdi mdi-calendar"></span>
   </div>
-  <u-datepicker-input placeholder="Choose a date" [(ngModel)]="date"></u-datepicker-input>
   <label uLabel>Simple</label>
+  <u-datepicker-input placeholder="Choose a date" [(ngModel)]="date"></u-datepicker-input>
 </u-form-field>
 
 <u-form-field>
   <div class="u-text-field-trailing-icon">
     <span class="mdi mdi-calendar"></span>
   </div>
-  <u-datepicker-input placeholder="Choose a date" [(ngModel)]="date" [inputFormatter]="inputFormatter"></u-datepicker-input>
   <label uLabel>Input formatter</label>
+  <u-datepicker-input placeholder="Choose a date" [(ngModel)]="date" [inputFormatter]="inputFormatter"></u-datepicker-input>
 </u-form-field>
 
 <u-form-field>
   <div class="u-text-field-trailing-icon">
     <span class="mdi mdi-calendar"></span>
   </div>
-  <u-datepicker-input placeholder="Choose a date" [(ngModel)]="date" [min]="minDate" [max]="maxDate"></u-datepicker-input>
   <label uLabel>Min and max dates</label>
+  <u-datepicker-input placeholder="Choose a date" [(ngModel)]="date" [min]="minDate" [max]="maxDate"></u-datepicker-input>
 </u-form-field>
+
+<u-form-field>
+  <div class="u-text-field-trailing-icon">
+    <span class="mdi mdi-calendar"></span>
+  </div>
+  <label uLabel>Simple</label>
+  <u-datepicker-input placeholder="Choose a date" [(ngModel)]="date"></u-datepicker-input>
+</u-form-field>
+
+
+<u-form-field>
+  <div class="u-text-field-trailing-icon">
+    <span class="mdi mdi-calendar"></span>
+  </div>
+  <label uLabel>Simple</label>
+  <u-datepicker-input placeholder="Choose a date" [(ngModel)]="date"></u-datepicker-input>
+</u-form-field>
+
+<u-form-field>
+  <div class="u-text-field-trailing-icon">
+    <span class="mdi mdi-calendar"></span>
+  </div>
+  <label uLabel>Simple</label>
+  <u-datepicker-input placeholder="Choose a date" [(ngModel)]="date"></u-datepicker-input>
+</u-form-field>
+
 
 <ng-template #customDay let-date>{{date.getDate().toString().padStart(2, '0')}}</ng-template>
 

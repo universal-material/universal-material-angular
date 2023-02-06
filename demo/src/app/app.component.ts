@@ -40,8 +40,9 @@ export class AppComponent implements OnDestroy {
   constructor(router: Router,
               @Inject(DOCUMENT) document: Document) {
     this.routerSubscription = router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
+      .pipe(
+        filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
         this.showMenu = false;
       });
   }

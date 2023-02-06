@@ -1,17 +1,19 @@
 u-datepicker-input {
   display: block;
+  z-index: 1;
+  pointer-events: none;
 
   .u-dropdown-toggle {
     width: 100%;
   }
 
-  @media (max-width: 991.99px) {
+  @media (max-width: 991.99px), (max-height: 800px) {
     .u-dropdown-menu {
       position: fixed;
       top: 0 !important;
-      left: 0 !important;;
-      right: 0 !important;;
-      bottom: 0 !important;;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -37,4 +39,8 @@ u-datepicker-input {
   .u-datepicker-body {
     background: var(--u-surface-color);
   }
+}
+
+button.u-text-input {
+  padding: 0 !important;
 }

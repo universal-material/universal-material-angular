@@ -9,7 +9,7 @@ import { BeforeTabChangeEvent, TabChangeEvent } from '@universal-material/angula
 })
 export class TabsExampleComponent {
 
-  tabIndex: number;
+  tabIndex: number | null = null;
   tabId: any;
 
   beforeChangeTab($event: BeforeTabChangeEvent) {

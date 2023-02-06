@@ -1,15 +1,13 @@
 <u-form-field>
+  <label uLabel>States</label>
   <input
     uTextInput
-
     [(ngModel)]="model"
     [uTypeahead]="search"
     [editable]="false"
     (focus)="focus$.next($any($event).target.value)"
     (click)="click$.next($any($event).target.value)"
-    #instance="Typeahead"
-  />
-  <label uLabel>States</label>
+    #instance="Typeahead" />
 </u-form-field>
 
 <hr>

@@ -1,17 +1,24 @@
-# Universal Material for Angular
+# UniversalMaterialAngular
 
+This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.0.
 
-## Getting started
+## Code scaffolding
 
-### Step1: Install Universal Material
-```
-npm i @universal-material/angular
-```
+Run `ng generate component component-name --project universal-material-angular` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project universal-material-angular`.
+> Note: Don't forget to add `--project universal-material-angular` or else it will be added to the default project in your `angular.json` file. 
 
-### Step2: Import Universal Material scss
-```
-@import "node_modules/@universal-material/core/scss/universal-material.scss";
-```
+## Build
 
-### Documentation
-https://universal-material.github.io/angular
+Run `ng build universal-material-angular` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+## Publishing
+
+After building your library with `ng build universal-material-angular`, go to the dist folder `cd dist/universal-material-angular` and run `npm publish`.
+
+## Running unit tests
+
+Run `ng test universal-material-angular` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

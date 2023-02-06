@@ -9,24 +9,24 @@ export const DefaultConfirmDialogConfig: ConfirmDialogConfig = {
   ...DefaultDialogConfig,
   confirmButton: {
     text: 'OK',
-    appearance: 'flat',
-    color: 'primary'
+    appearance: 'text'
   },
   cancelButton: {
     text: 'Cancel',
-    appearance: 'flat',
-    color: 'primary'
+    appearance: 'text'
   },
 };
 
-export class ConfirmDialogButtonConfig {
+export interface ConfirmDialogButtonConfig {
   text?: string;
   appearance?: string;
   color?: string;
 }
 
-export class ConfirmDialogConfig extends DialogConfig {
+export class ConfirmDialogConfig implements DialogConfig {
   title?: string;
   confirmButton?: ConfirmDialogButtonConfig;
   cancelButton?: ConfirmDialogButtonConfig;
+  closeOnBackdropClick?: boolean;
+  closeOnEsc?: boolean;
 }

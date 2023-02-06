@@ -5,17 +5,17 @@ export class ScrollableContainerWrapper {
   private _container: EventTarget | any;
   defaultTarget: EventTarget | any;
 
-  _innerScrollTop = new BehaviorSubject<number>(null);
+  _innerScrollTop = new BehaviorSubject<number | null>(null);
 
-  scrollTop: number;
-  scrollTop$: Observable<number> = this._innerScrollTop.pipe(distinctUntilChanged());
+  scrollTop: number | null = null;
+  scrollTop$: Observable<number | null> = this._innerScrollTop.pipe(distinctUntilChanged());
 
   private _emitScroll = () => {
     this.scrollTop = this._getScrollTop();
     this._innerScrollTop.next(this.scrollTop);
   };
 
-  private _getScrollTop(): number {
+  private _getScrollTop(): number | null{
     if (typeof this._container.scrollY === 'number') {
       return this._container.scrollY;
     }

@@ -1,4 +1,4 @@
-<button type="button" u-btn="flat" (click)="show = true">Show</button>
+<button type="button" u-btn="text" (click)="show = true">Show</button>
 <u-dialog [(show)]="show">
   <div class="u-dialog-content">
     <div class="u-dialog-header">
@@ -8,7 +8,7 @@
 
     </div>
     <div class="u-dialog-actions" uDialogBody>
-      <button u-btn="flat" color="primary" class="u-dialog-action" (click)="show = false">Ok</button>
+      <button u-btn="text" color="primary" class="u-dialog-action" (click)="show = false">Ok</button>
     </div>
   </div>
 </u-dialog>

@@ -1,4 +1,4 @@
-export class Project {
+export interface Project {
   name: string;
   cssCode: string;
   tsCode: string;

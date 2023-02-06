@@ -31,15 +31,15 @@ const CHIP_INPUT_VALUE_ACCESSOR = {
 })
 export class ChipFieldComponent implements InputBaseComponent, ControlValueAccessor, AfterContentInit, DoCheck {
 
-  @Input() itemFormatter: (item: any) => string;
-  @Input() items: any[];
+  @Input() items: any[] | null = null;
+
   @Output() itemsChange = new EventEmitter();
   @Output() afterRemove = new EventEmitter();
 
   @Input() addOnEnter = true;
   @Input() removeOnBackspace = true;
 
-  @ContentChild(ChipInputDirective) chipInput: ChipInputDirective;
+  @ContentChild(ChipInputDirective) chipInput!: ChipInputDirective;
 
   @HostBinding('attr.disabled')
   get disabled(): boolean {
@@ -59,7 +59,7 @@ export class ChipFieldComponent implements InputBaseComponent, ControlValueAcces
   constructor(elementRef: ElementRef,
               private readonly differs: IterableDiffers,
               @Optional() @Inject(forwardRef(() => FormFieldComponent)) formField: FormFieldComponent) {
-    this.differ = differs.find([]).create(null);
+    this.differ = differs.find([]).create();
 
     elementRef.nativeElement.classList.add('u-text-input');
     if (formField) {
@@ -74,29 +74,35 @@ export class ChipFieldComponent implements InputBaseComponent, ControlValueAcces
         return;
       }
 
-      this.items = this.items || [];
+      this.items = this.items ?? [];
 
       this.items.push(this.chipInput.value);
       this.chipInput.value = '';
     });
 
     this.chipInput.backspaceKeyDown.subscribe(() => {
-      if (!this.removeOnBackspace || this.chipInput.value || !this.items || !this.items.length) {
+      if (!this.removeOnBackspace || this.chipInput.value || !this.items?.length) {
         return;
       }
 
-      const item = this.items[this.items.length - 1];
-      this.items.splice(this.items.length - 1, 1);
-      this.afterRemove.emit(item);
+      this.removeItem(this.items[this.items.length - 1]);
     });
   }
 
   private _onTouched = () => {};
   private _onChange = (_: any) => {};
 
+  focus(): void {
+    this.chipInput.focus();
+  }
+
   removeItem(item: {}) {
 
     if (this.disabled) {
+      return;
+    }
+
+    if (!this.items?.length) {
       return;
     }
 

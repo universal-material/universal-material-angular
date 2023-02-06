@@ -30,36 +30,36 @@ export abstract class DatepickerBaseComponent {
 
   private readonly monthsPerGroup = 4;
 
-  private _minYear: number;
-  private _minMonth: number;
-  private _maxYear: number;
-  private _maxMonth: number;
+  private _minYear: number | null = null;
+  private _minMonth: number | null = null;
+  private _maxYear: number | null = null;
+  private _maxMonth: number | null = null;
 
   weeks: Week[] = [];
-  currentMonth: Month;
   yearGroups: Year[][] = [];
   monthGroups: Month[][] = [];
-  baseYear: number;
-  firstDayOfWeek: number;
+  currentMonth!: Month;
+  baseYear!: number;
+  firstDayOfWeek!: number;
 
-  @Input() dayTemplate: TemplateRef<DayOfWeek>;
+  @Input() dayTemplate: TemplateRef<DayOfWeek> | null = null;
   @Input() datepickerTitle: string = 'Select date';
   @Input() navigateBackClass: string = 'u-chevron-left';
   @Input() navigateForwardClass: string = 'u-chevron-right';
   @Input() hideHeader: boolean = false;
   @Input() hideClear: boolean = false;
-  @Input() clearLabel: string;
+  @Input() clearLabel: string | null = null;
 
   @Output() currentMonthChange = new EventEmitter<Month>();
 
-  _min: Date;
-  _max: Date;
+  _min: Date | null = null;
+  _max: Date | null = null;
 
   @Input()
-  get min(): Date {
+  get min(): Date | null {
     return this._min;
   }
-  set min(value: Date) {
+  set min(value: Date | null) {
     this._min = value;
     this._minYear = value && value.getUTCFullYear();
     this._minMonth = value && value.getUTCMonth();
@@ -69,10 +69,10 @@ export abstract class DatepickerBaseComponent {
   }
 
   @Input()
-  get max(): Date {
+  get max(): Date | null {
     return this._max;
   }
-  set max(value: Date) {
+  set max(value: Date | null) {
     this._max = value;
     this._maxYear = value && value.getUTCFullYear();
     this._maxMonth = value && value.getUTCMonth();
@@ -81,9 +81,9 @@ export abstract class DatepickerBaseComponent {
     this._setDaysDisabled();
   }
 
-  @Input() date: Date | null;
+  @Input() date: Date | null = null;
   @Output() dateChange = new EventEmitter();
-  formattedDate: string;
+  formattedDate: string | null = null;
 
   constructor(@Inject(LOCALE_ID) private readonly _locale: string,
               @Optional() @Inject(DATEPICKER_DEFAULT_OPTIONS) private readonly _defaultConfig: DatepickerConfig,
@@ -117,16 +117,16 @@ export abstract class DatepickerBaseComponent {
     }
   }
 
-  private _setInnerConfig() {
-    const config = {
+  private _setInnerConfig(): void {
+    const config: DatepickerConfig = {
       ...DefaultDatepickerConfig,
       firstDayOfWeek: getLocaleFirstDayOfWeek(this._locale),
       ...this._defaultConfig
     };
 
-    this.clearLabel = config.clearLabel;
-    this.hideClear = config.hideClear;
-    this.firstDayOfWeek = config.firstDayOfWeek;
+    this.clearLabel = config.clearLabel ?? null;
+    this.hideClear = config.hideClear ?? false;
+    this.firstDayOfWeek = config.firstDayOfWeek!;
   }
 
   private _setMonthGroups() {
@@ -247,7 +247,7 @@ export abstract class DatepickerBaseComponent {
   }
 
   private _isDayDisabled(date: Date): boolean {
-    return date < this.min || date > this.max;
+    return !!this.min && date < this.min || !!this.max && date > this.max;
   }
 
   private _setDaysDisabled(): void {
@@ -261,8 +261,8 @@ export abstract class DatepickerBaseComponent {
   private _isMonthDisabled(month: Month): boolean {
     return this.currentMonth
       && (this._isYearDisabled(this.currentMonth.utcYear)
-        || (this.currentMonth.utcYear === this._minYear && month.utcMonth < this._minMonth)
-        || (this.currentMonth.utcYear === this._maxYear && month.utcMonth > this._maxMonth));
+        || (this.currentMonth.utcYear === this._minYear && month.utcMonth < this._minMonth!)
+        || (this.currentMonth.utcYear === this._maxYear && month.utcMonth > this._maxMonth!));
   }
 
   private _setMonthsDisabled(): void {
@@ -274,7 +274,7 @@ export abstract class DatepickerBaseComponent {
   }
 
   private _isYearDisabled(year: number): boolean {
-    return year < this._minYear || year > this._maxYear;
+    return !!this._minYear && year < this._minYear || !!this._maxYear && year > this._maxYear;
   }
 
   private _setYearsDisabled(): void {
@@ -285,7 +285,7 @@ export abstract class DatepickerBaseComponent {
     }
   }
 
-  selectDate(date: Date): void {
+  selectDate(date: Date | null): void {
     this._setDate(date);
     this.dateChange.emit(date);
   }
@@ -313,8 +313,10 @@ export abstract class DatepickerBaseComponent {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.date && changes.date.currentValue && changes.date.currentValue !== changes.date.previousValue) {
-      this._setDate(changes.date.currentValue);
+    let dateChange = changes['date'];
+
+    if (dateChange && dateChange.currentValue && dateChange.currentValue !== dateChange.previousValue) {
+      this._setDate(dateChange.currentValue);
     }
   }
 }

@@ -2,6 +2,10 @@
   display: block;
 }
 
+.u-dropdown {
+  position: static;
+}
+
 .u-dropdown-menu {
   max-height: 300px;
   overflow-y: auto;

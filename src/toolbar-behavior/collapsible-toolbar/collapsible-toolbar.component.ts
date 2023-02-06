@@ -8,14 +8,14 @@ import { ToolbarBehavior } from '../toolbar-behavior';
   styleUrls: ['./collapsible-toolbar.component.scss']
 })
 export class CollapsibleToolbarComponent extends ToolbarBehavior {
-  @ContentChild('toolbar') toolbarRef: ElementRef<HTMLElement>;
-  @ContentChild('content') contentRef: ElementRef<HTMLElement>;
+  @ContentChild('toolbar') toolbarRef!: ElementRef<HTMLElement>;
+  @ContentChild('content') contentRef!: ElementRef<HTMLElement>;
   @HostBinding('style.padding-top') get paddingTop(): string {
     return ((this.toolbarRef && this.toolbarRef.nativeElement.offsetHeight) || 0) + 1 + 'px';
   }
-  private _toolbarCenter: HTMLElement;
+  private _toolbarCenter!: HTMLElement | null;
 
-  protected _setScrollWrapper() {
+  protected override _setScrollWrapper() {
     if (!this.contentRef) {
       return;
     }
@@ -24,13 +24,18 @@ export class CollapsibleToolbarComponent extends ToolbarBehavior {
 
     super._setScrollWrapper();
     setTimeout(() => {
+
+      if (!this._toolbarCenter) {
+        return;
+      }
+
       this._toolbarCenter.style.transition = 'opacity 250ms';
     });
   }
 
-  protected _processBehavior = (scrollTop: number) => {
+  protected _processBehavior = (scrollTop: number | null) => {
     scrollTop = scrollTop || 0;
-    if (!this.contentRef) {
+    if (!this.contentRef || !this._toolbarCenter) {
       return;
     }
 

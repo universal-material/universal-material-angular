@@ -11,7 +11,7 @@ import { ExpansionPanelComponent } from '../expansion-panel.component';
 export class ExpansionPanelContainerComponent implements AfterContentInit {
 
   @Input() multi = false;
-  @ContentChildren(ExpansionPanelComponent) _panels: QueryList<ExpansionPanelComponent>;
+  @ContentChildren(ExpansionPanelComponent) _panels!: QueryList<ExpansionPanelComponent>;
 
   private _childrenOpenSubscriptions: Subscription[] = [];
 

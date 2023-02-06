@@ -7,13 +7,13 @@
   <div class="u-dialog-actions">
     <button type="button"
             class="u-dialog-action"
-            [u-btn]="_confirmDialogConfig.cancelButton.appearance"
-            [color]="_confirmDialogConfig.cancelButton.color"
-            (click)="_cancelClick()">{{_confirmDialogConfig.cancelButton.text}}</button>
+            [u-btn]="_confirmDialogConfig.cancelButton!.appearance!"
+            [color]="_confirmDialogConfig.cancelButton!.color!"
+            (click)="_cancelClick()">{{_confirmDialogConfig.cancelButton!.text}}</button>
     <button type="button"
             class="u-dialog-action"
-            [u-btn]="_confirmDialogConfig.confirmButton.appearance"
-            [color]="_confirmDialogConfig.confirmButton.color"
-            (click)="_confirmClick()">{{_confirmDialogConfig.confirmButton.text}}</button>
+            [u-btn]="_confirmDialogConfig.confirmButton!.appearance!"
+            [color]="_confirmDialogConfig.confirmButton!.color!"
+            (click)="_confirmClick()">{{_confirmDialogConfig.confirmButton!.text!}}</button>
   </div>
 </div>
