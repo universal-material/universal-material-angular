@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve demo --port 4280",
     "build": "ng build --project universal-material-angular",
+    "build:demo": "ng build --project demo",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -20,8 +21,8 @@
     "@angular/router": "^14.2.0",
     "@mdi/font": "^7.1.96",
     "@stackblitz/sdk": "^1.3.0",
-    "@universal-material/core": "^2.0.1-alpha.11",
-    "animated-scroll-to": "^2.0.5",
+    "@universal-material/core": "^2.0.1-alpha.25",
+    "animated-scroll-to": "^2.3.0",
     "highlight.js": "^10.6.0",
     "ngx-highlightjs": "^4.1.3",
     "rxjs": "~7.5.0",

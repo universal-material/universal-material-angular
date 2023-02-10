@@ -32,6 +32,11 @@ export class FormFieldComponent {
   @HostBinding('class.u-form-field-selection')
   selectionField = false;
 
+  set labelWidth(width: number) {
+    this._elementRef.nativeElement.style.setProperty('--u-text-field-label-width', `${width}px`);
+    this._elementRef.nativeElement.style.setProperty('--u-text-field-label-half-width', `${width / 2}px`);
+  }
+
   @HostBinding('style.margin-bottom')
   get removeMarginStyle() {
     return this.removeMargin ? '0' : '';
@@ -68,14 +73,15 @@ export class FormFieldComponent {
     _elementRef.nativeElement.classList.add('u-form-field');
   }
 
-  // @HostListener('click')
   click(): void {
-    this._input?.focus();
+
+    if (!this._input?.disabled) {
+      this._input?.focus();
+    }
   }
 
   @HostListener('mousedown', ['$event'])
   mouseDown(e: MouseEvent): void {
     e.preventDefault();
-    console.log('mouse down')
   }
 }

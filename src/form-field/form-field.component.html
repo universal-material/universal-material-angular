@@ -8,7 +8,7 @@
      [class.empty]="_input?.empty">
   <div
     uRipple
-    [rippleDisabled]="!selectionField"
+    [rippleDisabled]="_input?.disabled || !selectionField"
     class="u-text-field-state"
     (click)="click()"></div>
   <ng-content></ng-content>

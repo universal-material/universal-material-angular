@@ -23,6 +23,6 @@
 
 @include media-breakpoint-up(lg) {
   .u-toolbar-fixed {
-    left: 256px;
+    left: var(--u-drawer-sidebar-width);
   }
 }
