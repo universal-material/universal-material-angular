@@ -17,7 +17,7 @@ export class ToolbarElevateWhenScrollDirective extends ToolbarBehavior implement
 
   constructor(private readonly _toolbarElementRef: ElementRef) {
     super();
-    this._toolbarElementRef.nativeElement.style.transition = 'box-shadow 450ms';
+    this._toolbarElementRef.nativeElement.style.transition = 'opacity 200ms, box-shadow 450ms';
   }
 
   protected _processBehavior = (scrollTop: number | null) => {

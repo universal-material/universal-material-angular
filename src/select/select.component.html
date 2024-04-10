@@ -14,12 +14,8 @@
     </div>
 
     <ng-container *ngIf="!content?.childNodes?.length">
-      <div class="u-text-input-placeholder" *ngIf="empty">
-        {{placeholder}}
-      </div>
-      <div class="u-text-input-value" *ngIf="!empty">
-        {{selectionFormatter ? selectionFormatter(selectedValue) : selectedOption?.displayValue || selectedValue}}
-      </div>
+      <div class="u-text-input-placeholder" *ngIf="empty">{{placeholder}}</div>
+      <div class="u-text-input-value" *ngIf="!empty">{{selectionFormatter ? selectionFormatter(selectedValue) : selectedOption?.displayValue || selectedValue}}</div>
     </ng-container>
   </button>
   <div class="u-dropdown-menu w-100" uDropdownMenu [direction]="direction">

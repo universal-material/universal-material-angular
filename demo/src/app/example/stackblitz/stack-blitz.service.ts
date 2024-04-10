@@ -12,8 +12,7 @@ import appComponentTsTemplate from '!raw-loader!./app/app.component.ts';
 // @ts-ignore
 import mainTemplate from '!raw-loader!./main.ts';
 import angularJsonTemplate from './angular.json';
-// @ts-ignore
-import polyfillsTemplate from '!raw-loader!./polyfills.ts';
+
 import { replaceAll } from '../replace-all';
 
 @Injectable({
@@ -25,8 +24,6 @@ export class StackBlitzService {
     const files: {[path: string]: string} = {
       'angular.json': JSON.stringify(angularJsonTemplate),
       'src/main.ts': mainTemplate,
-      'src/styles.scss': ' ',
-      'src/polyfills.ts': polyfillsTemplate,
       'src/index.html': indexTemplate,
       'src/app/app.component.html': `<div class="u-container">
   <app-$example-component-name></app-$example-component-name>
@@ -56,9 +53,8 @@ export class StackBlitzService {
       template: 'angular-cli',
       files: files,
       dependencies: {
-        '@universal-material/core': '*',
-        '@universal-material/angular': '*',
-        'core-js': '2'
+        '@universal-material/core': '2.0.0-alpha.20',
+        '@universal-material/angular': '2.0.1-alpha.47'
       }
     });
   }

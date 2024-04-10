@@ -2,12 +2,14 @@ import {
   Component,
   ContentChild,
   ElementRef,
+  EventEmitter,
   HostBinding,
   HostListener,
   Inject,
   InjectionToken,
   Input,
   Optional,
+  Output,
   ViewChild
 } from '@angular/core';
 import { LabelDirective } from './label.directive';
@@ -26,11 +28,11 @@ export class FormFieldComponent {
   _appearanceClass!: string;
   _appearance!: FormFieldAppearance;
   _defaultAppearance: FormFieldAppearance;
-  _input!: InputBaseComponent;
+  _input: InputBaseComponent | null = null;
   _hasLabel = false;
 
   @HostBinding('class.u-form-field-selection')
-  selectionField = false;
+  @Input() selectionField = false;
 
   set labelWidth(width: number) {
     this._elementRef.nativeElement.style.setProperty('--u-text-field-label-width', `${width}px`);
@@ -46,6 +48,7 @@ export class FormFieldComponent {
   @Input() removeMargin = false;
   @Input() supportingText: string | null = null;
   @Input() errorText: string | null = null;
+  @Output() activated = new EventEmitter<void>();
 
   @Input()
   get appearance(): FormFieldAppearance {
@@ -59,7 +62,7 @@ export class FormFieldComponent {
     }
 
     if (value.indexOf('search') > -1) {
-      this._appearanceClass = 'u-text-field-box u-search-field';
+      this._appearanceClass = 'u-search-field';
       return;
     }
 
@@ -77,11 +80,14 @@ export class FormFieldComponent {
 
     if (!this._input?.disabled) {
       this._input?.focus();
+      this.activated.next();
     }
   }
 
   @HostListener('mousedown', ['$event'])
   mouseDown(e: MouseEvent): void {
-    e.preventDefault();
+    if (!this._input?.disabled) {
+      e.preventDefault();
+    }
   }
 }

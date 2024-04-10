@@ -27,5 +27,6 @@ export class TextInputDirective extends TextInputBase {
               @Optional() @Inject(forwardRef(() => FormFieldComponent)) formField: FormFieldComponent,
               elementRef: ElementRef) {
     super(ngControl, formField, elementRef);
+    elementRef.nativeElement.addEventListener('click', (e: Event) => e.stopPropagation());
   }
 }

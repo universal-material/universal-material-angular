@@ -1,30 +1,35 @@
-<button type="button" (click)="invalid = !invalid">Toggle invalid</button>
+<button type="button" u-btn="text" (click)="invalid = !invalid">Toggle invalid</button>
+<button type="button" u-btn="text" (click)="disabled = !disabled">Toggle disabled</button>
 
 <u-form-field [invalid]="invalid" supportingText="Supporting text">
   <label uLabel>Name</label>
-  <input uTextInput />
+  <div class="u-text-input">
+    <span class="u-text-low-emphasis">$</span>
+    <input uTextInput [disabled]="disabled" [setInputClass]="false" />
+    <span class="u-text-low-emphasis">.00</span>
+  </div>
 </u-form-field>
 
 <u-form-field [invalid]="invalid" supportingText="Supporting text" errorText="Some error">
   <label uLabel>Name</label>
-  <input uTextInput />
+  <input uTextInput [disabled]="disabled" />
 </u-form-field>
 
 <u-form-field [invalid]="invalid" errorText="Some error">
   <label uLabel>Name</label>
-  <input uTextInput />
+  <input uTextInput [disabled]="disabled" />
   <div uSupportingText>Supporting text</div>
 </u-form-field>
 
 <u-form-field [invalid]="invalid" supportingText="Supporting text">
   <label uLabel>Name</label>
-  <input uTextInput />
+  <input uTextInput [disabled]="disabled" />
   <div uErrorText>Some error</div>
 </u-form-field>
 
 <u-form-field [invalid]="invalid">
   <label uLabel>Name</label>
-  <input uTextInput />
+  <input uTextInput [disabled]="disabled" />
   <div uSupportingText>Supporting text</div>
   <div uErrorText>Some error</div>
 </u-form-field>
@@ -32,7 +37,7 @@
 <u-form-field [invalid]="invalid">
   <label uLabel>Amount</label>
   <div class="u-text-input">
-    <input uTextInput />
+    <input uTextInput [disabled]="disabled" />
   </div>
   <div uSupportingText>Supporting text</div>
 </u-form-field>
@@ -46,7 +51,7 @@
 
 <u-form-field appearance="outlined" [invalid]="invalid">
   <label uLabel>Name</label>
-  <input uTextInput />
+  <input uTextInput [disabled]="disabled" />
   <div uSupportingText *ngIf="invalid">Teste</div>
 </u-form-field>
 
@@ -62,7 +67,7 @@
     </button>
   </div>
 
-  <input uTextInput placeholder="Search" />
+  <input uTextInput [disabled]="disabled" placeholder="Search" />
   <div uSupportingText *ngIf="invalid">Teste</div>
 </u-form-field>
 
@@ -76,6 +81,6 @@
 <!--    </button>-->
 <!--  </div>-->
 
-<!--  <input uTextInput placeholder="Search" />-->
+<!--  <input uTextInput [disabled]="disabled" placeholder="Search" />-->
 <!--  <div uSupportingText *ngIf="invalid">Teste</div>-->
 <!--</u-form-field>-->

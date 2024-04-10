@@ -5,12 +5,12 @@
      [class.invalid]="invalid"
      [class.disabled]="_input?.disabled"
      [class.focus]="_input?.focused"
-     [class.empty]="_input?.empty">
+     [class.empty]="_input?.empty"
+     (click)="click()">
   <div
     uRipple
     [rippleDisabled]="_input?.disabled || !selectionField"
-    class="u-text-field-state"
-    (click)="click()"></div>
+    class="u-text-field-state"></div>
   <ng-content></ng-content>
 
 </div>

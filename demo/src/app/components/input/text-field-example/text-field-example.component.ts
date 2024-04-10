@@ -8,4 +8,5 @@ import { Component } from '@angular/core';
 export class TextFieldExampleComponent {
 
   invalid: boolean = false;
+  disabled: boolean = false;
 }

@@ -1,2 +1,6 @@
 <div class="u-snackbar-text">{{message}}</div>
-<button u-btn="text" color="secondary" (click)="_actionClick()">{{_config.actionLabel}}</button>
+<button
+  *ngIf="_config.actionLabel"
+  u-btn="text"
+  color="secondary"
+  (click)="_actionClick()">{{_config.actionLabel}}</button>

@@ -20,8 +20,6 @@ export class DropdownDirective implements AfterContentInit {
   private _justToggle = false;
 
   @Input() autoClose: boolean | 'outside' = true;
-  @Input() open = false;
-  @Output() openChange = new EventEmitter<boolean>();
 
   @ContentChild(DropdownToggleDirective) _dropdownToggle: DropdownToggleDirective | null = null;
   @ContentChild(DropdownMenuDirective) _dropdownMenu!: DropdownMenuDirective;
@@ -63,15 +61,22 @@ export class DropdownDirective implements AfterContentInit {
     this._justToggle = true;
 
     if (!this._dropdownMenu.show) {
-      if (this._dropdownMenu.direction && this._dropdownMenu.direction.indexOf('auto') === 0) {
-        this._dropdownMenu.setDirectionClass(`${this.openDropdownUpOrDown()}${this._dropdownMenu.direction.substring(4)}`);
-      }
+      this.open();
+      return;
     }
 
-    this._dropdownMenu.show = !this._dropdownMenu.show;
+    this.close();
   }
 
-  close() {
+  open(): void {
+    if (this._dropdownMenu.direction && this._dropdownMenu.direction.indexOf('auto') === 0) {
+      this._dropdownMenu.setDirectionClass(`${this.openDropdownUpOrDown()}${this._dropdownMenu.direction.substring(4)}`);
+    }
+
+    this._dropdownMenu.show = true;
+  }
+
+  close(): void {
     this._dropdownMenu.show = false;
   }
 

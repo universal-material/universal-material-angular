@@ -7,8 +7,10 @@ import { $ExampleComponentNameComponent } from './$example-component-name.compon
 import { UniversalMaterialModule } from '@universal-material/angular';
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, UniversalMaterialModule ],
-  declarations: [ AppComponent, $ExampleComponentNameComponent ],
-  bootstrap:    [ AppComponent ]
+  declarations: [AppComponent, $ExampleComponentNameComponent],
+  imports: [BrowserModule, FormsModule, UniversalMaterialModule],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}
