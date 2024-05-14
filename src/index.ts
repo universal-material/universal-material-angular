@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 
-import { ProgressSpinnerModule } from './progress-spinner/progress-spinner.module';
 import { RippleModule } from './ripple/ripple.module';
 import { TextFieldModule } from './text-field/text-field.module';
 import { DialogModule } from './dialog/dialog.module';
@@ -19,11 +18,14 @@ import { DatepickerModule } from './datepicker/datepicker.module';
 import { CollapseModule } from './collapse/collapse.module';
 import { ExpansionPanelModule } from './expansion-panel/expansion-panel.module';
 import { SliderModule } from './slider/slider.module';
-import { CircularProgressModule } from './circular-progress/circular-progress.module';
+import { UmRadioControlValueAccessor } from './value-accessors/radio-control-value-accessor';
+import { UmCheckControlValueAccessor } from './value-accessors/check-control-value-accessor';
+import { UmChipFieldControlValueAccessor } from './value-accessors/chip-field-control-value-accessor';
+import { UmDefaultControlValueAccessor } from './value-accessors/default-control-value-accessor';
+import { UmTypeaheadControlValueAccessor } from './value-accessors/typeahead-control-value-accessor';
 
 const UniversalMaterialModules = [
   ChipFieldModule,
-  ProgressSpinnerModule,
   DialogModule,
   DropdownModule,
   SelectModule,
@@ -41,12 +43,13 @@ const UniversalMaterialModules = [
   CollapseModule,
   ExpansionPanelModule,
   SliderModule,
-  CircularProgressModule
+  UmDefaultControlValueAccessor,
+  UmCheckControlValueAccessor,
+  UmRadioControlValueAccessor,
+  UmChipFieldControlValueAccessor,
+  UmTypeaheadControlValueAccessor
 ];
 
-
-export { ProgressSpinnerModule } from './progress-spinner/progress-spinner.module';
-export { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.component';
 
 export { DropdownModule } from './dropdown/dropdown.module';
 export { DropdownDirective } from './dropdown/dropdown.directive';
@@ -60,7 +63,7 @@ export { TextFieldModule } from './text-field/text-field.module';
 export { TextInputDirective } from './text-field/text-input.directive';
 
 export { ButtonModule } from './button/button.module';
-export { ButtonComponent, LinkButtonComponent } from './button/button.component';
+export { LegacyButtonComponent, LinkButtonComponent } from './button/legacy-button.component';
 
 export { FormFieldComponent, FORM_FIELD_DEFAULT_APPEARANCE } from './form-field/form-field.component';
 export { LabelDirective } from './form-field/label.directive';
@@ -82,7 +85,6 @@ export { TabBarComponent, TabChangeEvent, BeforeTabChangeEvent } from './tab-bar
 export { TabComponent } from './tab-bar/tab.component';
 export * from './snackbar/snackbar.module';
 export * from './dialog/dialog.module';
-export * from './circular-progress/circular-progress.module';
 
 export {
   Highlight,
@@ -124,6 +126,12 @@ export {
 export * from './toolbar-behavior/toolbar-behavior.module';
 export * from './slider/slider.module';
 export * from './floating-action-behavior/floating-action-behavior.module';
+
+export * from './value-accessors/default-control-value-accessor';
+export * from './value-accessors/check-control-value-accessor';
+export * from './value-accessors/radio-control-value-accessor';
+export * from './value-accessors/chip-field-control-value-accessor';
+export * from './value-accessors/typeahead-control-value-accessor';
 
 @NgModule({
   imports: UniversalMaterialModules,

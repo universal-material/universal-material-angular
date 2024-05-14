@@ -10,7 +10,7 @@ const defaultStyle = 'filled';
   selector: 'button[u-btn]',
   template: '<ng-content></ng-content>'
 })
-export class ButtonComponent extends RippleDirective implements OnChanges {
+export class LegacyButtonComponent extends RippleDirective implements OnChanges {
 
   private _color!: string;
   private _style!: string;
@@ -69,7 +69,7 @@ export class ButtonComponent extends RippleDirective implements OnChanges {
   selector: 'a[u-btn]',
   template: '<ng-content></ng-content>'
 })
-export class LinkButtonComponent extends ButtonComponent {
+export class LinkButtonComponent extends LegacyButtonComponent {
 
   @HostBinding('class.disabled') get _disabled() {
     return this.disabled;

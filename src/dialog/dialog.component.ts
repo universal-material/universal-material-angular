@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { DialogBaseComponent } from './dialog-base.component';
 
 @Component({
-  selector: 'u-dialog',
+  selector: 'u-legacy-dialog',
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss']
 })

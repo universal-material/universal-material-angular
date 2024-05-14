@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-chip-input-example',
@@ -7,9 +8,20 @@ import { Component } from '@angular/core';
 })
 export class ChipInputExampleComponent {
 
-  items: any[] = [];
+  // items: any[] | null = null;
+  form: FormGroup;
 
-  removeItem(index: number) {
-    this.items.splice(index, 1);
+  constructor(formBuilder: FormBuilder) {
+    this.form = formBuilder.group({items: new FormControl([])});
+  }
+
+  toggleDisabled() {
+    const control = this.form.controls['items'];
+    if (control.disabled) {
+      control.enable();
+      return;
+    }
+
+    control.disable();
   }
 }

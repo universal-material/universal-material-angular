@@ -9,4 +9,5 @@ export class TextFieldExampleComponent {
 
   invalid: boolean = false;
   disabled: boolean = false;
+  name = '';
 }

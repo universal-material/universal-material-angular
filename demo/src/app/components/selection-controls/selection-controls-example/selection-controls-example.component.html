@@ -1,20 +1,25 @@
-<u-selection-control appearance="checkbox" label="Checkbox">
-  <input type="checkbox" />
-</u-selection-control>
+<u-highlight result="Eric Hideyuki Kono" term="ric"></u-highlight>
+
+<label>
+  <u-checkbox [(ngModel)]="checkBoxChecked"></u-checkbox>
+  Checkbox {{checkBoxChecked ? 'checked' : 'unchecked'}}
+</label>
 <div>
-  <u-selection-control appearance="radio">
-    <div uLabel>Radio A</div>
-    <input type="radio" name="radio-example" />
-  </u-selection-control>
-
-  <u-selection-control appearance="radio" label="Radio B">
-    <input type="radio" name="radio-example" />
-  </u-selection-control>
-
-  <u-selection-control appearance="radio" label="Radio C">
-    <input type="radio" name="radio-example" />
-  </u-selection-control>
+  <label>
+    <u-radio name="radio-example" [(ngModel)]="radio" value="A"></u-radio>
+    Radio A
+  </label>
+  <label>
+    <u-radio name="radio-example" [(ngModel)]="radio" value="B"></u-radio>
+    Radio B
+  </label>
+  <label>
+    <u-radio name="radio-example" [(ngModel)]="radio" value="C"></u-radio>
+    Radio C
+  </label>
 </div>
-<u-selection-control appearance="switch" label="Switch">
-  <input type="checkbox" />
-</u-selection-control>
+<div>Radio: {{radio}}</div>
+<label>
+  <u-switch [(ngModel)]="switchBoxChecked"></u-switch>
+  Switch {{switchBoxChecked ? 'checked' : 'unchecked'}}
+</label>

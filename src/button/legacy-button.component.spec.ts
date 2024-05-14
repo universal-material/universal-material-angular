@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProgressSpinnerComponent } from './progress-spinner.component';
+import { LegacyButtonComponent } from './legacy-button.component';
 
-describe('ProgressSpinnerComponent', () => {
-  let component: ProgressSpinnerComponent;
-  let fixture: ComponentFixture<ProgressSpinnerComponent>;
+describe('LegacyButtonComponent', () => {
+  let component: LegacyButtonComponent;
+  let fixture: ComponentFixture<LegacyButtonComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProgressSpinnerComponent ]
+      declarations: [ LegacyButtonComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProgressSpinnerComponent);
+    fixture = TestBed.createComponent(LegacyButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonComponent, LinkButtonComponent } from './button.component';
+import { LegacyButtonComponent, LinkButtonComponent } from './legacy-button.component';
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [ButtonComponent, LinkButtonComponent],
-  exports: [ButtonComponent, LinkButtonComponent]
+  declarations: [LegacyButtonComponent, LinkButtonComponent],
+  exports: [LegacyButtonComponent, LinkButtonComponent]
 })
 export class ButtonModule { }

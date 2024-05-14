@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Observable, Subject, OperatorFunction, merge } from 'rxjs';
+import { Observable, Subject, OperatorFunction, merge, firstValueFrom, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, filter } from 'rxjs/operators';
 import { Typeahead } from '@universal-material/angular';
 
@@ -18,20 +18,11 @@ const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'C
   styleUrls: ['./typeahead-example.component.scss']
 })
 export class TypeaheadExampleComponent {
-  model: any;
+  model: any = {name: 'Alabama'};
+  formatter = (state: {name: string}) => state.name;
 
-  @ViewChild('instance', {static: true}) instance!: Typeahead;
-  focus$ = new Subject<string>();
-  click$ = new Subject<string>();
-
-  search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) => {
-    const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
-    const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.instance.isPopupOpen()));
-    const inputFocus$ = this.focus$;
-
-    return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
-      map(term => (term === '' ? states
-        : states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10))
-    );
-  }
+  search = (term: string) =>
+    firstValueFrom(of(states
+      .filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)
+      .map(s => ({name: s}))));
 }

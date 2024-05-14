@@ -24,7 +24,7 @@ const CHIP_INPUT_VALUE_ACCESSOR = {
 };
 
 @Component({
-  selector: 'u-chip-field',
+  selector: 'u-legacy-chip-field',
   templateUrl: './chip-field.component.html',
   styleUrls: ['./chip-field.component.scss'],
   providers: [CHIP_INPUT_VALUE_ACCESSOR]

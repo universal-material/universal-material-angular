@@ -1,30 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import {
-  ButtonModule,
-  ChipFieldModule,
-  ProgressSpinnerModule,
-  DialogModule,
-  DropdownModule,
-  FloatingActionBehaviorModule,
-  RippleModule,
-  SelectModule,
-  TextFieldModule,
-  ToolbarBehaviorModule,
-  TypeaheadModule,
-  SliderModule,
-  CircularProgressModule
-} from '@universal-material/angular';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UniversalMaterialModule } from '@universal-material/angular';
 
 import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs';
 
 import { AppComponent } from './app.component';
 import { FORM_FIELD_DEFAULT_APPEARANCE } from '@universal-material/angular/form-field/form-field.component';
-import { FormFieldModule } from '@universal-material/angular/form-field/form-field.module';
-import { TabBarModule } from '@universal-material/angular/tab-bar/tab-bar.module';
-import { SnackbarModule } from '@universal-material/angular/snackbar/snackbar.module';
 import { ButtonsExampleComponent } from './components/buttons/buttons-example/buttons-example.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -34,10 +17,8 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { SimpleSnackbarExampleComponent } from './components/snackbar/simple-snackbar-example/simple-snackbar-example.component';
 import { InputComponent } from './components/input/input.component';
 import { TextFieldExampleComponent } from './components/input/text-field-example/text-field-example.component';
-import { SelectionControlModule } from '@universal-material/angular/selection-control/selection-control.module';
 import { SelectionControlsComponent } from './components/selection-controls/selection-controls.component';
 import { SelectionControlsExampleComponent } from './components/selection-controls/selection-controls-example/selection-controls-example.component';
-import { DatepickerModule } from '@universal-material/angular/datepicker/datepicker.module';
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
 import { DatepickerExampleComponent } from './components/datepicker/datepicker-example/datepicker-example.component';
 import { SelectComponent } from './components/select/select.component';
@@ -56,10 +37,8 @@ import { ProgressDialogComponent } from './components/progress-dialog/progress-d
 import { ProgressDialogExampleComponent } from './components/progress-dialog/progress-dialog-example/progress-dialog-example.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogExampleComponent } from './components/confirm-dialog/confirm-dialog-example/confirm-dialog-example.component';
-import { CollapseModule } from '@universal-material/angular/collapse/collapse.module';
 import { ExpansionPanelComponent } from './components/expansion-panel/expansion-panel.component';
 import { ExpansionPanelExampleComponent } from './components/expansion-panel/expansion-panel-example/expansion-panel-example.component';
-import { ExpansionPanelModule } from '@universal-material/angular/expansion-panel/expansion-panel.module';
 import { SliderComponent } from './components/slider/slider.component';
 import { SliderExampleComponent } from './components/slider/slider-example/slider-example.component';
 import { DialogComponent } from './components/dialog/dialog.component';
@@ -109,32 +88,10 @@ import { DialogExampleComponent } from "./components/dialog/dialog-example/dialo
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    ProgressSpinnerModule,
-    DropdownModule,
-    SelectModule,
-    TextFieldModule,
-    TypeaheadModule,
-    DialogModule,
-    RippleModule,
-    ToolbarBehaviorModule,
-    FloatingActionBehaviorModule,
-    SelectionControlModule,
-    DatepickerModule,
-    ButtonModule,
-    TextFieldModule,
-    DropdownModule,
-    SliderModule,
-    FormFieldModule,
-    ChipFieldModule,
-    SelectModule,
-    TypeaheadModule,
-    TextFieldModule,
-    TabBarModule,
-    SnackbarModule,
-    CollapseModule,
-    ExpansionPanelModule,
-    CircularProgressModule
+    ReactiveFormsModule,
+    UniversalMaterialModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     {provide: FORM_FIELD_DEFAULT_APPEARANCE, useValue: 'box'},
     // {

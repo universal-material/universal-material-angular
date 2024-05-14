@@ -1,4 +1,4 @@
-import {NgModule, ModuleWithProviders} from '@angular/core';
+import { NgModule, ModuleWithProviders, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {Highlight} from './highlight';
@@ -15,7 +15,7 @@ export {Typeahead, TypeaheadSelectItemEvent} from './typeahead';
   declarations: [Typeahead, Highlight, TypeaheadWindow],
   exports: [Typeahead, Highlight],
   imports: [CommonModule, RippleModule],
-  entryComponents: [TypeaheadWindow]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TypeaheadModule {
 

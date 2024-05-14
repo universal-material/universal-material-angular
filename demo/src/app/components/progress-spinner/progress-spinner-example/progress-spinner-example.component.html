@@ -1,9 +1,9 @@
-<u-progress-spinner size="big"></u-progress-spinner>
-<u-progress-spinner></u-progress-spinner>
-<u-progress-spinner size="small"></u-progress-spinner>
-<u-progress-spinner size="x-small"></u-progress-spinner>
-<u-progress-spinner class="spinner-custom-size"></u-progress-spinner>
-<u-circular-progress [percentage]="percentage"></u-circular-progress>
+<u-circular-progress size="big"></u-circular-progress>
+<u-circular-progress></u-circular-progress>
+<u-circular-progress size="small"></u-circular-progress>
+<u-circular-progress size="x-small"></u-circular-progress>
+<u-circular-progress class="spinner-custom-size"></u-circular-progress>
+<u-circular-progress [value]="percentage" max="100"></u-circular-progress>
 <div>
   <input type="number" [(ngModel)]="percentage"/>
 </div>

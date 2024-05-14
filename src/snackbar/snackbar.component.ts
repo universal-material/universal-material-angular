@@ -6,7 +6,7 @@ import { SnackbarRef } from './snackbar-ref.model';
 import { SnackbarConfig } from './snackbar-config.model';
 
 @Component({
-  selector: 'u-snackbar',
+  selector: 'u-snackbar-old',
   templateUrl: './snackbar.component.html',
   styleUrls: ['./snackbar.component.scss']
 })

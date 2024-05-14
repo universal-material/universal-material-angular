@@ -7,5 +7,7 @@ import { Component } from '@angular/core';
 })
 export class SelectionControlsExampleComponent {
 
-  stateFormatter = (state: {name: string}) => state.name;
+  checkBoxChecked = false;
+  switchBoxChecked = false;
+  radio: string = 'A';
 }

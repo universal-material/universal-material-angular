@@ -1,6 +1,8 @@
 <button type="button" u-btn="text" (click)="invalid = !invalid">Toggle invalid</button>
 <button type="button" u-btn="text" (click)="disabled = !disabled">Toggle disabled</button>
 
+<div>Name: {{name}}</div>
+<u-text-field [invalid]="invalid" label="Name" [(ngModel)]="name"></u-text-field>
 <u-form-field [invalid]="invalid" supportingText="Supporting text">
   <label uLabel>Name</label>
   <div class="u-text-input">

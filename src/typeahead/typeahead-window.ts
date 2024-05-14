@@ -29,7 +29,7 @@ export interface ResultTemplateContext {
   },
   template: `
     <ng-template #rt let-result="result" let-term="term" let-formatter="formatter">
-      <u-highlight [result]="formatter(result)" [term]="term"></u-highlight>
+      <u-highlight [attr.result]="formatter(result)" [attr.term]="term"></u-highlight>
     </ng-template>
     <ng-template ngFor [ngForOf]="results" let-result let-idx="index">
       <button type="button" uRipple class="u-dropdown-item" role="option"

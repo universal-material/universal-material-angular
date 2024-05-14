@@ -6,7 +6,7 @@ import {regExpEscape, toString} from '../util/util';
  * result
  */
 @Component({
-  selector: 'u-highlight',
+  selector: 'u-legacy-highlight',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<ng-template ngFor [ngForOf]="parts" let-part let-isOdd="odd">` +
       `<span *ngIf="isOdd; else even" [class]="highlightClass">{{part}}</span><ng-template #even>{{part}}</ng-template>` +
