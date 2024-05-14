@@ -106,7 +106,7 @@ import { DialogExampleComponent } from "./components/dialog/dialog-example/dialo
         // @ts-ignore
         coreLibraryLoader: () => import('highlight.js/lib/core'),
         // @ts-ignore
-        lineNumbersLoader: () => import('highlightjs-line-numbers.js'), // Optional, only if you want the line numbers
+        lineNumbersLoader: () => import('ngx-highlightjs/line-numbers'), // Optional, only if you want the line numbers
         languages: {
           // @ts-ignore
           typescript: () => import('highlight.js/lib/languages/typescript'),

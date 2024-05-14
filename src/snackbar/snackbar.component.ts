@@ -1,14 +1,21 @@
-import { Component, ElementRef, HostBinding, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, ElementRef, HostBinding } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 import { AnimationEvents } from '../util/animations/animation-events';
 import { SnackbarRef } from './snackbar-ref.model';
 import { SnackbarConfig } from './snackbar-config.model';
+import { ButtonModule } from '../button/button.module';
 
 @Component({
-  selector: 'u-snackbar-old',
+  selector: 'u-legacy-snackbar',
   templateUrl: './snackbar.component.html',
-  styleUrls: ['./snackbar.component.scss']
+  styleUrls: ['./snackbar.component.scss'],
+  imports: [
+    CommonModule,
+    ButtonModule
+  ],
+  standalone: true
 })
 export class SnackbarComponent implements SnackbarRef {
 

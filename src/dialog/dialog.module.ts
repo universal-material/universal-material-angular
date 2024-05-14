@@ -36,13 +36,6 @@ export { ProgressDialogService } from './progress-dialog/progress-dialog.service
   exports: [
     DialogComponent,
     DialogBodyDirective
-  ],
-  entryComponents: [
-    ConfirmDialogComponent,
-    ProgressDialogComponent
-  ],
-  providers: [
-    DialogService
   ]
 })
 export class DialogModule {

@@ -6,7 +6,9 @@ import { DialogComponent } from './dialog.component';
 
 export const DIALOG_DATA = new InjectionToken<any>('DIALOG_DATA');
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DialogService {
 
   constructor(private readonly _componentFactoryResolver: ComponentFactoryResolver,

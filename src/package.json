@@ -1,6 +1,6 @@
 {
   "name": "@universal-material/angular",
-  "version": "3.0.11",
+  "version": "3.0.13",
   "author": "https://github.com/universal-material/universal-material-angular/graphs/contributors",
   "repository": {
     "type": "git",
@@ -12,5 +12,6 @@
     "@universal-material/core": "~2.0.1-alpha.47",
     "@universal-material/web": "^3.0.61",
     "animated-scroll-to": "^2.3.0"
-  }
+  },
+  "sideEffects": false
 }

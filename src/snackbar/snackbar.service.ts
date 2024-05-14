@@ -20,7 +20,7 @@ export class SnackbarService {
   private readonly _snackbarComponent: ComponentFactory<SnackbarComponent>;
   private readonly _defaultConfig: SnackbarConfig;
 
-  constructor(private _componentFactoryResolver: ComponentFactoryResolver,
+  constructor(_componentFactoryResolver: ComponentFactoryResolver,
               private readonly _appRef: ApplicationRef,
               private _injector: Injector,
               private _snackbarQueueService: SnackbarQueueService,

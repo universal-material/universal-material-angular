@@ -15,6 +15,11 @@ export interface ResultTemplateContext {
    * Search term from the `<input>` used to get current result.
    */
   term: string;
+
+  /**
+   * The function which transforms the result into a string
+   */
+  formatter: (result: any) => string;
 }
 
 @Component({
@@ -37,7 +42,8 @@ export interface ResultTemplateContext {
         [class.active]="idx === activeIdx"
         (mouseenter)="markActive(idx)"
         (click)="select(result)">
-          <ng-template [ngTemplateOutlet]="resultTemplate || rt"
+        <ng-template
+          [ngTemplateOutlet]="resultTemplate || rt"
           [ngTemplateOutletContext]="{result: result, term: term, formatter: formatter}"></ng-template>
       </button>
     </ng-template>

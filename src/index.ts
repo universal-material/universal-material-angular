@@ -12,7 +12,6 @@ import { ButtonModule } from './button/button.module';
 import { FormFieldModule } from './form-field/form-field.module';
 import { ChipFieldModule } from './chip-field/chip-field.module';
 import { TabBarModule } from './tab-bar/tab-bar.module';
-import { SnackbarModule } from './snackbar/snackbar.module';
 import { SelectionControlModule } from './selection-control/selection-control.module';
 import { DatepickerModule } from './datepicker/datepicker.module';
 import { CollapseModule } from './collapse/collapse.module';
@@ -23,6 +22,7 @@ import { UmCheckControlValueAccessor } from './value-accessors/check-control-val
 import { UmChipFieldControlValueAccessor } from './value-accessors/chip-field-control-value-accessor';
 import { UmDefaultControlValueAccessor } from './value-accessors/default-control-value-accessor';
 import { UmTypeaheadControlValueAccessor } from './value-accessors/typeahead-control-value-accessor';
+import { SnackbarComponent } from './snackbar/snackbar.component';
 
 const UniversalMaterialModules = [
   ChipFieldModule,
@@ -38,7 +38,7 @@ const UniversalMaterialModules = [
   ButtonModule,
   SelectionControlModule,
   TabBarModule,
-  SnackbarModule,
+  SnackbarComponent,
   DatepickerModule,
   CollapseModule,
   ExpansionPanelModule,
@@ -83,7 +83,6 @@ export { ChipInputDirective } from './chip-field/chip-input.directive';
 export { TabBarModule } from './tab-bar/tab-bar.module';
 export { TabBarComponent, TabChangeEvent, BeforeTabChangeEvent } from './tab-bar/tab-bar.component';
 export { TabComponent } from './tab-bar/tab.component';
-export * from './snackbar/snackbar.module';
 export * from './dialog/dialog.module';
 
 export {
@@ -125,6 +124,10 @@ export {
 
 export * from './toolbar-behavior/toolbar-behavior.module';
 export * from './slider/slider.module';
+export * from './snackbar/snackbar.component';
+export * from './snackbar/snackbar.service';
+export * from './snackbar/snackbar-duration';
+export * from './snackbar/snackbar-config.model';
 export * from './floating-action-behavior/floating-action-behavior.module';
 
 export * from './value-accessors/default-control-value-accessor';
