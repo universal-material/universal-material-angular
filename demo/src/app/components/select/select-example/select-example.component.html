@@ -1,67 +1,22 @@
-<u-form-field>
-  <div class="u-text-field-trailing-icon">
-    <span class="u-dropdown-toggle-icon"></span>
-  </div>
-  <label uLabel>Country</label>
-  <u-select
-    name="state"
-    [selectionFormatter]="stateFormatter"
-    required
-    [autoClose]="true"
-    placeholder="Select state"
-    [(ngModel)]="selectedState">
-    <u-option>None</u-option>
-    <u-option *ngFor="let state of states$ | async" [value]="state">{{state.name}}</u-option>
-  </u-select>
-</u-form-field>
-<u-form-field>
-  <div class="u-text-field-trailing-icon">
-    <span class="u-dropdown-toggle-icon"></span>
-  </div>
-  <label uLabel>Country</label>
-  <u-select
-    name="state"
-    required
-    [autoClose]="true"
-    placeholder="Select state"
-    [(ngModel)]="selectedState">
-    <u-option>None</u-option>
-    <u-option *ngFor="let state of states$ | async" [value]="state">{{state.name}}</u-option>
-    <div selection>
-      <span>*</span>
-      {{selectedState?.name}}
-    </div>
-  </u-select>
-</u-form-field>
-<u-form-field>
-  <div class="u-text-field-trailing-icon">
-    <span class="u-dropdown-toggle-icon"></span>
-  </div>
-  <label uLabel>Country</label>
-  <u-select
-    name="state"
-    [selectionFormatter]="stateFormatter"
-    required
-    [autoClose]="true"
-    placeholder="Select state"
-    [(ngModel)]="selectedState">
-    <u-option>None</u-option>
-    <u-option *ngFor="let state of states$ | async" [value]="state">{{state.name}}</u-option>
-  </u-select>
-</u-form-field>
-<u-form-field>
-  <div class="u-text-field-trailing-icon">
-    <span class="u-dropdown-toggle-icon"></span>
-  </div>
-  <label uLabel>Country</label>
-  <u-select
-    name="state"
-    required
-    [autoClose]="true"
-    [valueComparer]="stateComparer"
-    placeholder="Select state"
-    [(ngModel)]="selectedState">
-    <u-option>None</u-option>
-    <u-option *ngFor="let state of states$ | async" [displayValue]="state.name" [value]="state">{{state.name}}</u-option>
-  </u-select>
-</u-form-field>
+<u-button (click)="hide = !hide">Toggle</u-button>
+
+<select
+  *ngIf="!hide"
+  [(ngModel)]="selectedState"
+  [compareWith]="stateComparer">
+  <option
+    [ngValue]="null">None</option>
+  <option *ngFor="let state of states$ | async" [ngValue]="state">{{state.name}}</option>
+</select>
+
+
+<u-select
+  *ngIf="!hide"
+  label="State"
+  [(ngModel)]="selectedState"
+  [compareWith]="stateComparer">
+  <u-option
+    [ngValue]="null">None</u-option>
+  <u-option *ngFor="let state of states$ | async" [ngValue]="state">{{state.name}}</u-option>
+  <div slot="supporting-text">{{ selectedState | json }}</div>
+</u-select>

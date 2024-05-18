@@ -80,5 +80,6 @@ export class SelectExampleComponent {
   }
 
   stateFormatter = (state: State) => state.name;
-  stateComparer = (stateA: State, stateB: State) => (stateA && stateA.name) === (stateB && stateB.name);
+  stateComparer = (stateA: State, stateB: State) => stateA?.name === stateB?.name;
+  hide = false;
 }

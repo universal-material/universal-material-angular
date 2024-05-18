@@ -23,7 +23,7 @@
     "@stackblitz/sdk": "^1.3.0",
     "@universal-material/angular": "^2.0.0-alpha.20",
     "@universal-material/core": "^2.0.1-alpha.47",
-    "@universal-material/web": "^3.0.61",
+    "@universal-material/web": "^3.0.74",
     "animated-scroll-to": "^2.3.0",
     "highlight.js": "^10.6.0",
     "ngx-highlightjs": "^10.0.0",

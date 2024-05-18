@@ -3,7 +3,7 @@ import { Component, forwardRef, HostListener, Inject, Input } from '@angular/cor
 import { SelectComponent } from './select.component';
 
 @Component({
-  selector: 'u-option',
+  selector: 'u-legacy-option',
   template: `
     <div uRipple class="u-dropdown-item">
       <ng-content></ng-content>

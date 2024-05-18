@@ -11,7 +11,6 @@ import { FloatingActionBehaviorModule } from './floating-action-behavior/floatin
 import { ButtonModule } from './button/button.module';
 import { FormFieldModule } from './form-field/form-field.module';
 import { ChipFieldModule } from './chip-field/chip-field.module';
-import { TabBarModule } from './tab-bar/tab-bar.module';
 import { SelectionControlModule } from './selection-control/selection-control.module';
 import { DatepickerModule } from './datepicker/datepicker.module';
 import { CollapseModule } from './collapse/collapse.module';
@@ -23,6 +22,8 @@ import { UmChipFieldControlValueAccessor } from './value-accessors/chip-field-co
 import { UmDefaultControlValueAccessor } from './value-accessors/default-control-value-accessor';
 import { UmTypeaheadControlValueAccessor } from './value-accessors/typeahead-control-value-accessor';
 import { SnackbarComponent } from './snackbar/snackbar.component';
+import { UmSelectControlValueAccessor, UmSelectOption } from './value-accessors/select-control-value-accessor';
+import { TabBarDirective } from './tab-bar/tab-bar.directive';
 
 const UniversalMaterialModules = [
   ChipFieldModule,
@@ -37,7 +38,6 @@ const UniversalMaterialModules = [
   FloatingActionBehaviorModule,
   ButtonModule,
   SelectionControlModule,
-  TabBarModule,
   SnackbarComponent,
   DatepickerModule,
   CollapseModule,
@@ -47,7 +47,10 @@ const UniversalMaterialModules = [
   UmCheckControlValueAccessor,
   UmRadioControlValueAccessor,
   UmChipFieldControlValueAccessor,
-  UmTypeaheadControlValueAccessor
+  UmTypeaheadControlValueAccessor,
+  UmSelectControlValueAccessor,
+  UmSelectOption,
+  TabBarDirective
 ];
 
 
@@ -80,9 +83,6 @@ export { ChipFieldModule } from './chip-field/chip-field.module';
 export { ChipFieldComponent } from './chip-field/chip-field.component';
 export { ChipInputDirective } from './chip-field/chip-input.directive';
 
-export { TabBarModule } from './tab-bar/tab-bar.module';
-export { TabBarComponent, TabChangeEvent, BeforeTabChangeEvent } from './tab-bar/tab-bar.component';
-export { TabComponent } from './tab-bar/tab.component';
 export * from './dialog/dialog.module';
 
 export {
@@ -130,11 +130,13 @@ export * from './snackbar/snackbar-duration';
 export * from './snackbar/snackbar-config.model';
 export * from './floating-action-behavior/floating-action-behavior.module';
 
+export * from './tab-bar/tab-bar.directive';
 export * from './value-accessors/default-control-value-accessor';
 export * from './value-accessors/check-control-value-accessor';
 export * from './value-accessors/radio-control-value-accessor';
 export * from './value-accessors/chip-field-control-value-accessor';
 export * from './value-accessors/typeahead-control-value-accessor';
+export * from './value-accessors/select-control-value-accessor';
 
 @NgModule({
   imports: UniversalMaterialModules,

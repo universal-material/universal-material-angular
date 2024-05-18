@@ -16,7 +16,7 @@ export class ExampleComponent {
   @Input() tsCode!: string;
   @Input() cssCode!: string;
 
-  tabIndex: number | null = 0;
+  tabIndex: number = 0;
   showCode = false;
 
   constructor(private readonly _stackBlitzService: StackBlitzService) {

@@ -42,7 +42,7 @@ export interface SelectItemEvent {
 }
 
 @Component({
-  selector: 'u-select',
+  selector: 'u-legacy-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
   providers: [SelectValueAcessor]
