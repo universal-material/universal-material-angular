@@ -21,15 +21,13 @@
     "@angular/router": "^16.1.0",
     "@mdi/font": "^7.1.96",
     "@stackblitz/sdk": "^1.3.0",
-    "@universal-material/angular": "^2.0.0-alpha.20",
     "@universal-material/core": "^2.0.1-alpha.47",
-    "@universal-material/web": "^3.0.74",
+    "@universal-material/web": "^3.6.15",
     "animated-scroll-to": "^2.3.0",
     "highlight.js": "^10.6.0",
     "ngx-highlightjs": "^10.0.0",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.13.0"
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.1.8",
@@ -43,6 +41,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^16.0.0",
+    "ngx-mask": "^16.4.2",
     "raw-loader": "^4.0.2",
     "typescript": "~5.1.3"
   }

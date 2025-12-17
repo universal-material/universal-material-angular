@@ -9,8 +9,8 @@ const RADIO_VALUE_ACCESSOR: Provider = {
 
 @Directive({
   selector: 'u-radio[ngModel],u-radio[formControlName],u-radio[formControl],u-radio-list-item[ngModel],u-radio-list-item[formControlName],u-radio-list-item[formControl]',
-  standalone: true,
-  providers: [RADIO_VALUE_ACCESSOR]
+  providers: [RADIO_VALUE_ACCESSOR],
+  standalone: false,
 })
 export class UmRadioControlValueAccessor extends RadioControlValueAccessor {
 

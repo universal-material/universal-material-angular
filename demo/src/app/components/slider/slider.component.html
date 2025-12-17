@@ -1,3 +1,16 @@
 <app-example [title]="'Slider'" [htmlCode]="htmlCode" [cssCode]="cssCode" [tsCode]="tsCode" dashName="slider-example">
   <app-slider-example></app-slider-example>
 </app-example>
+
+
+<u-text-field
+  label="Message"
+  [(ngModel)]="message"
+  ngDefaultControl
+></u-text-field>
+<u-text-field
+  label="Action"
+  [(ngModel)]="action"
+  ngDefaultControl
+></u-text-field>
+<u-button (click)="showSnackbar()">Show snackbar</u-button>

@@ -1,5 +1,5 @@
 export enum SnackbarDuration {
-  infinite = 0,
+  infinite = -1,
   short = 2500,
   long = 5000
 }

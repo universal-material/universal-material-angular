@@ -1,3 +1,11 @@
+<div class="position-relative">
+<u-text-field label="batata" type="date"></u-text-field>
+<u-button-field label="batata" (click)="datepicker.toggle()" [value]="date | date"></u-button-field>
+<u-menu #datepicker>
+  <u-datepicker placeholder="Choose a date" [(date)]="date"></u-datepicker>
+</u-menu>
+</div>
+
 <u-form-field>
   <div class="u-text-field-trailing-icon">
     <span class="mdi mdi-calendar"></span>
@@ -47,6 +55,15 @@
   <u-datepicker-input placeholder="Choose a date" [(ngModel)]="date"></u-datepicker-input>
 </u-form-field>
 
+<div class="position-relative">
+  <u-chip clickable (click)="standalonePicker.focus()">
+    {{date}}
+    <u-datepicker-input
+      #standalonePicker
+      [(ngModel)]="date"></u-datepicker-input>
+  </u-chip>
+
+</div>
 
 <ng-template #customDay let-date>{{date.getDate().toString().padStart(2, '0')}}</ng-template>
 

@@ -3,7 +3,8 @@ import { Directive, ElementRef, forwardRef, Inject, Optional } from '@angular/co
 import { FormFieldComponent } from './form-field.component';
 
 @Directive({
-  selector: '[uLabel]'
+  selector: '[uLabel]',
+  standalone: false,
 })
 export class LabelDirective {
   constructor(elementRef: ElementRef<HTMLElement>,

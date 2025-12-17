@@ -4,7 +4,8 @@ import { DOCUMENT } from '@angular/common';
 import { RippleConfig } from './ripple-config.model';
 
 @Directive({
-  selector: '[uRipple]'
+  selector: '[uRipple]',
+  standalone: false,
 })
 export class RippleDirective implements AfterViewInit {
 

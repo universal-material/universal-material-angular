@@ -2,6 +2,7 @@ import { InjectionToken } from '@angular/core';
 
 import { DialogConfig } from '../dialog-config.model';
 import { DefaultDialogConfig } from '../dialog-base.component';
+import { UmButtonColor, UmButtonVariant } from '@universal-material/web';
 
 export const CONFIRM_DIALOG_DEFAULT_OPTIONS = new InjectionToken<any>('CONFIRM_DIALOG_DEFAULT_OPTIONS');
 
@@ -9,18 +10,18 @@ export const DefaultConfirmDialogConfig: ConfirmDialogConfig = {
   ...DefaultDialogConfig,
   confirmButton: {
     text: 'OK',
-    appearance: 'text'
+    variant: 'text'
   },
   cancelButton: {
     text: 'Cancel',
-    appearance: 'text'
+    variant: 'text'
   },
 };
 
 export interface ConfirmDialogButtonConfig {
   text?: string;
-  appearance?: string;
-  color?: string;
+  variant?: UmButtonVariant;
+  color?: UmButtonColor;
 }
 
 export class ConfirmDialogConfig implements DialogConfig {

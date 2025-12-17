@@ -9,8 +9,8 @@ const CHECK_VALUE_ACCESSOR: Provider = {
 
 @Directive({
   selector: 'u-checkbox[ngModel],u-checkbox[formControlName],u-checkbox[formControl],u-switch[ngModel],u-switch[formControlName],u-switch[formControl],u-checkbox-list-item[ngModel],u-checkbox-list-item[formControlName],u-checkbox-list-item[formControl],u-switch-list-item[ngModel],u-switch-list-item[formControlName],u-switch-list-item[formControl]',
-  standalone: true,
-  providers: [CHECK_VALUE_ACCESSOR]
+  providers: [CHECK_VALUE_ACCESSOR],
+  standalone: false,
 })
 export class UmCheckControlValueAccessor extends CheckboxControlValueAccessor {
 

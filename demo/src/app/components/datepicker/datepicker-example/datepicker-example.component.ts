@@ -1,11 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { UniversalMaterialModule } from '@universal-material/angular';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-datepicker-example',
   templateUrl: './datepicker-example.component.html',
   styleUrls: ['./datepicker-example.component.scss'],
-  providers: [DatePipe]
+  standalone: true,
+  imports: [
+    DatePipe,
+    FormsModule,
+    UniversalMaterialModule
+  ],
+  providers: [DatePipe],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class DatepickerExampleComponent {
   date!: Date;

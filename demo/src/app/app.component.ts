@@ -1,13 +1,25 @@
-import { Component, OnDestroy, Inject } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Component, OnDestroy, Inject, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { DOCUMENT } from '@angular/common';
+
+import { UniversalMaterialModule } from '@universal-material/angular';
+
+import { NavigationComponent } from './navigation/navigation.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    NavigationComponent,
+    UniversalMaterialModule
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppComponent implements OnDestroy {
 

@@ -4,12 +4,12 @@
       <div class="u-toolbar-title">{{title}}</div>
       <div class="u-toolbar-end">
         <div class="u-toolbar-actions">
-          <button class="u-toolbar-action" u-btn="icon" (click)="showCode = !showCode">
-            <i class="u-btn-icon mdi mdi-code-tags"></i>
-          </button>
-          <button class="u-toolbar-action" u-btn="icon" (click)="createProject()">
-            <i class="u-btn-icon mdi mdi-open-in-new"></i>
-          </button>
+          <u-icon-button class="u-toolbar-action" (click)="showCode = !showCode">
+            <i class="mdi mdi-code-tags"></i>
+          </u-icon-button>
+          <u-icon-button class="u-toolbar-action" (click)="createProject()">
+            <i class="mdi mdi-open-in-new"></i>
+          </u-icon-button>
         </div>
       </div>
     </div>

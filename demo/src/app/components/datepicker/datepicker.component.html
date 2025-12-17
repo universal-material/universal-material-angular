@@ -1,3 +1,20 @@
 <app-example [title]="'Datepicker'" [htmlCode]="htmlCode" [cssCode]="cssCode" [tsCode]="tsCode" dashName="datepicker-example">
+  <u-card variant="outlined">
+    <u-select [(ngModel)]="batata">
+      @for (state of states) {
+      <u-option [ngValue]="'A'">A</u-option>
+      <u-option [ngValue]="'B'">B</u-option>
+      <u-option [ngValue]="'C'">C</u-option>
+      }
+    </u-select>
+    <select [(ngModel)]="batata">
+      <option [ngValue]="'A'">A</option>
+      <option [ngValue]="'B'">B</option>
+      <option [ngValue]="'C'">C</option>
+    </select>
+
+    <h1>{{batata}}</h1>
+  </u-card>
+
   <app-datepicker-example></app-datepicker-example>
 </app-example>

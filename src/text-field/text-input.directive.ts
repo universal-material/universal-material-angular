@@ -15,7 +15,8 @@ import { TextInputBase } from '../shared/text-input-base';
 import { FormFieldComponent } from '../form-field/form-field.component';
 
 @Directive({
-  selector: '[uTextInput]'
+  selector: '[uTextInput]',
+  standalone: false,
 })
 export class TextInputDirective extends TextInputBase {
 

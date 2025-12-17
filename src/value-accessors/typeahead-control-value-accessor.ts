@@ -10,11 +10,11 @@ const TYPEAHEAD_VALUE_ACCESSOR: Provider = {
 
 @Directive({
   selector: 'u-typeahead[ngModel],u-typeahead[formControlName],u-typeahead[formControl]',
-  standalone: true,
   providers: [TYPEAHEAD_VALUE_ACCESSOR],
   host: {
     '(change)': '$any(this)._handleChange($event.target.value)'
-  }
+  },
+  standalone: false,
 })
 export class UmTypeaheadControlValueAccessor implements ControlValueAccessor {
 

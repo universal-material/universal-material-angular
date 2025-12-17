@@ -1,4 +1,4 @@
-<button type="button" u-btn="text" (click)="show = true">Show</button>
+<u-button type="button" variant="text" (click)="show = true">Show</u-button>
 <u-legacy-dialog [(show)]="show">
   <div class="u-dialog-content">
     <div class="u-dialog-header">
@@ -8,7 +8,7 @@
 
     </div>
     <div class="u-dialog-actions" uDialogBody>
-      <button u-btn="text" color="primary" class="u-dialog-action" (click)="show = false">Ok</button>
+      <u-button variant="text" class="u-dialog-action" (click)="show = false">Ok</u-button>
     </div>
   </div>
 </u-legacy-dialog>

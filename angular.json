@@ -31,6 +31,8 @@
             ],
             "styles": [
               "node_modules/@mdi/font/scss/materialdesignicons.scss",
+              "node_modules/@universal-material/core/dist/css/universal-material-no-reboot.css",
+              "node_modules/@universal-material/web/css/universal-material.css",
               "demo/src/styles.scss",
               "node_modules/highlight.js/styles/github.css"
             ],

@@ -1,40 +1,25 @@
-<div class="u-drawer u-drawer-lg-permanent" [class.open]="showMenu">
-  <aside class="u-drawer-content u-navigation-drawer">
-    <div class="u-drawer-scrollable-container">
-      <app-navigation></app-navigation>
-    </div>
-  </aside>
-  <div class="u-drawer-backdrop" (click)="showMenu = false"></div>
+<u-side-navigation [toggleDrawer]="showMenu">
+  <u-drawer
+    slot="drawer">
+    <app-navigation></app-navigation>
+  </u-drawer>
+  <u-top-app-bar>
+    <u-icon-button
+      slot="leading-icon"
+      type="button"
+      (click)="showMenu = !showMenu">
+      <i class="mdi mdi-menu"></i>
+    </u-icon-button>
+    <span>Universal Material Angular</span>
 
-  <div class="u-toolbar u-toolbar-fixed" uToolbarElevateWhenScroll [scrollContainer]="dummy">
-    <div class="u-toolbar-row">
-      <div class="u-toolbar-start d-lg-none">
-        <div class="u-toolbar-actions">
-          <button type="button" u-btn="icon" (click)="showMenu = !showMenu">
-            <i class="u-btn-icon mdi mdi-menu"></i>
-          </button>
-        </div>
-      </div>
-      <div class="u-toolbar-center">
-        <div class="u-toolbar-title">Universal Material Angular</div>
-      </div>
-      <div class="u-toolbar-end">
-        <div class="u-toolbar-actions">
-          <div uDropdown>
-            <button u-btn="icon" uDropdownToggle>
-              <i class="u-btn-icon mdi mdi-format-paint"></i>
-            </button>
-            <div class="u-dropdown-menu" uDropdownMenu direction="down-left">
-              <div *ngFor="let theme of themes" uRipple class="u-dropdown-item" (click)="setTheme(theme)">{{theme.name}}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    <u-icon-button>
+      <i class="mdi mdi-format-paint"></i>
+    </u-icon-button>
+  </u-top-app-bar>
 
   <div class="u-container">
     <div #dummy></div>
     <router-outlet></router-outlet>
   </div>
-</div>
+</u-side-navigation>
+

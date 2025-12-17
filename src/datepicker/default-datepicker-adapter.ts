@@ -3,9 +3,7 @@ import { DatePipe, FormStyle, getLocaleDayNames, TranslationWidth, WeekDay } fro
 
 import { DatepickerAdapter } from './datepicker-adapter';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class DefaultDatepickerAdapter extends DatepickerAdapter {
   constructor(@Inject(LOCALE_ID) private readonly _locale: string,
               private readonly datePipe: DatePipe) {

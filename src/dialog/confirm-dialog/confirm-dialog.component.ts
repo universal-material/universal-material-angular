@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, Optional, SecurityContext, ViewChild } from '@angular/core';
+import { Component, Directive, ElementRef, Inject, Optional, SecurityContext, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 
@@ -11,10 +11,9 @@ import {
 import { DialogBodyDirective } from '../dialog-body.directive';
 
 @Component({
-  selector: 'u-confim-dialog',
-  templateUrl: './confirm-dialog.component.html'
+  template: '',
 })
-export class ConfirmDialogComponent extends DialogComponent {
+export abstract class ConfirmDialogComponent extends DialogComponent {
   safeMessage: string | null = null;
 
   set message(value: string) {

@@ -67,11 +67,13 @@ export class DatepickerInputComponent extends DatepickerBaseComponent implements
     super(_locale, _defaultConfig, datepickerAdapter, defaultDatepickerAdapter);
 
     elementRef.nativeElement.classList.add('u-text-input');
-    formField.selectionField = true;
 
-    if (formField) {
-      formField._input = this;
+    if (!formField) {
+      return;
     }
+
+    formField.selectionField = true;
+    formField._input = this;
   }
 
   private _onTouched = () => {};

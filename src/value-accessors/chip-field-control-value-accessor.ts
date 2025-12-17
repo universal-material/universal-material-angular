@@ -10,11 +10,11 @@ const CHIP_FIELD_VALUE_ACCESSOR: Provider = {
 
 @Directive({
   selector: 'u-chip-field[ngModel],u-chip-field[formControlName],u-chip-field[formControl]',
-  standalone: true,
   providers: [CHIP_FIELD_VALUE_ACCESSOR],
   host: {
     '(change)': '$any(this)._handleChange($event.target.value)'
-  }
+  },
+  standalone: false,
 })
 export class UmChipFieldControlValueAccessor implements ControlValueAccessor {
 

@@ -4,9 +4,7 @@ export interface SnackbarRef {
   message: string;
   action?: string;
 
-  afterOpen: Observable<void>;
-  afterDismiss: Observable<void>;
-  onAction: Observable<void>;
+  onAction: Observable<Event>;
 
   dismiss(): void;
 }

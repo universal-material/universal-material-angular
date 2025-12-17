@@ -44,8 +44,6 @@ export abstract class DatepickerBaseComponent {
 
   @Input() dayTemplate: TemplateRef<DayOfWeek> | null = null;
   @Input() datepickerTitle: string = 'Select date';
-  @Input() navigateBackClass: string = 'u-chevron-left';
-  @Input() navigateForwardClass: string = 'u-chevron-right';
   @Input() hideHeader: boolean = false;
   @Input() hideClear: boolean = false;
   @Input() clearLabel: string | null = null;

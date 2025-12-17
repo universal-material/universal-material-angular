@@ -5,6 +5,4 @@ export const SNACKBAR_DEFAULT_OPTIONS = new InjectionToken('SNACKBAR_DEFAULT_OPT
 export interface SnackbarConfig {
   actionLabel?: string | null;
   duration?: number;
-  dismissOnAction?: boolean;
-  dismissWhenOpenAnotherSnackbar?: boolean;
 }

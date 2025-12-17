@@ -72,7 +72,8 @@ let nextWindowId = 0;
     '[attr.aria-owns]': 'isPopupOpen() ? popupId : null',
     '[attr.aria-expanded]': 'isPopupOpen()'
   },
-  providers: [{provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => Typeahead), multi: true}]
+  providers: [{provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => Typeahead), multi: true}],
+  standalone: false,
 })
 export class Typeahead implements ControlValueAccessor,
   OnInit, OnChanges, OnDestroy {

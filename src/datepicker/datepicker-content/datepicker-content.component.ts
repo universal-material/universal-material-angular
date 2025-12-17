@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, Input } from '@angular/core';
 
 import { DatepickerState } from '../datepicker-state.model';
 import { DatepickerBaseComponent } from '../datepicker-base.component';

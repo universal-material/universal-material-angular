@@ -1,15 +1,12 @@
-import { ApplicationRef, ComponentFactory, ComponentFactoryResolver, Inject, Injectable, Injector, Optional } from '@angular/core';
-
-import { SnackbarComponent } from './snackbar.component';
+import { Inject, Injectable, Optional } from '@angular/core';
 import { SNACKBAR_DEFAULT_OPTIONS, SnackbarConfig } from './snackbar-config.model';
 import { SnackbarDuration } from './snackbar-duration';
 import { SnackbarRef } from './snackbar-ref.model';
-import { SnackbarQueueService } from './snackbar-queue.service';
+import { UmSnackbar } from '@universal-material/web';
+import { fromEvent, Observable } from 'rxjs';
 
 const _defaultConfig: SnackbarConfig = {
-  duration: SnackbarDuration.long,
-  dismissOnAction: true,
-  dismissWhenOpenAnotherSnackbar: true
+  duration: SnackbarDuration.long
 };
 
 @Injectable({
@@ -17,30 +14,38 @@ const _defaultConfig: SnackbarConfig = {
 })
 export class SnackbarService {
 
-  private readonly _snackbarComponent: ComponentFactory<SnackbarComponent>;
   private readonly _defaultConfig: SnackbarConfig;
 
-  constructor(_componentFactoryResolver: ComponentFactoryResolver,
-              private readonly _appRef: ApplicationRef,
-              private _injector: Injector,
-              private _snackbarQueueService: SnackbarQueueService,
-              @Optional() @Inject(SNACKBAR_DEFAULT_OPTIONS) userOptions: SnackbarConfig) {
+  constructor(@Optional() @Inject(SNACKBAR_DEFAULT_OPTIONS) userOptions: SnackbarConfig) {
 
-    this._snackbarComponent = _componentFactoryResolver.resolveComponentFactory(SnackbarComponent);
+
     this._defaultConfig = { ..._defaultConfig, ... userOptions };
+
   }
 
   open(message: string, config?: SnackbarConfig): SnackbarRef {
 
-    const snackbarComponentRef = this._snackbarComponent.create(this._injector);
+    const snackbar = UmSnackbar.show({
+      message: message,
+      action: config?.actionLabel!,
+      duration: config?.duration || this._defaultConfig.duration,
+    });
 
-    this._appRef.attachView(snackbarComponentRef.hostView);
-
-    snackbarComponentRef.instance.message = message;
-    snackbarComponentRef.instance._config = { ...this._defaultConfig, ...config };
-
-    this._snackbarQueueService.add(snackbarComponentRef);
-
-    return snackbarComponentRef.instance;
+    return {
+      get message(): string {
+        return snackbar.message
+      },
+      set message(value: string) {
+        snackbar.message = value;
+      },
+      get action(): string {
+        return snackbar.action
+      },
+      set action(value: string) {
+        snackbar.action = value;
+      },
+      dismiss: () => snackbar.dismiss(),
+      onAction: fromEvent(snackbar, 'actionClick')
+    }
   }
 }

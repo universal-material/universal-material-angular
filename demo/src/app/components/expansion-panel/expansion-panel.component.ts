@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 
-// @ts-ignore
+import { ExampleComponent } from '../../example/example.component';
+import { ExpansionPanelExampleComponent } from './expansion-panel-example/expansion-panel-example.component';
+
 // @ts-ignore
 import htmlCode from '!raw-loader!./expansion-panel-example/expansion-panel-example.component.html';
 // @ts-ignore
@@ -11,7 +13,12 @@ import tsCode from '!raw-loader!./expansion-panel-example/expansion-panel-exampl
 @Component({
   selector: 'app-expansion-panel',
   templateUrl: './expansion-panel.component.html',
-  styleUrls: ['./expansion-panel.component.scss']
+  styleUrls: ['./expansion-panel.component.scss'],
+  standalone: true,
+  imports: [
+    ExampleComponent,
+    ExpansionPanelExampleComponent
+  ]
 })
 export class ExpansionPanelComponent {
 
