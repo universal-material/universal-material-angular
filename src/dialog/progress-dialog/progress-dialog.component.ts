@@ -1,18 +1,34 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, signal } from '@angular/core';
 
 import { DialogComponent } from '../dialog.component';
+import { DIALOG_DEFAULT_OPTIONS } from '../dialog-config.model';
 
 @Component({
-  templateUrl: './progress-dialog.component.html'
+  selector: 'u-progress-dialog',
+  templateUrl: './progress-dialog.component.html',
+  styles: [
+    `
+      u-circular-progress {
+        margin-inline: 0;
+      }
+    `
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [
+    {
+      provide: DIALOG_DEFAULT_OPTIONS,
+      useValue: {
+        closeOnBackdropClick: false,
+        closeOnEsc: false
+      }
+    }
+  ]
 })
 export class ProgressDialogComponent extends DialogComponent {
-  message: string | null = null;
+  readonly message = signal<string | null>(null);
 
-  constructor(_elementRef: ElementRef) {
-    super (_elementRef, {
-      closeOnBackdropClick: false,
-      closeOnEsc: false
-    });
-    _elementRef.nativeElement.classList.add('u-dialog-progress');
+  constructor() {
+    super();
+    this._elementRef.nativeElement.classList.add('u-dialog-progress');
   }
 }

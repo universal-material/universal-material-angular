@@ -26,7 +26,8 @@ const DatepickerInputValueAcessor = {
     DatepickerInputValueAcessor,
     {provide: DatepickerBaseComponent, useExisting: DatepickerInputComponent}
   ],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class DatepickerInputComponent extends DatepickerBaseComponent implements InputBaseComponent, ControlValueAccessor {
 

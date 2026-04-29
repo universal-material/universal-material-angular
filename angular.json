@@ -15,28 +15,28 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular/build:application",
           "options": {
             "outputPath": "dist/demo",
-            "index": "demo/src/index.html",
-            "main": "demo/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "browser": "demo/src/main.ts",
             "tsConfig": "demo/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "demo/src/favicon.ico",
-              "demo/src/assets"
+              {
+                "glob": "**/*",
+                "input": "demo/public"
+              }
             ],
             "styles": [
               "node_modules/@mdi/font/scss/materialdesignicons.scss",
               "node_modules/@universal-material/core/dist/css/universal-material-no-reboot.css",
               "node_modules/@universal-material/web/css/universal-material.css",
-              "demo/src/styles.scss",
-              "node_modules/highlight.js/styles/github.css"
+              "demo/src/styles.scss"
             ],
-            "scripts": []
+            "loader": {
+              ".html": "text",
+              ".scss": "text"
+            }
           },
           "configurations": {
             "production": {
@@ -55,51 +55,42 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "demo:build:production"
+              "buildTarget": "demo:build:production"
             },
             "development": {
-              "browserTarget": "demo:build:development"
+              "buildTarget": "demo:build:development"
             }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "demo:build"
-          }
+          "builder": "@angular/build:extract-i18n"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
             "tsConfig": "demo/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "demo/src/favicon.ico",
-              "demo/src/assets"
+              {
+                "glob": "**/*",
+                "input": "demo/public"
+              }
             ],
             "styles": [
               "demo/src/styles.scss"
-            ],
-            "scripts": []
+            ]
           }
         }
       }
@@ -111,10 +102,7 @@
       "prefix": "u",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "src/ng-package.json"
-          },
+          "builder": "@angular/build:ng-packagr",
           "configurations": {
             "production": {
               "tsConfig": "src/tsconfig.lib.prod.json"
@@ -126,13 +114,10 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "src/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": []
           }
         }
       }

@@ -1,11 +1,13 @@
-import { Component, ElementRef, HostBinding, Input } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, HostBinding, Input } from '@angular/core';
 
 import { Subject } from 'rxjs';
+import { CollapseComponent } from '../collapse/collapse.component';
 
 @Component({
   selector: 'u-expansion-panel',
   templateUrl: './expansion-panel.component.html',
-  styleUrls: ['./expansion-panel.component.scss']
+  styleUrls: ['./expansion-panel.component.scss'],
+  imports: [CollapseComponent],
 })
 export class ExpansionPanelComponent {
 

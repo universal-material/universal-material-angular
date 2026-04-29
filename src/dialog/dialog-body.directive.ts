@@ -3,7 +3,8 @@ import { Directive, ElementRef } from '@angular/core';
 import { ScrollBehavior } from '../util/scroll-behavior';
 
 @Directive({
-  selector: '[uDialogBody]'
+  selector: '[uDialogBody]',
+  standalone: false,
 })
 export class DialogBodyDirective extends ScrollBehavior {
   dialog: any;

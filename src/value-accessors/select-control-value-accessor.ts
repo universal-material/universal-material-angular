@@ -1,4 +1,4 @@
-import { Directive, ElementRef, forwardRef, Host, Optional, Provider, Renderer2 } from '@angular/core';
+import { afterNextRender, Directive, ElementRef, forwardRef, Host, Optional, Provider, Renderer2 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NgSelectOption, SelectControlValueAccessor } from '@angular/forms';
 
 const SELECT_VALUE_ACCESSOR: Provider = {
@@ -13,16 +13,15 @@ const SELECT_VALUE_ACCESSOR: Provider = {
   standalone: false,
 })
 export class UmSelectControlValueAccessor extends SelectControlValueAccessor {
-  #mutationObserver: MutationObserver;
 
   constructor(_element: ElementRef,
               _renderer: Renderer2) {
     super(_renderer, _element);
-    this.#mutationObserver = new MutationObserver(() => {
-      console.log(this.value);
-      this.writeValue(this.value);
-    });
-    this.#mutationObserver.observe(_element.nativeElement, {characterData: true, childList: true, subtree: true})
+  }
+
+  _writeValueAfterRender(): void {
+    // @ts-ignore
+    queueMicrotask(() => super['_writeValueAfterRender']());
   }
 }
 
@@ -35,5 +34,10 @@ export class UmSelectOption extends NgSelectOption {
               _renderer: Renderer2,
               @Optional() @Host() _select: UmSelectControlValueAccessor) {
     super(_element, _renderer, _select);
+  }
+
+  override ngOnDestroy() {
+    setTimeout(() =>
+      super.ngOnDestroy(), 1000);
   }
 }

@@ -12,7 +12,7 @@ const CHIP_FIELD_VALUE_ACCESSOR: Provider = {
   selector: 'u-chip-field[ngModel],u-chip-field[formControlName],u-chip-field[formControl]',
   providers: [CHIP_FIELD_VALUE_ACCESSOR],
   host: {
-    '(change)': '$any(this)._handleChange($event.target.value)'
+    '(change)': '_handleChange($any($event).target.value)',
   },
   standalone: false,
 })

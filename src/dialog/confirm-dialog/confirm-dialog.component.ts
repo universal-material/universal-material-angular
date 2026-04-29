@@ -1,5 +1,5 @@
-import { Component, Directive, ElementRef, Inject, Optional, SecurityContext, ViewChild } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Component, Inject, Optional, SecurityContext } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 
 import { DialogComponent } from '../dialog.component';
@@ -8,7 +8,6 @@ import {
   ConfirmDialogConfig,
   DefaultConfirmDialogConfig
 } from './confirm-dialog-config.model';
-import { DialogBodyDirective } from '../dialog-body.directive';
 
 @Component({
   template: '',
@@ -27,13 +26,10 @@ export abstract class ConfirmDialogComponent extends DialogComponent {
   onConfirm = new Subject<void>();
   confirmed = false;
 
-  @ViewChild(DialogBodyDirective) override dialogBody!: DialogBodyDirective;
-
-  constructor(elementRef: ElementRef,
-              private readonly sanitizer: DomSanitizer,
+  constructor(private readonly sanitizer: DomSanitizer,
               @Optional() confirmDialogConfig: ConfirmDialogConfig,
               @Optional() @Inject(CONFIRM_DIALOG_DEFAULT_OPTIONS) defaultOptions: ConfirmDialogConfig) {
-    super(elementRef);
+    super();
     this._confirmDialogConfig = DefaultConfirmDialogConfig;
     this._confirmDialogConfig = this._assignConfig(this._confirmDialogConfig, defaultOptions);
     this._confirmDialogConfig = this._assignConfig(this._confirmDialogConfig, confirmDialogConfig);

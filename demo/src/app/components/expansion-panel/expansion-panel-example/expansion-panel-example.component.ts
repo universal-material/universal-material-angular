@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UniversalMaterialModule } from '@universal-material/angular';
+import {
+  ExpansionPanelComponent,
+  ExpansionPanelContainerComponent,
+  UniversalMaterialModule
+} from '@universal-material/angular';
 
 @Component({
   selector: 'app-expansion-panel-example',
@@ -8,7 +12,9 @@ import { UniversalMaterialModule } from '@universal-material/angular';
   styleUrls: ['./expansion-panel-example.component.scss'],
   standalone: true,
   imports: [
-    UniversalMaterialModule
+    UniversalMaterialModule,
+    ExpansionPanelComponent,
+    ExpansionPanelContainerComponent
   ]
 })
 export class ExpansionPanelExampleComponent {

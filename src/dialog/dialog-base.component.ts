@@ -1,14 +1,13 @@
 import {
-  AfterContentInit,
+  Component,
   ContentChild,
-  Directive,
   ElementRef,
   EventEmitter,
   HostBinding,
-  Inject,
-  Input,
-  Optional,
+  inject,
+  model,
   Output,
+  signal,
   ViewChild
 } from '@angular/core';
 
@@ -21,26 +20,34 @@ export const DefaultDialogConfig: DialogConfig = {
   closeOnEsc: true
 };
 
-@Directive()
-export class DialogBaseComponent implements AfterContentInit {
-  private _contentInitialized = false;
+@Component({
+  selector: 'u-dialog-base',
+  template: '',
+  host: {
+    '[class.hide]': '_hiding()',
+    '[class.show]': 'show()',
+  }
+})
+export class DialogBaseComponent {
 
-  _dialogConfig: DialogConfig;
+  protected readonly _elementRef = inject(ElementRef);
+  readonly #defaultOptions = inject(DIALOG_DEFAULT_OPTIONS, {optional: true});
 
-  @HostBinding('class.hide') _hiding = false;
-  @HostBinding('class.show') @Input() show = false;
-  @Output() showChange = new EventEmitter<boolean>();
+  _dialogConfig = {...DefaultDialogConfig, ...this.#defaultOptions};
+
+  protected readonly _hiding = signal(false);
+  readonly show = model(false);
   @Output() afterClose = new EventEmitter();
   @Output() closedFromBackdrop = new EventEmitter();
 
   @ContentChild(DialogBodyDirective)
   set _contentChildBody(dialogBody: DialogBodyDirective) {
-    this.setDialogBody(dialogBody);
+    this.#setDialogBody(dialogBody);
   }
 
   @ViewChild(DialogBodyDirective)
   set _viewChildBody(dialogBody: DialogBodyDirective) {
-    this.setDialogBody(dialogBody);
+    this.#setDialogBody(dialogBody);
   }
 
   dialogBody: DialogBodyDirective | null = null;
@@ -50,23 +57,21 @@ export class DialogBaseComponent implements AfterContentInit {
   @HostBinding('class.u-dialog-scroll-top-divider') scrollTopDivider = false;
   @HostBinding('class.u-dialog-scroll-bottom-divider') scrollBottomDivider = false;
 
-  constructor(protected readonly _elementRef: ElementRef,
-              @Optional() @Inject(DIALOG_DEFAULT_OPTIONS) defaultOptions?: DialogConfig | undefined) {
-    this._dialogConfig = {...DefaultDialogConfig, ...defaultOptions};
-    _elementRef.nativeElement.classList.add('u-dialog');
+  constructor() {
+    this._elementRef.nativeElement.classList.add('u-dialog');
   }
 
-  private addAnimationEndEvents() {
-    AnimationEvents.attachAnimationEndEvents(this._elementRef.nativeElement, this.onAnimationEnd.bind(this));
+  #addAnimationEndEvents() {
+    AnimationEvents.attachAnimationEndEvents(this._elementRef.nativeElement, this.#onAnimationEnd.bind(this));
   }
 
-  private onAnimationEnd = (event: Event) => {
-    this._elementRef.nativeElement.removeEventListener(event.type, this.onAnimationEnd);
-    this._hiding = false;
+  #onAnimationEnd = (event: Event) => {
+    this._elementRef.nativeElement.removeEventListener(event.type, this.#onAnimationEnd);
+    this._hiding.set(false);
     this.afterClose.emit();
   }
 
-  private setDialogBody(dialogBody: DialogBodyDirective): void {
+  #setDialogBody(dialogBody: DialogBodyDirective): void {
     this.dialogBody = dialogBody;
 
     if (!this.dialogBody) {
@@ -77,7 +82,7 @@ export class DialogBaseComponent implements AfterContentInit {
     this.dialogBody._processBehavior();
   }
 
-  backdropClick() {
+  protected backdropClick() {
     if (this._dialogConfig.closeOnBackdropClick) {
       this.close();
       this.closedFromBackdrop.emit();
@@ -86,17 +91,12 @@ export class DialogBaseComponent implements AfterContentInit {
 
   close() {
 
-    if (!this.show) {
+    if (!this.show()) {
       return;
     }
 
-    this.show = false;
-    this.showChange.emit(false);
-    this._hiding = true;
-    this.addAnimationEndEvents();
-  }
-
-  ngAfterContentInit(): void {
-    setTimeout(() => this._contentInitialized = true, 100);
+    this.show.set(false);
+    this._hiding.set(true);
+    this.#addAnimationEndEvents();
   }
 }

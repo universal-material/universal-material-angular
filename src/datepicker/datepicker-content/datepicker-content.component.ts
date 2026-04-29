@@ -7,7 +7,8 @@ import { Month } from '../month.model';
 @Component({
   selector: 'u-datepicker-content',
   templateUrl: './datepicker-content.component.html',
-  styleUrls: ['./datepicker-content.component.scss']
+  styleUrls: ['./datepicker-content.component.scss'],
+  standalone: false,
 })
 export class DatepickerContentComponent {
   DatepickerState = DatepickerState;

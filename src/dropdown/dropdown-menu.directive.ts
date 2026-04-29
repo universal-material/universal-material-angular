@@ -6,7 +6,8 @@ import { Direction } from '../util/direction';
 const autoDirection = 'auto';
 
 @Directive({
-  selector: '[uDropdownMenu]'
+  selector: '[uDropdownMenu]',
+  standalone: false,
 })
 export class DropdownMenuDirective implements OnChanges {
 

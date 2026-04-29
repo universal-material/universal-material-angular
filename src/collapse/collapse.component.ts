@@ -3,7 +3,7 @@ import { Component, ElementRef, HostBinding, Input, OnInit } from '@angular/core
 @Component({
   selector: 'u-collapse',
   templateUrl: './collapse.component.html',
-  styleUrls: ['./collapse.component.scss']
+  styleUrls: ['./collapse.component.scss'],
 })
 export class CollapseComponent {
 

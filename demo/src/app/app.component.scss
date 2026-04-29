@@ -1,14 +1,5 @@
-@import "node_modules/@universal-material/core/scss/mixins";
-
 .u-drawer {
   padding-top: 56px;
-}
-
-.u-toolbar-fixed {
-  width: auto;
-  top: 0;
-  right: 0;
-  left: 0;
 }
 
 .content {
@@ -18,11 +9,5 @@
     content: '';
     display: block;
     height: 16px;
-  }
-}
-
-@include media-breakpoint-up(lg) {
-  .u-toolbar-fixed {
-    left: var(--u-drawer-sidebar-width);
   }
 }

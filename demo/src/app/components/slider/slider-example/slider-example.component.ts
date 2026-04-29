@@ -1,7 +1,7 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { UniversalMaterialModule } from '@universal-material/angular';
+import { SliderComponent, UniversalMaterialModule } from '@universal-material/angular';
 
 @Component({
   selector: 'app-slider-example',
@@ -10,12 +10,13 @@ import { UniversalMaterialModule } from '@universal-material/angular';
   standalone: true,
   imports: [
     FormsModule,
-    UniversalMaterialModule
+    UniversalMaterialModule,
+    SliderComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SliderExampleComponent {
 
-  value = 50
+  protected value = signal(50)
   batata= false;
 }

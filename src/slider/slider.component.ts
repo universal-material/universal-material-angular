@@ -1,7 +1,7 @@
-import { Component, ElementRef, forwardRef, HostBinding, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, computed, ElementRef, forwardRef, input, OnInit, signal, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-const SliderValueAcessor = {
+const SliderValueAccessor = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => SliderComponent),
   multi: true
@@ -11,17 +11,57 @@ const SliderValueAcessor = {
   selector: 'u-slider',
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.scss'],
-  providers: [SliderValueAcessor]
+  providers: [SliderValueAccessor],
+  host: {
+    '[attr.aria-minvalue]': 'minAsNumber()',
+    '[attr.aria-maxvalue]': 'maxAsNumber()',
+    '[attr.aria-disabled]': '_disabled()',
+    '[attr.aria-valuenow]': '_value()',
+  }
 })
 export class SliderComponent implements OnInit, ControlValueAccessor {
 
-  @Input() step = 1;
-  @Input() showTrack = false;
-  @HostBinding('attr.aria-minvalue') @Input() min!: number;
-  @HostBinding('attr.aria-maxvalue') @Input() max!: number;
-  @HostBinding('attr.aria-disabled') _disabled = false;
-  @HostBinding('attr.aria-valuenow') _value!: number;
-  _trackWidth!: string;
+  readonly showTrack = input(false);
+  readonly step = input<string | number>(1);
+  readonly min = input<string | number>(0);
+  readonly max = input<string | number>(100);
+
+  protected readonly _disabled = signal(false);
+  protected readonly _value = signal<number | null>(null);
+  protected readonly _trackWidth = computed(() => {
+    let value = this._value() || 0;
+
+    const offset = this.maxAsNumber() - this.minAsNumber();
+    value -= this.minAsNumber();
+
+    const position = value * 100 / offset;
+    return `${position}%`;
+  });
+
+  protected stepAsNumber = computed(() => {
+    if (typeof this.step() === 'string') {
+      return Number.parseInt(this.step() as string, 10);
+    }
+
+    return this.step() as number;
+  });
+
+  protected minAsNumber = computed(() => {
+    if (typeof this.min() === 'string') {
+      console.log(this.min());
+      return Number.parseInt(this.min() as string, 10);
+    }
+
+    return this.min() as number;
+  });
+
+  protected maxAsNumber = computed(() => {
+    if (typeof this.max() === 'string') {
+      return Number.parseInt(this.max() as string, 10);
+    }
+
+    return this.max() as number;
+  });
 
   private _onTouched = () => {}
   private _onChange = (_: any) => {}
@@ -38,42 +78,16 @@ export class SliderComponent implements OnInit, ControlValueAccessor {
     this.elementRef.nativeElement.classList.add('u-slider');
   }
 
-  private _setThumbAndTrack() {
-
-    let value = this._value;
-
-    const offset = this.max - this.min;
-    value -= this.min;
-
-    const position = value * 100 / offset;
-    this._trackWidth = `${position}%`;
-  }
-
   ngOnInit() {
     this.inputRef.nativeElement.addEventListener(window.navigator.userAgent.indexOf('Trident/') > -1 ? 'change' : 'input',
       () => {
-        this._value = this.inputRef.nativeElement.valueAsNumber;
+        this._value.set(this.inputRef.nativeElement.valueAsNumber);
         this._onChange(this.inputRef.nativeElement.valueAsNumber);
-        this._setThumbAndTrack();
       });
 
-    if (typeof this.step === 'string') {
-      this.step = parseFloat(this.step);
-    }
-
-    if (typeof this.min === 'string') {
-      this.min = parseInt(this.min, 10);
-    }
-
-    if (typeof this.max === 'string') {
-      this.max = parseInt(this.max, 10);
-    }
-
-    if (this._value === undefined) {
-      this._value = ((this.max - this.min) / 2) + this.min;
-      this._onChange(this._value);
-
-      this._setThumbAndTrack();
+    if (this._value() === undefined) {
+      this._value.set(((this.maxAsNumber() - this.minAsNumber()) / 2) + this.minAsNumber());
+      this._onChange(this._value());
     }
   }
 
@@ -86,11 +100,10 @@ export class SliderComponent implements OnInit, ControlValueAccessor {
   }
 
   setDisabledState(disabled: boolean): void {
-    this._disabled = disabled;
+    this._disabled.set(disabled);
   }
 
   writeValue(obj: any): void {
-    this._value = obj;
-    this._setThumbAndTrack();
+    this._value.set(obj);
   }
 }

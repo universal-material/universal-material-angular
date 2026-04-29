@@ -3,7 +3,7 @@ import { SNACKBAR_DEFAULT_OPTIONS, SnackbarConfig } from './snackbar-config.mode
 import { SnackbarDuration } from './snackbar-duration';
 import { SnackbarRef } from './snackbar-ref.model';
 import { UmSnackbar } from '@universal-material/web';
-import { fromEvent, Observable } from 'rxjs';
+import { fromEvent } from 'rxjs';
 
 const _defaultConfig: SnackbarConfig = {
   duration: SnackbarDuration.long

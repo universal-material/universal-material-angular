@@ -9,7 +9,7 @@ import { RippleModule } from "../ripple/ripple.module";
 export {Highlight} from './highlight';
 export {TypeaheadWindow} from './typeahead-window';
 export {TypeaheadConfig} from './typeahead-config';
-export {Typeahead, TypeaheadSelectItemEvent} from './typeahead';
+export {Typeahead, type TypeaheadSelectItemEvent} from './typeahead';
 
 @NgModule({
   declarations: [Typeahead, Highlight, TypeaheadWindow],

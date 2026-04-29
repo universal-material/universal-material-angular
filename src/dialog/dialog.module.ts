@@ -6,7 +6,7 @@ import { DialogBodyDirective } from './dialog-body.directive';
 import { ProgressDialogComponent } from './progress-dialog/progress-dialog.component';
 
 export { DialogBaseComponent } from './dialog-base.component';
-export { DialogConfig, DIALOG_DEFAULT_OPTIONS } from './dialog-config.model';
+export { type DialogConfig, DIALOG_DEFAULT_OPTIONS } from './dialog-config.model';
 export { DialogComponent } from './dialog.component';
 export { DialogBodyDirective } from './dialog-body.directive';
 export { DialogService, DIALOG_DATA } from './dialog.service';
@@ -23,8 +23,7 @@ export { ProgressDialogService } from './progress-dialog/progress-dialog.service
   ],
   declarations: [
     DialogComponent,
-    DialogBodyDirective,
-    ProgressDialogComponent
+    DialogBodyDirective
   ],
   exports: [
     DialogComponent,

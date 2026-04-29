@@ -4,11 +4,11 @@ import { ExampleComponent } from '../../example/example.component';
 import { ExpansionPanelExampleComponent } from './expansion-panel-example/expansion-panel-example.component';
 
 // @ts-ignore
-import htmlCode from '!raw-loader!./expansion-panel-example/expansion-panel-example.component.html';
+import htmlCode from './expansion-panel-example/expansion-panel-example.component.html';
 // @ts-ignore
-import cssCode from '!raw-loader!./expansion-panel-example/expansion-panel-example.component.scss';
+import cssCode from './expansion-panel-example/expansion-panel-example.component.scss';
 // @ts-ignore
-import tsCode from '!raw-loader!./expansion-panel-example/expansion-panel-example.component.ts';
+import tsCode from './expansion-panel-example/expansion-panel-example.component.ts' with { loader: 'text' };
 
 @Component({
   selector: 'app-expansion-panel',

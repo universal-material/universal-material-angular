@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-$example-component-name',
-  template: ''
+  template: '',
+  standalone: false
 })
 export class $ExampleComponentNameComponent {
 

@@ -4,6 +4,7 @@ import { first } from 'rxjs/operators';
 import { DialogComponent } from './dialog.component';
 import { DOCUMENT } from '@angular/common';
 import { Key } from '../util/key';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 @Injectable({providedIn: 'root'})
 export class DialogStackService {
@@ -39,11 +40,10 @@ export class DialogStackService {
 
   add(dialog: DialogComponent) {
 
-    if (dialog.show) {
+    if (dialog.show()) {
       this.addDialog(dialog);
     } else {
-      dialog.showChange
-        .pipe(first())
+      dialog.show
         .subscribe(show => {
           if (show) {
             this.addDialog(dialog);
@@ -52,7 +52,6 @@ export class DialogStackService {
     }
 
     dialog.afterClose
-      .pipe(first())
       .subscribe(() => this.removeDialog(dialog));
 
     DialogStackService._dialogStack.unshift(dialog);

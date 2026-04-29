@@ -2,7 +2,8 @@ import { Directive, HostListener } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Directive({
-  selector: '[uDropdownToggle]'
+  selector: '[uDropdownToggle]',
+  standalone: false,
 })
 export class DropdownToggleDirective {
 

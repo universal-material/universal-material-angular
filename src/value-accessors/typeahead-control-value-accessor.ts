@@ -12,7 +12,7 @@ const TYPEAHEAD_VALUE_ACCESSOR: Provider = {
   selector: 'u-typeahead[ngModel],u-typeahead[formControlName],u-typeahead[formControl]',
   providers: [TYPEAHEAD_VALUE_ACCESSOR],
   host: {
-    '(change)': '$any(this)._handleChange($event.target.value)'
+    '(change)': '_handleChange($any($event).target.value)'
   },
   standalone: false,
 })
@@ -45,7 +45,7 @@ export class UmTypeaheadControlValueAccessor implements ControlValueAccessor {
     this.setProperty('disabled', isDisabled);
   }
 
-  _handleChange(value: []) {
+  _handleChange(value: [] | null) {
     this.onChange(value);
   }
 }

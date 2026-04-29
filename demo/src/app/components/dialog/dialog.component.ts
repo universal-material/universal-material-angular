@@ -4,11 +4,11 @@ import { ExampleComponent } from '../../example/example.component';
 import { DialogExampleComponent } from './dialog-example/dialog-example.component';
 
 // @ts-ignore
-import htmlCode from '!raw-loader!./dialog-example/dialog-example.component.html';
+import htmlCode from './dialog-example/dialog-example.component.html';
 // @ts-ignore
-import cssCode from '!raw-loader!./dialog-example/dialog-example.component.scss';
+import cssCode from './dialog-example/dialog-example.component.scss';
 // @ts-ignore
-import tsCode from '!raw-loader!./dialog-example/dialog-example.component.ts';
+import tsCode from './dialog-example/dialog-example.component.ts' with { loader: 'text' };
 
 @Component({
   selector: 'app-dialog',

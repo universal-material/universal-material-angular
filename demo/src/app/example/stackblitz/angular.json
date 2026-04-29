@@ -28,7 +28,7 @@
             "browser": "src/main.ts",
             "outputPath": "dist/$example-component-name",
             "scripts": [],
-            "styles": ["node_modules/@universal-material/core/dist/css/universal-material.css"],
+            "styles": ["node_modules/@universal-material/web/css/universal-material.css"],
             "tsConfig": "tsconfig.app.json"
           }
         },

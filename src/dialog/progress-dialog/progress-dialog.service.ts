@@ -11,8 +11,8 @@ export class ProgressDialogService {
 
   open(message: string | null = null): ProgressDialogComponent {
     const progressDialog = this._dialogService.open(ProgressDialogComponent);
-    progressDialog.message = message;
-    progressDialog.show = true;
+    progressDialog.message.set(message);
+    progressDialog.show.set(true);
 
     return progressDialog;
   }

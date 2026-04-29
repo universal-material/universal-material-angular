@@ -1,19 +1,43 @@
 <app-example [title]="'Datepicker'" [htmlCode]="htmlCode" [cssCode]="cssCode" [tsCode]="tsCode" dashName="datepicker-example">
   <u-card variant="outlined">
-    <u-select [(ngModel)]="batata">
-      @for (state of states) {
-      <u-option [ngValue]="'A'">A</u-option>
-      <u-option [ngValue]="'B'">B</u-option>
-      <u-option [ngValue]="'C'">C</u-option>
+    <u-select [(ngModel)]="batata" [compareWith]="compareStates">
+      @for (state of states; track state.id) {
+        <u-option
+          [ngValue]="state">{{ state.name }}</u-option>
+      }
+
+      @if (renderExtraState) {
+      <u-option
+        [ngValue]="extraState">{{ extraState.name }}</u-option>
       }
     </u-select>
-    <select [(ngModel)]="batata">
-      <option [ngValue]="'A'">A</option>
-      <option [ngValue]="'B'">B</option>
-      <option [ngValue]="'C'">C</option>
-    </select>
+<!--    <select [(ngModel)]="batata" [compareWith]="compareStates">-->
+<!--      <option-->
+<!--        *ngFor="let state of states"-->
+<!--        [ngValue]="state">{{ state.name }}</option>-->
 
-    <h1>{{batata}}</h1>
+<!--      <option-->
+<!--        *ngIf="renderExtraState"-->
+<!--        [ngValue]="extraState">{{ extraState.name }}</option>-->
+<!--    </select>-->
+    <div>{{batata | json}}</div>
+    <u-button (click)="renderExtraState = !renderExtraState">Toggle</u-button>
+<!--    <u-select [(ngModel)]="batata2">-->
+<!--      <ng-container *ngIf="true">-->
+<!--        <u-option [ngValue]="Batata.Frita">Frita</u-option>-->
+<!--        <u-option [ngValue]="Batata.Assada">Assada</u-option>-->
+<!--        <u-option [ngValue]="Batata.Rostie">Rostie</u-option>-->
+<!--      </ng-container>-->
+<!--    </u-select>-->
+<!--    <select [(ngModel)]="batata2">-->
+<!--      <ng-container *ngIf="true">-->
+<!--        <option [ngValue]="Batata.Frita">Frita</option>-->
+<!--        <option [ngValue]="Batata.Assada">Assada</option>-->
+<!--        <option [ngValue]="Batata.Rostie">Rostie</option>-->
+<!--      </ng-container>-->
+<!--    </select>-->
+
+    <h1>{{batata?.name}}</h1>
   </u-card>
 
   <app-datepicker-example></app-datepicker-example>

@@ -1,17 +1,22 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+import {
+  ConfirmDialogService,
+  ProgressDialogComponent,
+  ProgressDialogService,
+  SnackbarService
+} from '@universal-material/angular';
 
 import { ExampleComponent } from '../../example/example.component';
 import { SliderExampleComponent } from './slider-example/slider-example.component';
 
 // @ts-ignore
-import htmlCode from '!raw-loader!./slider-example/slider-example.component.html';
+import htmlCode from './slider-example/slider-example.component.html';
 // @ts-ignore
-import cssCode from '!raw-loader!./slider-example/slider-example.component.scss';
+import cssCode from './slider-example/slider-example.component.scss';
 // @ts-ignore
-import tsCode from '!raw-loader!./slider-example/slider-example.component.ts';
-import { FormsModule } from '@angular/forms';
-import { SnackbarDuration, UmSnackbar } from '@universal-material/web';
-import { ConfirmDialogService, SnackbarService } from '@universal-material/angular';
+import tsCode from './slider-example/slider-example.component.ts' with { loader: 'text' };
 
 @Component({
   selector: 'app-slider',
@@ -35,21 +40,15 @@ export class SliderComponent {
 
   #snackbar = inject(SnackbarService);
   #confirmDialog = inject(ConfirmDialogService);
+  #progressDialog = inject(ProgressDialogService);
 
   showSnackbar(): void {
     console.log(this.#snackbar);
-    const confirmDialogRef = this.#confirmDialog.open(this.message, {
-      title: 'Headline',
-      confirmButton: {
-        text: 'Year, sure',
-      },
-      cancelButton: {
-        text: 'Nope',
-      }
-    });
+    const confirmDialogRef = this.#progressDialog.open(this.message);
 
 
-    confirmDialogRef.onCancel.subscribe(() => alert('canceled'));
-    confirmDialogRef.onConfirm.subscribe(() => alert('confirmed'));
+    setTimeout(() => confirmDialogRef.close(), 3000);
+    // confirmDialogRef.onCancel.subscribe(() => alert('canceled'));
+    // confirmDialogRef.onConfirm.subscribe(() => alert('confirmed'));
   }
 }

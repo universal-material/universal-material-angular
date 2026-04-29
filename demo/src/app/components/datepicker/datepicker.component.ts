@@ -2,19 +2,22 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { ExampleComponent } from '../../example/example.component';
 import { DatepickerExampleComponent } from './datepicker-example/datepicker-example.component';
-
-// @ts-ignore
-import htmlCode from '!raw-loader!./datepicker-example/datepicker-example.component.html';
-// @ts-ignore
-import cssCode from '!raw-loader!./datepicker-example/datepicker-example.component.scss';
-// @ts-ignore
-import tsCode from '!raw-loader!./datepicker-example/datepicker-example.component.ts';
-import { MaskWrapperDirective } from '../../mask-wrapper.directive';
-import {
-  UmDefaultControlValueAccessor
-} from '@universal-material/angular/value-accessors/default-control-value-accessor';
 import { UniversalMaterialModule } from '@universal-material/angular/index';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+// @ts-ignore
+import htmlCode from './datepicker-example/datepicker-example.component.html';
+// @ts-ignore
+import cssCode from './datepicker-example/datepicker-example.component.scss';
+// @ts-ignore
+import tsCode from './datepicker-example/datepicker-example.component.ts' with { loader: 'text' };
+
+enum Batata {
+  Frita,
+  Assada,
+  Rostie
+}
 
 @Component({
   selector: 'app-datepicker',
@@ -22,19 +25,23 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./datepicker.component.scss'],
   standalone: true,
   imports: [
+    CommonModule,
     FormsModule,
     ExampleComponent,
     DatepickerExampleComponent,
-    UniversalMaterialModule,
-    MaskWrapperDirective
+    UniversalMaterialModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class DatepickerComponent {
-  batata = {
+  renderExtraState = true;
+  batata: typeof this.states[0] | null = {
     id: 1,
     name: 'Rio de Janeiro'
   };
+
+  batata2 = Batata.Assada;
+  Batata = Batata;
 
   states = [
     {
@@ -45,11 +52,17 @@ export class DatepickerComponent {
       id: 2,
       name: 'São Paulo'
     },
+  ]
+
+  extraState =
     {
       id: 3,
       name: 'Minas Gerais'
-    },
-  ]
+    };
+
+  compareStates(state1: any, state2: any) {
+    return state1?.id === state2?.id;
+  }
 
   htmlCode = htmlCode;
   cssCode = cssCode;

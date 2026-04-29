@@ -4,5 +4,5 @@
   "lib": {
     "entryFile": "index.ts"
   },
-  "allowedNonPeerDependencies": ["@universal-material/core", "@universal-material/web", "animated-scroll-to"]
+  "allowedNonPeerDependencies": ["@universal-material/web", "animated-scroll-to"]
 }

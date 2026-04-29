@@ -3,7 +3,7 @@ import { AppComponent } from './app/app.component';
 
 import { appConfig } from './app/app.config';
 
-import '@universal-material/web';
+// import '@universal-material/web';
 
 bootstrapApplication(AppComponent, appConfig)
   .catch(err => console.error(err));

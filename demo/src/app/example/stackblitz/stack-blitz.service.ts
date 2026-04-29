@@ -3,14 +3,13 @@ import { Project } from './project.model';
 
 import StackBlitzSDK from '@stackblitz/sdk';
 
+import indexTemplate from './index.html';
 // @ts-ignore
-import indexTemplate from '!raw-loader!./index.html';
+import appModuleTsTemplate from './app/app.module.ts' with { loader: 'text' };
 // @ts-ignore
-import appModuleTsTemplate from '!raw-loader!./app/app.module.ts';
+import appComponentTsTemplate from './app/app.component.ts' with { loader: 'text' };
 // @ts-ignore
-import appComponentTsTemplate from '!raw-loader!./app/app.component.ts';
-// @ts-ignore
-import mainTemplate from '!raw-loader!./main.ts';
+import mainTemplate from './main.ts' with { loader: 'text' };
 import angularJsonTemplate from './angular.json';
 
 import { replaceAll } from '../replace-all';

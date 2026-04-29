@@ -8,7 +8,8 @@ import { DatepickerBaseComponent } from './datepicker-base.component';
   styleUrls: ['./datepicker.component.scss'],
   providers: [
     {provide: DatepickerBaseComponent, useExisting: DatepickerComponent}
-  ]
+  ],
+  standalone: false,
 })
 export class DatepickerComponent extends DatepickerBaseComponent {
 

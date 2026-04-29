@@ -9,8 +9,8 @@ import { DatepickerInputComponent } from './datepicker-input/datepicker-input.co
 import { DatepickerContentComponent } from './datepicker-content/datepicker-content.component';
 import { DefaultDatepickerAdapter } from './default-datepicker-adapter';
 
-export { Month } from './month.model';
-export { DATEPICKER_DEFAULT_OPTIONS, DatepickerConfig } from './datepicker-config.model';
+export { type Month } from './month.model';
+export { DATEPICKER_DEFAULT_OPTIONS, type DatepickerConfig } from './datepicker-config.model';
 export { DefaultDatepickerAdapter } from './default-datepicker-adapter';
 export { DatepickerAdapter } from './datepicker-adapter';
 export { DatepickerComponent, DatepickerInputComponent }

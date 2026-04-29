@@ -47,7 +47,8 @@ export interface ResultTemplateContext {
           [ngTemplateOutletContext]="{result: result, term: term, formatter: formatter}"></ng-template>
       </button>
     </ng-template>
-  `
+  `,
+  standalone: false,
 })
 export class TypeaheadWindow implements OnInit {
   activeIdx = 0;

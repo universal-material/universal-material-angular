@@ -13,7 +13,8 @@ import { DropdownToggleDirective } from './dropdown-toggle.directive';
 import { DropdownMenuDirective } from './dropdown-menu.directive';
 
 @Directive({
-  selector: '[uDropdown]'
+  selector: '[uDropdown]',
+  standalone: false,
 })
 export class DropdownDirective implements AfterContentInit {
 

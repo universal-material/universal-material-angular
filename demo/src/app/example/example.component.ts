@@ -1,11 +1,9 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { HighlightModule } from 'ngx-highlightjs';
 import { UniversalMaterialModule } from '@universal-material/angular';
-
-import { replaceAll } from './replace-all';
 import { StackBlitzService } from './stackblitz/stack-blitz.service';
+import { HighlightJsDirective } from 'ngx-highlight-js';
 
 @Component({
   selector: 'app-example',
@@ -15,7 +13,7 @@ import { StackBlitzService } from './stackblitz/stack-blitz.service';
   imports: [
     CommonModule,
     UniversalMaterialModule,
-    HighlightModule
+    HighlightJsDirective
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
